@@ -1,124 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Kayla's Art Gallery</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&display=swap');
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kayla's Art Gallery</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fff5f8;
+      color: #333;
+      text-align: center;
+    }
 
-  body {
-    margin: 0;
-    background: linear-gradient(135deg, #f8b500, #ff5f7e, #9b59b6);
-    font-family: 'Poppins', sans-serif;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
+    header {
+      background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+      padding: 40px 20px;
+      color: white;
+      border-bottom: 5px solid #ff6b6b;
+    }
 
-  header {
-    background: rgba(255 255 255 / 0.1);
-    padding: 2rem;
-    text-align: center;
-    font-family: 'Pacifico', cursive;
-    font-size: 2.8rem;
-    letter-spacing: 3px;
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.4);
-  }
+    header h1 {
+      font-size: 3em;
+      margin: 0;
+    }
 
-  main {
-    flex-grow: 1;
-    padding: 2rem;
-    max-width: 900px;
-    margin: 0 auto;
-  }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+      border-radius: 20px;
+      max-width: 1200px;
+      margin: 40px auto;
+      box-shadow: 0 10px 30px rgba(255, 105, 180, 0.4);
+    }
 
-  h2 {
-    font-family: 'Pacifico', cursive;
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    text-align: center;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-  }
+    .gallery img {
+      width: 100%;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 8px 15px rgba(255, 20, 147, 0.6);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      cursor: pointer;
+      filter: drop-shadow(0 5px 5px rgba(255, 20, 147, 0.3));
+    }
 
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  padding: 20px;
-  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-  border-radius: 20px;
-  max-width: 1200px;
-  margin: 40px auto;
-  box-shadow: 0 10px 30px rgba(255, 105, 180, 0.4);
-}
+    .gallery img:hover {
+      transform: scale(1.1) rotate(3deg);
+      box-shadow: 0 15px 25px rgba(255, 20, 147, 0.9);
+      filter: drop-shadow(0 8px 8px rgba(255, 20, 147, 0.6));
+    }
 
-.gallery img {
-  width: 100%;
-  height: auto;
-  border-radius: 15px;
-  box-shadow: 0 8px 15px rgba(255, 20, 147, 0.6);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  cursor: pointer;
-  filter: drop-shadow(0 5px 5px rgba(255, 20, 147, 0.3));
-}
+    footer {
+      background: #ffe3ec;
+      padding: 30px 20px;
+      margin-top: 60px;
+      border-top: 3px solid #ff6b81;
+    }
 
-.gallery img:hover {
-  transform: scale(1.1) rotate(3deg);
-  box-shadow: 0 15px 25px rgba(255, 20, 147, 0.9);
-  filter: drop-shadow(0 8px 8px rgba(255, 20, 147, 0.6));
-}
+    footer p {
+      margin: 10px 0;
+    }
 
-  footer {
-    background: rgba(255 255 255 / 0.1);
-    padding: 1.5rem 2rem;
-    text-align: center;
-    font-size: 1.1rem;
-    letter-spacing: 1px;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
-  }
+    a {
+      color: #ff4081;
+      text-decoration: none;
+      font-weight: bold;
+    }
 
-  .socials a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 0.75rem;
-    font-weight: 700;
-    transition: color 0.25s ease;
-  }
-
-  .socials a:hover {
-    color: #ffde59;
-  }
-</style>
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  Kayla's Art  Gallery
-</header>
+  <header>
+    <h1>Kayla's Art Gallery</h1>
+    <p>Colorful, bold, and totally me 💖</p>
+  </header>
 
-<main>
-  <h2>My Art</h2>
-<div class="gallery">
-  <img src="Art1.png" alt="Art 1" />
-  <img src="Art2.png" alt="Art 2" />
-  <img src="Art3.png" alt="Art 3" />
-  <img src="Art4.png" alt="Art 4" />
-  <img src="Art5.png" alt="Art 5" />
-  <img src="Art6.png" alt="Art 6" />
-  <img src="Art7.png" alt="Art 7" />
-  <img src="Art8.png" alt="Art 8" />
-  <img src="Art9.png" alt="Art 9" />
-</div>
-</main>
-
-<footer>
-  <div>Connect with me:</div>
-  <div class="socials">
-    <a href="https://instagram.com/xkaylax_xoxo" target="_blank" rel="noopener noreferrer">Instagram</a>
+  <div class="gallery">
+    <img src="Art1.png" alt="Art 1" />
+    <img src="Art2.png" alt="Art 2" />
+    <img src="Art3.png" alt="Art 3" />
+    <img src="Art4.png" alt="Art 4" />
+    <img src="Art5.png" alt="Art 5" />
+    <img src="Art6.png" alt="Art 6" />
+    <img src="Art7.png" alt="Art 7" />
+    <img src="Art8.png" alt="Art 8" />
+    <img src="Art9.png" alt="Art 9" />
   </div>
-</footer>
+
+  <footer>
+    <p>Let’s connect:</p>
+    <p><a href="https://instagram.com/xkaylax_xoxo" target="_blank">@xkaylax_xoxo on Instagram</a></p>
+    <p>© 2025 Kayla’s Gallery. All rights reserved.</p>
+  </footer>
 
 </body>
 </html>
