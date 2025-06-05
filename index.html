@@ -1,359 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kayla's Magical Gallery</title>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Dancing Script', cursive;
-      background: #2c2c34; /* darker pastel navy */
-      color: #d1d1e9;
-      text-align: center;
-      overflow-x: hidden;
-    }
-    header {
-      background: linear-gradient(135deg, #4b4b6a 0%, #6a6a89 100%);
-      padding: 40px 20px;
-      color: #eaeaff;
-      border-bottom: 4px solid #9b9bc1;
-      animation: fadeSlideDown 1s ease-in-out;
-      position: relative;
-    }
-    header h1 {
-      font-size: 3em;
-      margin: 0;
-      text-shadow: 2px 2px 8px rgba(120, 120, 160, 0.8);
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kayla's Magical Gallery</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet" />
+<style>
+  body {
+    margin: 0;
+    font-family: 'Dancing Script', cursive;
+    background: #2c2c34; /* darker pastel navy */
+    color: #d1d1e9;
+    text-align: center;
+    overflow-x: hidden;
+  }
+  header {
+    background: linear-gradient(135deg, #4b4b6a 0%, #6a6a89 100%);
+    padding: 40px 20px;
+    color: #eaeaff;
+    border-bottom: 4px solid #9b9bc1;
+    position: relative;
+  }
+  header h1 {
+    font-size: 3em;
+    margin: 0;
+    text-shadow: 2px 2px 8px rgba(120, 120, 160, 0.8);
+  }
+
+  /* Drawer styles */
+  #drawerToggle {
+    display: none;
+  }
+
+  label[for="drawerToggle"] {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #6a6a89;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #d1d1e9;
+    font-size: 28px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+    z-index: 1001;
+    box-shadow: 0 0 10px #9b9bc1;
+    user-select: none;
+    transition: background 0.3s ease;
+  }
+  label[for="drawerToggle"]:hover {
+    background: #9b9bc1;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; right: 0;
+    height: 100vh;
+    width: 250px;
+    background: #44445e;
+    box-shadow: -5px 0 15px rgba(155, 155, 193, 0.8);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 1000;
+  }
+
+  #drawerToggle:checked + nav {
+    transform: translateX(0);
+  }
+
+  nav button {
+    background: transparent;
+    border: none;
+    color: #d1d1e9;
+    font-size: 1.8em;
+    cursor: pointer;
+    padding: 12px 20px;
+    text-align: left;
+    border-radius: 12px;
+    transition: background 0.3s ease;
+    font-family: 'Dancing Script', cursive;
+  }
+  nav button:hover, nav button.active {
+    background: #9b9bc1;
+    color: #2c2c34;
+  }
+
+  /* Sections */
+  section {
+    display: none;
+    padding: 60px 20px 40px;
+    max-width: 900px;
+    margin: 80px auto 40px;
+    border-radius: 15px;
+    background: #44445e;
+    box-shadow: 0 0 25px rgba(155, 155, 193, 0.7);
+    color: #d1d1e9;
+    min-height: 400px;
+    z-index: 1;
+    position: relative;
+  }
+  section.active {
+    display: block;
+  }
+
+  /* Sparkles */
+  .sparkle {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    background: url('https://www.transparenttextures.com/patterns/stardust.png');
+    animation: sparkleMove 30s linear infinite;
+    opacity: 0.15;
+    z-index: 0;
+  }
+
+  /* Gallery */
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .gallery-item {
+    position: relative;
+    cursor: pointer;
+  }
+  .gallery-item img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(120, 120, 160, 0.6);
+    transition: transform 0.3s ease;
+  }
+  .gallery-item img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px #9b9bc1;
+  }
+  .caption {
+    margin-top: 6px;
+    font-size: 0.9em;
+    color: #bfc0d6;
+    font-style: italic;
+  }
+
+  /* Modal */
+  #modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0; top: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.85);
+    justify-content: center;
+    align-items: center;
+  }
+  #modal img {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 15px;
+    box-shadow: 0 0 30px #9b9bc1;
+  }
+  #modal.active {
+    display: flex;
+  }
+
+  /* About Me */
+  #about-me p {
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  /* Contact Form */
+  form {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  label {
+    display: block;
+    margin: 15px 0 6px;
+    font-weight: bold;
+  }
+  input, textarea, select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+    background: #5a5a7a;
+    color: #e1e1ff;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1em;
+  }
+  input:focus, textarea:focus, select:focus {
+    outline: 2px solid #9b9bc1;
+    background: #6f6f8f;
+  }
+  button.submit-btn {
+    margin-top: 20px;
+    background: #9b9bc1;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    color: #2c2c34;
+    font-weight: bold;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    font-family: 'Dancing Script', cursive;
+  }
+  button.submit-btn:hover {
+    background: #bfc0d6;
+  }
+
+  /* Animations */
+  @keyframes sparkleMove {
+    from { background-position: 0 0; }
+    to { background-position: 1000px 1000px; }
+  }
+
+  /* Responsive: hide nav buttons on bigger screens and show label only on small */
+  @media(min-width: 700px) {
+    label[for="drawerToggle"] {
+      display: none;
     }
     nav {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      display: flex;
-      gap: 15px;
-      z-index: 10;
-    }
-    nav .nav-btn {
-      background: #6a6a89;
-      border: none;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      color: #d1d1e9;
-      font-size: 20px;
-      cursor: pointer;
-      box-shadow: 0 0 10px #9b9bc1;
-      transition: background 0.3s, box-shadow 0.3s;
-      display: flex;
-      align-items: center;
+      position: static;
+      transform: none !important;
+      flex-direction: row;
       justify-content: center;
+      height: auto;
+      width: auto;
+      box-shadow: none;
+      padding: 10px 0;
     }
-    nav .nav-btn:hover,
-    nav .nav-btn.active {
-      background: #9b9bc1;
-      box-shadow: 0 0 15px #eaeaff;
+    nav button {
+      font-size: 1.5em;
+      padding: 10px 15px;
     }
-    section {
-      display: none;
-      padding: 60px 20px 40px;
-      max-width: 900px;
-      margin: 80px auto 40px;
-      border-radius: 15px;
-      background: #44445e;
-      box-shadow: 0 0 25px rgba(155, 155, 193, 0.7);
-      color: #d1d1e9;
-      min-height: 400px;
-    }
-    section.active {
-      display: block;
-    }
-    .sparkle {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      background: url('https://www.transparenttextures.com/patterns/stardust.png');
-      animation: sparkleMove 30s linear infinite;
-      opacity: 0.15;
-      z-index: 0;
-    }
-    /* Gallery styles */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-    .gallery-item {
-      position: relative;
-      cursor: pointer;
-    }
-    .gallery-item img {
-      width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(120, 120, 160, 0.6);
-      transition: transform 0.3s ease;
-    }
-    .gallery-item img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px #9b9bc1;
-    }
-    .caption {
-      margin-top: 6px;
-      font-size: 0.9em;
-      color: #bfc0d6;
-      font-style: italic;
-    }
-    /* Modal for image enlarge */
-    #modal {
-      display: none;
-      position: fixed;
-      z-index: 20;
-      left: 0; top: 0;
-      width: 100vw; height: 100vh;
-      background: rgba(0,0,0,0.85);
-      justify-content: center;
-      align-items: center;
-    }
-    #modal img {
-      max-width: 90vw;
-      max-height: 90vh;
-      border-radius: 15px;
-      box-shadow: 0 0 30px #9b9bc1;
-    }
-    #modal:target {
-      display: flex;
-    }
-    /* About Me styles */
-    #about-me p {
-      max-width: 600px;
-      margin: 0 auto;
-      line-height: 1.5;
-    }
-    /* Contact Form styles */
-    form {
-      max-width: 600px;
-      margin: 0 auto;
-      text-align: left;
-    }
-    label {
-      display: block;
-      margin: 15px 0 6px;
-      font-weight: bold;
-    }
-    input, textarea, select {
-      width: 100%;
-      padding: 8px;
-      border-radius: 8px;
-      border: none;
-      background: #5a5a7a;
-      color: #e1e1ff;
-      font-family: 'Dancing Script', cursive;
-      font-size: 1em;
-    }
-    input:focus, textarea:focus, select:focus {
-      outline: 2px solid #9b9bc1;
-      background: #6f6f8f;
-    }
-    button {
-      margin-top: 20px;
-      background: #9b9bc1;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 25px;
-      color: #2c2c34;
-      font-weight: bold;
-      font-size: 1.1em;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    button:hover {
-      background: #bfc0d6;
-    }
-    /* Animations */
-    @keyframes fadeSlideDown {
-      0% {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    @keyframes sparkleMove {
-      from { background-position: 0 0; }
-      to { background-position: 1000px 1000px; }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
 
-  <header>
-    <h1>Kayla's Magical Gallery</h1>
-  </header>
+<header>
+  <h1>Kayla's Magical Gallery</h1>
+</header>
 
-  <nav>
-    <button class="nav-btn active" data-target="home" title="Home">🏠</button>
-    <button class="nav-btn" data-target="gallery" title="Gallery">🖼️</button>
-    <button class="nav-btn" data-target="about-me" title="About Me">💖</button>
-    <button class="nav-btn" data-target="contact" title="Contact">✉️</button>
-  </nav>
+<input type="checkbox" id="drawerToggle" />
+<label for="drawerToggle" title="Toggle menu">❤️</label>
 
-  <div class="sparkle"></div>
+<nav>
+  <button class="nav-btn active" data-target="home">🏠 Home</button>
+  <button class="nav-btn" data-target="gallery">🖼️ Gallery</button>
+  <button class="nav-btn" data-target="about-me">💖 About Me</button>
+  <button class="nav-btn" data-target="contact">✉️ Contact</button>
+</nav>
 
-  <section id="home" class="active">
-    <h2>Welcome to the Magical Gallery</h2>
-    <p>Step into a world of dreamy art, sparkles, and pastel vibes. Let your creativity soar!</p>
-  </section>
+<div class="sparkle"></div>
 
-  <section id="gallery">
-    <h2>Gallery</h2>
-    <div class="gallery">
-      <div class="gallery-item" data-name="art1">
-        <a href="#modal" data-img="Art1.png"><img src="Art1.png" alt="Art 1" /></a>
-        <div class="caption">Inspired by a tutorial from ArtWithFlo</div>
-        <div class="comments" data-for="art1"></div>
-      </div>
-      <div class="gallery-item" data-name="art2">
-        <a href="#modal" data-img="Art2.png"><img src="Art2.png" alt="Art 2" /></a>
-        <div class="caption">Based on a tutorial by ArtWithFlo</div>
-        <div class="comments" data-for="art2"></div>
-      </div>
-      <div class="gallery-item" data-name="art3">
-        <a href="#modal" data-img="Art3.png"><img src="Art3.png" alt="Art 3" /></a>
-        <div class="caption"></div>
-        <div class="comments" data-for="art3"></div>
-      </div>
-      <div class="gallery-item" data-name="art4">
-        <a href="#modal" data-img="Art4.png"><img src="Art4.png" alt="Art 4" /></a>
-        <div class="caption">Based on a tutorial by ArtWithFlo</div>
-        <div class="comments" data-for="art4"></div>
-      </div>
-      <div class="gallery-item" data-name="art5">
-        <a href="#modal" data-img="Art5.png"><img src="Art5.png" alt="Art 5" /></a>
-        <div class="caption">Based on a tutorial by ArtWithFlo</div>
-        <div class="comments" data-for="art5"></div>
-      </div>
-      <div class="gallery-item" data-name="art6">
-        <a href="#modal" data-img="Art6.png"><img src="Art6.png" alt="Art 6" /></a>
-        <div class="caption">Based on a tutorial by ArtWithFlo</div>
-        <div class="comments" data-for="art6"></div>
-      </div>
-      <div class="gallery-item" data-name="art7">
-        <a href="#modal" data-img="Art7.png"><img src="Art7.png" alt="Art 7" /></a>
-        <div class="caption">Based on a tutorial by ArtWithFlo</div>
-        <div class="comments" data-for="art7"></div>
-      </div>
-      <div class="gallery-item" data-name="art8">
-        <a href="#modal" data-img="Art8.png"><img src="Art8.png" alt="Art 8" /></a>
-        <div class="caption">Inspired by a tutorial from ArtWithFlo</div>
-        <div class="comments" data-for="art8"></div>
-      </div>
-      <div class="gallery-item" data-name="art9">
-        <a href="#modal" data-img="Art9.png"><img src="Art9.png" alt="Art 9" /></a>
-        <div class="caption">Based on a tutorial by ArtWithFlo</div>
-        <div class="comments" data-for="art9"></div>
-      </div>
+<section id="home" class="active">
+  <h2>Welcome to the Magical Gallery</h2>
+  <p>Step into a world of dreamy art, sparkles, and pastel vibes. Let your creativity soar!</p>
+</section>
+
+<section id="gallery">
+  <h2>Gallery</h2>
+  <div class="gallery">
+    <div class="gallery-item" data-name="art1">
+      <img src="Art1.png" alt="Art 1" data-img="Art1.png" />
+      <div class="caption">Inspired by a tutorial from ArtWithFlo</div>
+      <div class="comments" data-for="art1"></div>
     </div>
-    <p style="margin-top: 30px; font-size: 0.9em; color: #bfc0d6;">
-      Tutorial credit goes to: 
-      <a href="https://youtube.com/@artwithflo?si=pyNUzWYFQDxi2I1n" target="_blank" style="color: #d1d1e9;">ArtWithFlo YouTube Channel</a>
-    </p>
-  </section>
-
-  <section id="about-me">
-    <h2>About Me</h2>
-    <p>
-      Hi! I'm Kayla — an artist and daydreamer who loves drawing, gaming on my iPad, and vibing to K-pop music. I believe art is magic, and I’m here to share that spark with you through my gallery. Thanks for stopping by!
-    </p>
-  </section>
-
-  <section id="contact">
-    <h2>Contact Me</h2>
-    <form action="https://formspree.io/f/xblylpyb" method="POST">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" placeholder="Your name" required />
-
-      <label for="reason">Reason for contacting:</label>
-      <select id="reason" name="reason" required>
-        <option value="" disabled selected>Select a reason</option>
-        <option value="Collaboration">Collaboration</option>
-        <option value="Commission">Commission</option>
-        <option value="General Inquiry">General Inquiry</option>
-        <option value="Other">Other</option>
-      </select>
-
-      <label for="description">Brief description:</label>
-      <textarea id="description" name="description" rows="4" placeholder="Write your message here..." required></textarea>
-
-      <label for="contact-method">Preferred method of contact (email, social handle, etc.):</label>
-      <input type="text" id="contact-method" name="contact-method" placeholder="How can I reach you?" />
-
-      <button type="submit">Send</button>
-    </form>
-  </section>
-
-  <!-- Modal for enlarged image -->
-  <div id="modal">
-    <img src="" alt="Enlarged artwork" />
-  </div>
-
-  <script>
-    // Navigation button logic
-    const navButtons = document.querySelectorAll('nav .nav-btn');
-    const sections = document.querySelectorAll('section');
-
-    navButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const target = btn.getAttribute('data-target');
-
-        // Hide all sections
-        sections.forEach(section => {
-          section.classList.remove('active');
-        });
-
-        // Remove active from all buttons
-        navButtons.forEach(b => b.classList.remove('active'));
-
-        // Show target section and highlight button
-        document.getElementById(target).classList.add('active');
-        btn.classList.add('active');
-      });
-    });
-
-    // Modal image enlarge logic
-    const modal = document.getElementById('modal');
-    const modalImg = modal.querySelector('img');
-
-    document.querySelectorAll('.gallery-item a').forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const imgSrc = link.getAttribute('data-img');
-        modalImg.src = imgSrc;
-        modal.style.display = 'flex';
-      });
-    });
-
-    modal.addEventListener('click', () => {
-      modal.style.display = 'none';
-      modalImg.src = '';
-    });
-
-    // Simple comment feature for each artwork (stores in memory only)
-    const commentsData = {};
-
-    document.querySelectorAll('.comments').forEach(commentSection => {
-      const artName = commentSection.getAttribute('data-for');
-
-      const form = document.createElement('form');
-      form.innerHTML = `
-        <label for="comment-${artName}">Add a comment:</label>
-        <textarea id="comment-${artName}" rows="2" placeholder="Write your thoughts..."></textarea>
-        <button type="submit">Post</button>
-        <div class="comment-list"></div>
-      `;
-      comment
+    <div class="gallery-item" data-name="art2">
+      <img src="Art2.png" alt="Art 2" data-img="Art2.png" />
+     
