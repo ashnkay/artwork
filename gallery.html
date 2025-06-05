@@ -52,6 +52,77 @@
       font-size: 0.9rem;
     }
 
+    /* Drawer Styles */
+    #drawer {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100vh;
+      background: #222;
+      color: #eee;
+      padding: 2rem 1rem;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.8);
+      transition: left 0.3s ease;
+      z-index: 110;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    #drawer.open {
+      left: 0;
+    }
+
+    #drawer nav a {
+      display: block;
+      color: #eee;
+      text-decoration: none;
+      margin: 1rem 0;
+      font-size: 1.25rem;
+      border-bottom: 1px solid #444;
+      padding-bottom: 0.4rem;
+    }
+
+    #drawer nav a:hover {
+      color: #ff66cc;
+      border-color: #ff66cc;
+    }
+
+    /* Heart toggle button styles */
+    #drawerToggle {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      background: #ff99ff;
+      border: none;
+      color: #ff3366;
+      font-size: 2.5rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 120;
+      box-shadow: 0 0 12px #ff6699;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+
+    #drawerToggle:hover {
+      transform: scale(1.2);
+      box-shadow: 0 0 20px #ff6699;
+      color: #ff0044;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 12px #ff6699;
+        transform: scale(1.2);
+      }
+      50% {
+        box-shadow: 0 0 30px #ff3366;
+        transform: scale(1.4);
+      }
+    }
+
     /* Modal styles */
     .modal {
       display: none;
@@ -133,7 +204,7 @@
 </main>
 
 <footer>
-  Tutorial credit goes to: <a href="https://youtube.com/@artwithflo?si=pyNUzWYFQDxi2I1n" target="_blank">ArtWithFlo on YouTube</a>
+  Tutorial credit goes to: <a href="https://youtube.com/@artwithflo?si=pyNUzWYFQDxi2I1n" target="_blank" rel="noopener noreferrer">ArtWithFlo on YouTube</a>
 </footer>
 
 <!-- Image Modal -->
