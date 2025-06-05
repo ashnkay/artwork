@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Visitor Notes</title>
+  <style>
+    /* Drawer styles */
+    #drawer {
+      position: fixed;
+      top: 0;
+      left: -250px; /* hidden by default */
+      width: 250px;
+      height: 100vh;
+      background: #222;
+      color: #eee;
+      padding: 2rem 1rem;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.8);
+      transition: left 0.3s ease;
+      z-index: 110;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    #drawer.open {
+      left: 0;
+    }
+
+    #drawer nav a {
+      display: block;
+      color: #eee;
+      text-decoration: none;
+      margin: 1rem 0;
+      font-size: 1.25rem;
+      border-bottom: 1px solid #444;
+      padding-bottom: 0.4rem;
+    }
+
+    #drawer nav a:hover {
+      color: #ff66cc;
+      border-color: #ff66cc;
+    }
+
+    /* Drawer Toggle Button (Heart) */
+    #drawerToggle {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      background: #ff99ff;
+      border: none;
+      color: #ff3366;
+      font-size: 2.5rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 120;
+      box-shadow: 0 0 12px #ff6699;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+    #drawerToggle:hover {
+      transform: scale(1.2);
+      box-shadow: 0 0 20px #ff6699;
+      color: #ff0044;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 12px #ff6699;
+        transform: scale(1.2);
+      }
+      50% {
+        box-shadow: 0 0 30px #ff3366;
+        transform: scale(1.4);
+      }
+    }
+
+    /* Page styles */
+    body {
+      background: #1e1e2f;
+      color: #f0f0f5;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background: linear-gradient(135deg, #3a3a5a, #2a2a3a);
+      padding: 1rem;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: #ffccff;
+      text-shadow: 0 0 5px #ff99ff;
+    }
+    nav {
+      margin-top: 0.5rem;
+    }
+    nav a {
+      margin: 0 1rem;
+      color: #ffccff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    main {
+      flex-grow: 1;
+      padding: 2rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    form {
+      background: #2a2a3a;
+      padding: 1.5rem;
+      border-radius: 15px;
+      box-shadow: 0 0 15px #ff99ff;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    label {
+      font-weight: bold;
+      color: #ffccff;
+    }
+    textarea {
+      padding: 0.6rem;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      resize: vertical;
+      background: #1e1e2f;
+      color: #f0f0f5;
+      box-shadow: inset 0 0 5px #ff99ff;
+      transition: box-shadow 0.3s;
+      min-height: 80px;
+    }
+    textarea:focus {
+      box-shadow: 0 0 10px #ffccff;
+    }
+    button {
+      background: #ff99ff;
+      border: none;
+      padding: 0.8rem;
+      font-weight: bold;
+      color: #1e1e2f;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.3s;
+      align-self: flex-start;
+    }
+    button:hover {
+      background: #ff77ff;
+    }
+    .notes-list {
+      margin-top: 2rem;
+      list-style: none;
+      padding: 0;
+      max-height: 300px;
+      overflow-y: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ff99ff;
+      background: #2a2a3a;
+    }
+    .notes-list li {
+      padding: 1rem;
+      border-bottom: 1px solid #ff99ff;
+      color: #f0f0f5;
+      font-style: italic;
+      white-space: pre-wrap;
+    }
+    .notes-list li:last-child {
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Heart Toggle Button -->
+  <button id="drawerToggle" aria-label="Open navigation menu">♥</button>
+
+  <!-- Drawer -->
+  <aside id="drawer" aria-label="Site navigation">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="about.html">About Me</a>
+      <a href="contact.html">Contact</a>
+      <a href="notes.html">Visitor Notes</a>
+    </nav>
+  </aside>
+
+  <header>
+    <h1>Visitor Notes</h1>
+    <nav aria-label="Page navigation">
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="about.html">About Me</a>
+      <a href="contact.html">Contact</a>
+      <a href="notes.html">Visitor Notes</a>
+    </nav>
+  </header>
+
+  <main>
+    <form id="noteForm" novalidate>
+      <label for="noteInput">Leave a note:</label>
+      <textarea id="noteInput" name="note" placeholder="Write something nice..." required></textarea>
+      <button type="submit">Add Note</button>
+    </form>
+
+    <ul class="notes-list" id="notesList"></ul>
+  </main>
+
+  <script>
+    const drawerToggle = document.getElementById('drawerToggle');
+    const drawer = document.getElementById('drawer');
+
+    drawerToggle.addEventListener('click', () => {
+      drawer.classList.toggle('open');
+    });
+
+    // Close drawer when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!drawer.contains(e.target) && e.target !== drawerToggle) {
+        drawer.classList.remove('open');
+      }
+    });
+
+    const noteForm = document.getElementById('noteForm');
+    const noteInput = document.getElementById('noteInput');
+    const notesList = document.getElementById('notesList');
+
+    let notes = JSON.parse(localStorage.getItem('visitorNotes')) || [];
+
+    function renderNotes() {
+      notesList.innerHTML = '';
+      notes.forEach((note) => {
+        const li = document.createElement('li');
+        li.textContent = note;
+        notesList.appendChild(li);
+      });
+    }
+
+    noteForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const newNote = noteInput.value.trim();
+      if (!newNote) {
+        alert('Please write something before submitting.');
+        return;
+      }
+      notes.push(newNote);
+      localStorage.setItem('visitorNotes', JSON.stringify(notes));
+      renderNotes();
+      noteInput.value = '';
+    });
+
+    renderNotes();
+  </script>
+
+</body>
+</html>
