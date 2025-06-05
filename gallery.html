@@ -3,334 +3,259 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gallery - Kayla’s Art</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Kayla's Art Gallery</title>
   <style>
     body {
-      background: #1e1e2f;
-      color: #f0f0f5;
+      background: #2f2f3f;
+      color: #ddd;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
       padding: 0;
+      overflow-x: hidden;
     }
+
     header {
-      padding: 1rem;
-      text-align: center;
-      background: linear-gradient(135deg, #3a3a5a, #2a2a3a);
-    }
-    header h1 {
-      color: #ffccff;
-      text-shadow: 0 0 5px #ff99ff;
-    }
-    main {
-      padding: 2rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-    }
-    figure {
-      background: #2a2a3a;
-      padding: 1rem;
-      border-radius: 12px;
-      box-shadow: 0 0 10px #ff99ff;
-      text-align: center;
-    }
-    figure img {
-      width: 100%;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    figcaption {
-      margin-top: 0.5rem;
-      font-size: 0.95rem;
-      color: #ffccff;
-    }
-    footer {
-      text-align: center;
-      padding: 1rem;
-      color: #ccc;
-      font-size: 0.9rem;
-    }
-
-    /* Drawer Styles */
-    #drawerToggle {
-      position: fixed;
-      top: 15px;
-      left: 15px;
-      z-index: 200;
-      background: #ff99ff;
-      border: none;
-      border-radius: 50%;
-      width: 45px;
-      height: 45px;
-      font-size: 1.8rem;
-      color: #2a2a3a;
-      cursor: pointer;
-      box-shadow: 0 0 10px #ff99ff;
-      user-select: none;
-    }
-    #drawer {
-      position: fixed;
-      top: 0;
-      left: -220px;
-      width: 200px;
-      height: 100%;
-      background: #2a2a3a;
-      box-shadow: 2px 0 10px rgba(255,153,255,0.5);
-      padding-top: 60px;
-      transition: left 0.3s ease;
-      z-index: 150;
-      border-radius: 0 0 10px 0;
-    }
-    #drawer.open {
-      left: 0;
-    }
-    #drawer nav a {
-      display: block;
-      color: #ffccff;
-      padding: 12px 20px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1.1rem;
-      border-bottom: 1px solid #ff99ff;
-    }
-    #drawer nav a:hover {
-      background: #ff99ff;
-      color: #2a2a3a;
-      transition: background 0.2s;
-    }
-
-    /* Modal styles */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 250;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.8);
-      justify-content: center;
-      align-items: center;
-    }
-    .modal img {
-      max-width: 90%;
-      max-height: 80vh;
-      border: 5px solid #ff99ff;
-      border-radius: 10px;
-    }
-
-    /* Comments Section */
-    #commentsSection {
-      background: #2a2a3a;
-      margin: 2rem;
-      padding: 1rem 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 0 10px #ff99ff;
-      color: #ffccff;
-      max-width: 800px;
-    }
-    #commentsSection h2 {
-      margin-top: 0;
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 0.8rem;
-    }
-    #commentForm {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-    }
-    #commentInput {
-      flex-grow: 1;
-      padding: 0.5rem 0.8rem;
-      border-radius: 8px;
-      border: none;
-      font-size: 1rem;
-    }
-    #commentForm button {
-      background: #ff99ff;
-      border: none;
-      border-radius: 8px;
-      padding: 0 1rem;
-      font-weight: bold;
-      color: #2a2a3a;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    #commentForm button:hover {
-      background: #ff66ff;
-    }
-    #commentsList {
-      list-style: none;
-      padding: 0;
-      max-height: 300px;
-      overflow-y: auto;
-    }
-    #commentsList li {
-      background: #3a3a5a;
-      margin-bottom: 0.5rem;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
+      background: #3a3a50;
+      padding: 1em;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      color: #fff;
     }
-    #commentsList li button {
-      background: #ff3366;
+
+    #drawerToggle {
+      background: transparent;
       border: none;
-      border-radius: 6px;
-      padding: 0 0.5rem;
-      color: white;
+      font-size: 1.8em;
+      color: #fff;
       cursor: pointer;
-      font-weight: bold;
-      font-size: 0.9rem;
     }
-    #commentsList li button:hover {
-      background: #ff0000;
+
+    #drawer {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100vh;
+      background: #222233;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.7);
+      padding: 2em 1em;
+      box-sizing: border-box;
+      transition: left 0.3s ease;
+      z-index: 10000;
+    }
+
+    #drawer.open {
+      left: 0;
+    }
+
+    #drawer nav a {
+      display: block;
+      color: #ccc;
+      text-decoration: none;
+      padding: 0.8em 0;
+      font-size: 1.1em;
+    }
+
+    #drawer nav a:hover {
+      color: #ff99cc;
+    }
+
+    main {
+      padding: 1.5em;
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1em;
+      margin-top: 1em;
+      position: relative;
+    }
+
+    .gallery div {
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #444;
+      background: #383849;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.3s ease;
+      border-radius: 12px;
+    }
+
+    .gallery div:hover img {
+      transform: scale(1.05);
+    }
+
+    .caption {
+      padding: 0.4em 0.6em;
+      font-size: 0.9em;
+      color: #aaa;
+      text-align: center;
+      background: rgba(0,0,0,0.3);
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.3) 2px, transparent 3px),
+                  radial-gradient(circle at 50% 50%, rgba(255,255,255,0.15) 1px, transparent 2px),
+                  radial-gradient(circle at 80% 80%, rgba(255,255,255,0.3) 2px, transparent 3px);
+      background-repeat: repeat;
+      background-size: 50px 50px;
+      animation: sparkleMove 10s linear infinite;
+      z-index: 5;
+      border-radius: 12px;
+    }
+
+    @keyframes sparkleMove {
+      from {
+        background-position: 0 0, 0 0, 0 0;
+      }
+      to {
+        background-position: 50px 50px, 50px 50px, 50px 50px;
+      }
+    }
+
+    /* Modal styles */
+    #modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+    }
+
+    #modal img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #fff;
+    }
+
+    #closeBtn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: white;
+      font-size: 3em;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+      z-index: 10000;
+    }
+
+    #closeBtn:hover {
+      color: #ffcccb;
     }
   </style>
-
-  <!-- Firebase and Firestore -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
-    import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyB6fXcN5oF0a9dFdqZAfnhPu3Jr24uWoic",
-      authDomain: "kaylasartcomments.firebaseapp.com",
-      projectId: "kaylasartcomments",
-      storageBucket: "kaylasartcomments.firebasestorage.app",
-      messagingSenderId: "591454461493",
-      appId: "1:591454461493:web:4aa69c08127a8988555b7c",
-      measurementId: "G-KM52V6M1SE"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    // Drawer toggle logic
-    const drawerToggle = document.getElementById('drawerToggle');
-    const drawer = document.getElementById('drawer');
-    drawerToggle.addEventListener('click', () => {
-      drawer.classList.toggle('open');
-    });
-    document.addEventListener('click', (e) => {
-      if (!drawer.contains(e.target) && e.target !== drawerToggle) {
-        drawer.classList.remove('open');
-      }
-    });
-
-    // Image modal logic
-    function openModal(img) {
-      const modal = document.getElementById('imageModal');
-      const modalImage = document.getElementById('modalImage');
-      modalImage.src = img.src;
-      modal.style.display = 'flex';
-    }
-    function closeModal() {
-      document.getElementById('imageModal').style.display = 'none';
-    }
-    window.openModal = openModal;
-    window.closeModal = closeModal;
-
-    // Comments system
-    const commentForm = document.getElementById('commentForm');
-    const commentInput = document.getElementById('commentInput');
-    const commentsList = document.getElementById('commentsList');
-    const commentsCollection = collection(db, "comments");
-
-    onSnapshot(commentsCollection, (snapshot) => {
-      commentsList.innerHTML = '';
-      snapshot.forEach(docSnap => {
-        const comment = docSnap.data().text;
-        const id = docSnap.id;
-
-        const li = document.createElement('li');
-        li.textContent = comment;
-
-        const delBtn = document.createElement('button');
-        delBtn.textContent = 'Delete';
-        delBtn.addEventListener('click', async () => {
-          await deleteDoc(doc(db, "comments", id));
-        });
-
-        li.appendChild(delBtn);
-        commentsList.appendChild(li);
-      });
-    });
-
-    commentForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const commentText = commentInput.value.trim();
-      if (!commentText) return;
-
-      await addDoc(commentsCollection, { text: commentText });
-      commentInput.value = '';
-    });
-  </script>
 </head>
 <body>
+  <header>
+    <button id="drawerToggle" aria-label="Toggle navigation menu">&#9776;</button>
+    <h1>Kayla's Art Gallery</h1>
+  </header>
 
-  <!-- Drawer Toggle Button -->
-  <button id="drawerToggle" aria-label="Open navigation menu">♥</button>
-
-  <!-- Drawer -->
-  <aside id="drawer" aria-label="Site navigation">
+  <aside id="drawer">
     <nav>
       <a href="index.html">Home</a>
       <a href="gallery.html">Gallery</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
-      <a href="notes.html">Notes</a>
+      <a href="notes.html">Visitor Notes</a>
     </nav>
   </aside>
 
-  <header>
-    <h1>My Art Gallery</h1>
-  </header>
-
   <main>
-    <figure>
-      <img src="art1.png" alt="Artwork 1" onclick="openModal(this)" />
-      <figcaption>Inspired by a tutorial from ArtWithFlo</figcaption>
-    </figure>
-    <figure>
-      <img src="art2.png" alt="Artwork 2" onclick="openModal(this)" />
-      <figcaption>Based on a tutorial by ArtWithFlo</figcaption>
-    </figure>
-    <figure>
-      <img src="art3.png" alt="Artwork 3" onclick="openModal(this)" />
-      <figcaption>A cozy corner sketch</figcaption>
-    </figure>
-    <figure>
-      <img src="art4.png" alt="Artwork 4" onclick="openModal(this)" />
-      <figcaption>Soft pastel portrait</figcaption>
-    </figure>
-    <figure>
-      <img src="art5.png" alt="Artwork 5" onclick="openModal(this)" />
-      <figcaption>Dreamy forest vibes</figcaption>
-    </figure>
+    <div class="gallery">
+      <div class="sparkle"></div>
+
+      <div>
+        <img src="Art1.png" alt="Art 1" onclick="openModal(this.src)" />
+        <p class="caption">Inspired by a tutorial from ArtWithFlo</p>
+      </div>
+      <div>
+        <img src="Art2.png" alt="Art 2" onclick="openModal(this.src)" />
+        <p class="caption">Based on a tutorial by ArtWithFlo</p>
+      </div>
+      <div>
+        <img src="Art3.png" alt="Art 3" onclick="openModal(this.src)" />
+      </div>
+      <div>
+        <img src="Art4.png" alt="Art 4" onclick="openModal(this.src)" />
+        <p class="caption">Based on a tutorial by ArtWithFlo</p>
+      </div>
+      <div>
+        <img src="Art5.png" alt="Art 5" onclick="openModal(this.src)" />
+        <p class="caption">Based on a tutorial by ArtWithFlo</p>
+      </div>
+      <div>
+        <img src="Art6.png" alt="Art 6" onclick="openModal(this.src)" />
+        <p class="caption">Based on a tutorial by ArtWithFlo</p>
+      </div>
+      <div>
+        <img src="Art7.png" alt="Art 7" onclick="openModal(this.src)" />
+        <p class="caption">Based on a tutorial by ArtWithFlo</p>
+      </div>
+      <div>
+        <img src="Art8.png" alt="Art 8" onclick="openModal(this.src)" />
+        <p class="caption">Inspired by a tutorial from ArtWithFlo</p>
+      </div>
+      <div>
+        <img src="Art9.png" alt="Art 9" onclick="openModal(this.src)" />
+        <p class="caption">Based on a tutorial by ArtWithFlo</p>
+      </div>
+    </div>
   </main>
 
-  <!-- Image Modal -->
-  <div id="imageModal" class="modal" onclick="closeModal()">
-    <img id="modalImage" alt="Enlarged artwork" />
+  <!-- Fullscreen Modal Viewer -->
+  <div id="modal" onclick="closeModal(event)">
+    <span id="closeBtn" onclick="closeModal(event)">&times;</span>
+    <img id="modalImg" />
   </div>
 
-  <!-- Comments Section -->
-  <section id="commentsSection" aria-label="Comments">
-    <h2>Visitor Comments</h2>
-    <form id="commentForm">
-      <input id="commentInput" type="text" placeholder="Leave a comment..." aria-label="Comment input" required />
-      <button type="submit">Post</button>
-    </form>
-    <ul id="commentsList" aria-live="polite" aria-relevant="additions removals"></ul>
-  </section>
+  <script>
+    function openModal(src) {
+      document.getElementById("modalImg").src = src;
+      document.getElementById("modal").style.display = "flex";
+    }
 
-  <footer>
-    &copy; 2025 Kayla's Art Gallery
-  </footer>
+    function closeModal(e) {
+      e.stopPropagation();
+      document.getElementById("modal").style.display = "none";
+    }
 
+    const drawerToggle = document.getElementById('drawerToggle');
+    const drawer = document.getElementById('drawer');
+
+    drawerToggle.addEventListener('click', () => {
+      drawer.classList.toggle('open');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!drawer.contains(e.target) && e.target !== drawerToggle) {
+        drawer.classList.remove('open');
+      }
+    });
+  </script>
 </body>
 </html>
