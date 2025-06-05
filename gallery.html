@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gallery - Kayla’s Art</title>
   <link rel="stylesheet" href="style.css" />
   <style>
@@ -53,81 +53,58 @@
     }
 
     /* Drawer Styles */
+    #drawerToggle {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 200;
+      background: #ff99ff;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      font-size: 1.8rem;
+      color: #2a2a3a;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ff99ff;
+      user-select: none;
+    }
     #drawer {
       position: fixed;
       top: 0;
-      left: -250px;
-      width: 250px;
-      height: 100vh;
-      background: #222;
-      color: #eee;
-      padding: 2rem 1rem;
-      box-shadow: 2px 0 8px rgba(0,0,0,0.8);
+      left: -220px;
+      width: 200px;
+      height: 100%;
+      background: #2a2a3a;
+      box-shadow: 2px 0 10px rgba(255,153,255,0.5);
+      padding-top: 60px;
       transition: left 0.3s ease;
-      z-index: 110;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      z-index: 150;
+      border-radius: 0 0 10px 0;
     }
-
     #drawer.open {
       left: 0;
     }
-
     #drawer nav a {
       display: block;
-      color: #eee;
+      color: #ffccff;
+      padding: 12px 20px;
       text-decoration: none;
-      margin: 1rem 0;
-      font-size: 1.25rem;
-      border-bottom: 1px solid #444;
-      padding-bottom: 0.4rem;
+      font-weight: bold;
+      font-size: 1.1rem;
+      border-bottom: 1px solid #ff99ff;
     }
-
     #drawer nav a:hover {
-      color: #ff66cc;
-      border-color: #ff66cc;
-    }
-
-    /* Heart toggle button styles */
-    #drawerToggle {
-      position: fixed;
-      top: 1rem;
-      left: 1rem;
       background: #ff99ff;
-      border: none;
-      color: #ff3366;
-      font-size: 2.5rem;
-      padding: 0.2rem 0.6rem;
-      border-radius: 50%;
-      cursor: pointer;
-      z-index: 120;
-      box-shadow: 0 0 12px #ff6699;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      user-select: none;
-    }
-
-    #drawerToggle:hover {
-      transform: scale(1.2);
-      box-shadow: 0 0 20px #ff6699;
-      color: #ff0044;
-      animation: pulse 1.5s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% {
-        box-shadow: 0 0 12px #ff6699;
-        transform: scale(1.2);
-      }
-      50% {
-        box-shadow: 0 0 30px #ff3366;
-        transform: scale(1.4);
-      }
+      color: #2a2a3a;
+      transition: background 0.2s;
     }
 
     /* Modal styles */
     .modal {
       display: none;
       position: fixed;
-      z-index: 150;
+      z-index: 250;
       left: 0;
       top: 0;
       width: 100%;
@@ -142,99 +119,218 @@
       border: 5px solid #ff99ff;
       border-radius: 10px;
     }
+
+    /* Comments Section */
+    #commentsSection {
+      background: #2a2a3a;
+      margin: 2rem;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #ff99ff;
+      color: #ffccff;
+      max-width: 800px;
+    }
+    #commentsSection h2 {
+      margin-top: 0;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 0.8rem;
+    }
+    #commentForm {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    #commentInput {
+      flex-grow: 1;
+      padding: 0.5rem 0.8rem;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+    }
+    #commentForm button {
+      background: #ff99ff;
+      border: none;
+      border-radius: 8px;
+      padding: 0 1rem;
+      font-weight: bold;
+      color: #2a2a3a;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    #commentForm button:hover {
+      background: #ff66ff;
+    }
+    #commentsList {
+      list-style: none;
+      padding: 0;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    #commentsList li {
+      background: #3a3a5a;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #commentsList li button {
+      background: #ff3366;
+      border: none;
+      border-radius: 6px;
+      padding: 0 0.5rem;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+    #commentsList li button:hover {
+      background: #ff0000;
+    }
   </style>
+
+  <!-- Firebase and Firestore -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB6fXcN5oF0a9dFdqZAfnhPu3Jr24uWoic",
+      authDomain: "kaylasartcomments.firebaseapp.com",
+      projectId: "kaylasartcomments",
+      storageBucket: "kaylasartcomments.firebasestorage.app",
+      messagingSenderId: "591454461493",
+      appId: "1:591454461493:web:4aa69c08127a8988555b7c",
+      measurementId: "G-KM52V6M1SE"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Drawer toggle logic
+    const drawerToggle = document.getElementById('drawerToggle');
+    const drawer = document.getElementById('drawer');
+    drawerToggle.addEventListener('click', () => {
+      drawer.classList.toggle('open');
+    });
+    document.addEventListener('click', (e) => {
+      if (!drawer.contains(e.target) && e.target !== drawerToggle) {
+        drawer.classList.remove('open');
+      }
+    });
+
+    // Image modal logic
+    function openModal(img) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modalImage.src = img.src;
+      modal.style.display = 'flex';
+    }
+    function closeModal() {
+      document.getElementById('imageModal').style.display = 'none';
+    }
+    window.openModal = openModal;
+    window.closeModal = closeModal;
+
+    // Comments system
+    const commentForm = document.getElementById('commentForm');
+    const commentInput = document.getElementById('commentInput');
+    const commentsList = document.getElementById('commentsList');
+    const commentsCollection = collection(db, "comments");
+
+    onSnapshot(commentsCollection, (snapshot) => {
+      commentsList.innerHTML = '';
+      snapshot.forEach(docSnap => {
+        const comment = docSnap.data().text;
+        const id = docSnap.id;
+
+        const li = document.createElement('li');
+        li.textContent = comment;
+
+        const delBtn = document.createElement('button');
+        delBtn.textContent = 'Delete';
+        delBtn.addEventListener('click', async () => {
+          await deleteDoc(doc(db, "comments", id));
+        });
+
+        li.appendChild(delBtn);
+        commentsList.appendChild(li);
+      });
+    });
+
+    commentForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const commentText = commentInput.value.trim();
+      if (!commentText) return;
+
+      await addDoc(commentsCollection, { text: commentText });
+      commentInput.value = '';
+    });
+  </script>
 </head>
 <body>
 
-<!-- Drawer Toggle Button -->
-<button id="drawerToggle" aria-label="Open navigation menu">♥</button>
+  <!-- Drawer Toggle Button -->
+  <button id="drawerToggle" aria-label="Open navigation menu">♥</button>
 
-<!-- Drawer -->
-<aside id="drawer" aria-label="Site navigation">
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-    <a href="notes.html">Notes</a>
-  </nav>
-</aside>
+  <!-- Drawer -->
+  <aside id="drawer" aria-label="Site navigation">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="notes.html">Notes</a>
+    </nav>
+  </aside>
 
-<header>
-  <h1>My Art Gallery</h1>
-</header>
+  <header>
+    <h1>My Art Gallery</h1>
+  </header>
 
-<main>
-  <figure>
-    <img src="art1.png" alt="Artwork 1" onclick="openModal(this)">
-    <figcaption>Inspired by a tutorial from ArtWithFlo</figcaption>
-  </figure>
-  <figure>
-    <img src="art2.png" alt="Artwork 2" onclick="openModal(this)">
-    <figcaption>Based on a tutorial by ArtWithFlo</figcaption>
-  </figure>
-  <figure>
-    <img src="art3.png" alt="Artwork 3" onclick="openModal(this)">
-    <figcaption>Original work by Kayla</figcaption>
-  </figure>
-  <figure>
-    <img src="art4.png" alt="Artwork 4" onclick="openModal(this)">
-    <figcaption>Based on a tutorial by ArtWithFlo</figcaption>
-  </figure>
-  <figure>
-    <img src="art5.png" alt="Artwork 5" onclick="openModal(this)">
-    <figcaption>Based on a tutorial by ArtWithFlo</figcaption>
-  </figure>
-  <figure>
-    <img src="art6.png" alt="Artwork 6" onclick="openModal(this)">
-    <figcaption>Based on a tutorial by ArtWithFlo</figcaption>
-  </figure>
-  <figure>
-    <img src="art7.png" alt="Artwork 7" onclick="openModal(this)">
-    <figcaption>Based on a tutorial by ArtWithFlo</figcaption>
-  </figure>
-  <figure>
-    <img src="art8.png" alt="Artwork 8" onclick="openModal(this)">
-    <figcaption>Inspired by a tutorial from ArtWithFlo</figcaption>
-  </figure>
-  <figure>
-    <img src="art9.png" alt="Artwork 9" onclick="openModal(this)">
-    <figcaption>Based on a tutorial by ArtWithFlo</figcaption>
-  </figure>
-</main>
+  <main>
+    <figure>
+      <img src="art1.png" alt="Artwork 1" onclick="openModal(this)" />
+      <figcaption>Inspired by a tutorial from ArtWithFlo</figcaption>
+    </figure>
+    <figure>
+      <img src="art2.png" alt="Artwork 2" onclick="openModal(this)" />
+      <figcaption>Based on a tutorial by ArtWithFlo</figcaption>
+    </figure>
+    <figure>
+      <img src="art3.png" alt="Artwork 3" onclick="openModal(this)" />
+      <figcaption>A cozy corner sketch</figcaption>
+    </figure>
+    <figure>
+      <img src="art4.png" alt="Artwork 4" onclick="openModal(this)" />
+      <figcaption>Soft pastel portrait</figcaption>
+    </figure>
+    <figure>
+      <img src="art5.png" alt="Artwork 5" onclick="openModal(this)" />
+      <figcaption>Dreamy forest vibes</figcaption>
+    </figure>
+  </main>
 
-<footer>
-  Tutorial credit goes to: <a href="https://youtube.com/@artwithflo?si=pyNUzWYFQDxi2I1n" target="_blank" rel="noopener noreferrer">ArtWithFlo on YouTube</a>
-</footer>
+  <!-- Image Modal -->
+  <div id="imageModal" class="modal" onclick="closeModal()">
+    <img id="modalImage" alt="Enlarged artwork" />
+  </div>
 
-<!-- Image Modal -->
-<div class="modal" id="imageModal" onclick="closeModal()">
-  <img id="modalImage" src="" alt="Enlarged Art">
-</div>
+  <!-- Comments Section -->
+  <section id="commentsSection" aria-label="Comments">
+    <h2>Visitor Comments</h2>
+    <form id="commentForm">
+      <input id="commentInput" type="text" placeholder="Leave a comment..." aria-label="Comment input" required />
+      <button type="submit">Post</button>
+    </form>
+    <ul id="commentsList" aria-live="polite" aria-relevant="additions removals"></ul>
+  </section>
 
-<script>
-  const drawerToggle = document.getElementById('drawerToggle');
-  const drawer = document.getElementById('drawer');
-  drawerToggle.addEventListener('click', () => {
-    drawer.classList.toggle('open');
-  });
-  document.addEventListener('click', (e) => {
-    if (!drawer.contains(e.target) && e.target !== drawerToggle) {
-      drawer.classList.remove('open');
-    }
-  });
-
-  function openModal(img) {
-    const modal = document.getElementById('imageModal');
-    const modalImage = document.getElementById('modalImage');
-    modalImage.src = img.src;
-    modal.style.display = 'flex';
-  }
-
-  function closeModal() {
-    document.getElementById('imageModal').style.display = 'none';
-  }
-</script>
+  <footer>
+    &copy; 2025 Kayla's Art Gallery
+  </footer>
 
 </body>
 </html>
