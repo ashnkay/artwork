@@ -204,8 +204,75 @@
       }
     }
   </style>
+  /* Drawer Styles */
+#drawer-toggle {
+  display: none;
+}
+
+#drawer-toggle-label {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #f9a8d4;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  line-height: 40px;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+  z-index: 999;
+  box-shadow: 0 0 10px #f472b6;
+}
+
+#drawer {
+  position: fixed;
+  top: 0;
+  right: -250px;
+  height: 100%;
+  width: 250px;
+  background: #e9d5ff;
+  padding-top: 60px;
+  transition: right 0.3s ease;
+  z-index: 998;
+}
+
+#drawer-toggle:checked ~ #drawer {
+  right: 0;
+}
+
+#drawer ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#drawer ul li {
+  margin: 20px;
+}
+
+#drawer ul li a {
+  color: #6b21a8;
+  text-decoration: none;
+  font-size: 1.3em;
+}
 </head>
 <body>
+  <!-- Drawer Toggle -->
+<input type="checkbox" id="drawer-toggle" />
+<label for="drawer-toggle" id="drawer-toggle-label">❤</label>
+
+<!-- Drawer Nav -->
+<nav id="drawer">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="about.html">About Me</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="notes.html">Visitor Notes</a></li>
+  </ul>
+</nav>
   <header>
     <h1>Kayla's Art Gallery</h1>
     <nav>
