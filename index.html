@@ -1,296 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kayla's Art Gallery</title>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Dancing Script', cursive;
-      background: #2e2f38;
-      color: #cbd5e1;
-      text-align: center;
-      overflow-x: hidden;
-    }
-    header {
-      background: linear-gradient(135deg, #546e7a 0%, #455a64 100%);
-      padding: 40px 20px;
-      color: #d0d7de;
-      border-bottom: 3px solid #37474f;
-      animation: fadeSlideDown 1s ease-in-out;
-      position: relative;
-    }
-    header h1 {
-      font-size: 3em;
-      margin: 0;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
-    }
-    /* Heart nav icon top right */
-    #nav-heart {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      width: 30px;
-      height: 30px;
-      cursor: pointer;
-      fill: #d97c7c;
-      transition: fill 0.3s ease;
-    }
-    #nav-heart:hover {
-      fill: #ffb3b3;
-    }
-    nav {
-      position: fixed;
-      top: 0;
-      right: 0;
-      background: #39424ecc;
-      backdrop-filter: blur(10px);
-      border-radius: 0 0 0 10px;
-      padding: 60px 15px 20px 15px;
-      display: none;
-      flex-direction: column;
-      gap: 15px;
-      z-index: 999;
-    }
-    nav a {
-      color: #cbd5e1;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1.2em;
-      transition: color 0.3s ease;
-    }
-    nav a:hover {
-      color: #ff8c94;
-      text-decoration: underline;
-    }
-    .gallery {
-      position: relative;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      padding: 40px 20px;
-      background: linear-gradient(135deg, #3b4a58 0%, #2e3c4c 100%);
-      border-radius: 20px;
-      max-width: 1200px;
-      margin: 40px auto;
-      box-shadow: 0 10px 30px rgba(70, 110, 130, 0.8);
-    }
-    .gallery img {
-      width: 100%;
-      height: auto;
-      border-radius: 15px;
-      box-shadow: 0 8px 15px rgba(80, 140, 160, 0.8);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      cursor: pointer;
-      filter: drop-shadow(0 5px 5px rgba(60, 90, 110, 0.6));
-      opacity: 0;
-      animation: fadeInZoom 1s ease forwards;
-    }
-    .gallery img:nth-child(2) { animation-delay: 0.2s; }
-    .gallery img:nth-child(3) { animation-delay: 0.4s; }
-    .gallery img:nth-child(4) { animation-delay: 0.6s; }
-    .gallery img:nth-child(5) { animation-delay: 0.8s; }
-    .gallery img:nth-child(6) { animation-delay: 1s; }
-    .gallery img:nth-child(7) { animation-delay: 1.2s; }
-    .gallery img:nth-child(8) { animation-delay: 1.4s; }
-    .gallery img:nth-child(9) { animation-delay: 1.6s; }
-    .gallery img:nth-child(10) { animation-delay: 1.8s; }
-    .gallery img:hover {
-      transform: scale(1.1) rotate(2deg);
-      box-shadow: 0 15px 25px rgba(120, 160, 180, 0.9);
-      filter: drop-shadow(0 8px 8px rgba(70, 110, 130, 0.8));
-    }
-    .sparkle {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      background: url('https://www.transparenttextures.com/patterns/stardust.png');
-      animation: sparkleMove 30s linear infinite;
-      opacity: 0.1;
-      z-index: 1;
-    }
-    footer {
-      background: #39424e;
-      padding: 30px 20px;
-      margin-top: 60px;
-      border-top: 3px solid #455a64;
-      color: #abb2bf;
-    }
-    footer p {
-      margin: 10px 0;
-    }
-    a {
-      color: #d97c7c;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    /* Comment section */
-    .comments {
-      max-width: 700px;
-      margin: 20px auto 60px;
-      background: #3f4e60;
-      border-radius: 15px;
-      padding: 20px;
-      color: #ccd6f6;
-      box-shadow: 0 8px 20px rgba(100, 130, 170, 0.7);
-    }
-    .comments h2 {
-      margin-bottom: 15px;
-      font-weight: 600;
-    }
-    .comments form textarea,
-    .comments form input {
-      width: 100%;
-      margin-bottom: 12px;
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-      font-family: inherit;
-      font-size: 1em;
-    }
-    .comments form button {
-      background: #d97c7c;
-      border: none;
-      padding: 10px 18px;
-      border-radius: 8px;
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    .comments form button:hover {
-      background: #ff8c94;
-    }
-    /* About Me & Contact styling */
-    section {
-      max-width: 800px;
-      margin: 40px auto;
-      background: #3a4553;
-      border-radius: 15px;
-      padding: 25px;
-      box-shadow: 0 8px 20px rgba(90, 100, 130, 0.8);
-      color: #cbd5e1;
-    }
-    section h2 {
-      margin-bottom: 15px;
-      font-weight: 700;
-      color: #d97c7c;
-    }
-    /* Contact form */
-    form input, form select, form textarea {
-      width: 100%;
-      margin-bottom: 15px;
-      padding: 12px;
-      border-radius: 8px;
-      border: none;
-      font-family: inherit;
-      font-size: 1em;
-    }
-    form button {
-      background: #d97c7c;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 8px;
-      color: white;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    form button:hover {
-      background: #ff8c94;
-    }
-    /* Animations */
-    @keyframes fadeInZoom {
-      0% {
-        opacity: 0;
-        transform: scale(0.8);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-    @keyframes fadeSlideDown {
-      0% {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    @keyframes sparkleMove {
-      from {
-        background-position: 0 0;
-      }
-      to {
-        background-position: 1000px 1000px;
-      }
-    }
-    /* Modal for image zoom */
-    #modal {
-      display: none;
-      position: fixed;
-      z-index: 10000;
-      padding-top: 80px;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(30, 30, 40, 0.9);
-    }
-    #modal img {
-      margin: auto;
-      display: block;
-      max-width: 90%;
-      max-height: 80vh;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(217, 124, 124, 0.9);
-    }
-    #modal .close {
-      position: absolute;
-      top: 30px;
-      right: 35px;
-      color: #ffb3b3;
-      font-size: 40px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: color 0.3s ease;
-    }
-    #modal .close:hover {
-      color: #ff8787;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kayla’s Dreamscape Gallery</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet" />
+<style>
+  /* Reset and basics */
+  * {
+    box-sizing: border-box;
+  }
+  body, html {
+    margin: 0; padding: 0;
+    font-family: 'Dancing Script', cursive;
+    background: #2c2f33;
+    color: #d6d6d6;
+    scroll-behavior: smooth;
+  }
+  a {
+    color: #a8dadc;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+
+  /* Heart Nav Button */
+  #navToggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #ff6f91;
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1002;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px #ff6f91aa;
+    transition: background 0.3s ease;
+  }
+  #navToggle:hover {
+    background: #ff5477;
+  }
+  #navToggle svg {
+    fill: white;
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Nav menu */
+  nav {
+    position: fixed;
+    top: 0; right: 0;
+    height: 100vh;
+    width: 220px;
+    background: #1a1c20;
+    box-shadow: -3px 0 10px #00000099;
+    padding-top: 80px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 1001;
+  }
+  nav.open {
+    transform: translateX(0);
+  }
+  nav ul {
+    list-style: none;
+    padding: 0 20px;
+  }
+  nav ul li {
+    margin: 30px 0;
+    font-size: 1.2em;
+  }
+  nav ul li a {
+    color: #a8dadc;
+    font-weight: 600;
+  }
+  nav ul li a:hover {
+    color: #ff6f91;
+  }
+
+  /* Sections */
+  section {
+    min-height: 100vh;
+    padding: 80px 40px 40px 40px;
+    background: #23252a;
+    border-bottom: 2px solid #444;
+  }
+
+  /* Splash Section */
+  #splash {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #4a536b, #1f2126);
+    color: #f8f9fa;
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+  }
+  #splash h1 {
+    font-size: 4rem;
+    text-shadow: 0 0 10px #ff6f91;
+    margin-bottom: 10px;
+  }
+  #splash p {
+    font-size: 1.5rem;
+    margin-top: 0;
+    color: #f0a6ca;
+  }
+
+  /* Sparkles */
+  .sparkle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #ff6f91;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: sparkleMove 5s linear infinite;
+  }
+  .sparkle:nth-child(1) { top: 20%; left: 15%; animation-delay: 0s; }
+  .sparkle:nth-child(2) { top: 40%; left: 80%; animation-delay: 1s; }
+  .sparkle:nth-child(3) { top: 70%; left: 40%; animation-delay: 2s; }
+  .sparkle:nth-child(4) { top: 10%; left: 50%; animation-delay: 3s; }
+  .sparkle:nth-child(5) { top: 60%; left: 20%; animation-delay: 4s; }
+
+  @keyframes sparkleMove {
+    0% { opacity: 0.8; transform: translate(0, 0) scale(1);}
+    50% { opacity: 0.2; transform: translate(5px, -5px) scale(1.2);}
+    100% { opacity: 0.8; transform: translate(0, 0) scale(1);}
+  }
+
+  /* Gallery styling (short version for demo) */
+  #gallery {
+    background: #2f3440;
+    color: #d6d6d6;
+    border-radius: 10px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 0 15px #ff6f91aa;
+  }
+  #gallery h2 {
+    margin-bottom: 20px;
+    color: #ff6f91;
+  }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+    gap: 20px;
+  }
+  .gallery-grid img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 0 10px #ff6f91bb;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .gallery-grid img:hover {
+    transform: scale(1.05);
+  }
+
+  /* About Me, Visitors Note, Contact, Comments */
+  #about, #visitors, #contact, #comments {
+    max-width: 900px;
+    margin: 0 auto;
+    color: #d6d6d6;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9em;
+    color: #999;
+    background: #1a1c20;
+  }
+</style>
 </head>
 <body>
-  <header>
-    <h1>Kayla's Art Gallery</h1>
-    <p>Cool, calm, and totally ✨ magical ✨</p>
-    <!-- Heart icon triggers nav -->
-    <svg id="nav-heart" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="Navigation Menu" role="button" tabindex="0">
-      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-    </svg>
-    <nav id="nav-menu">
-      <a href="#gallery">Gallery</a>
-      <a href="#about">About Me</a>
-      <a href="#comments">Comments</a>
-      <a href="#contact">Contact</a>
-      <a href="#visitor-notes">Visitor Notes</a>
-    </nav>
-  </header>
 
-  <div class="gallery" id="gallery">
-    <div class="sparkle"></div>
+<!-- Heart Nav Button -->
+<div id="navToggle" title="Menu" aria-label="Open navigation menu" role="button" tabindex="0">
+  <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 
+  4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 
+  14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 
+  11.54L12 21.35z"/></svg>
+</div>
+
+<!-- Navigation Menu -->
+<nav id="navMenu" aria-label="Main navigation">
+  <ul>
+    <li><a href="#splash">Home</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#about">About Me</a></li>
+    <li><a href="#visitors">Visitors Note</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#comments">Comments</a></li>
+  </ul>
+</nav>
+
+<!-- Splash / Home -->
+<section id="splash" aria-label="Homepage splash section">
+  <h1>Kayla’s Dreamscape Gallery</h1>
+  <p>Cool, calm, and totally ✨ magical ✨</p>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+</section>
+
+<!-- Gallery -->
+<section id="gallery" aria-label="Art gallery section">
+  <h2>Gallery</h2>
+  <div class="gallery-grid">
     <img src="Art1.png" alt="Art 1" />
     <img src="Art2.png" alt="Art 2" />
     <img src="Art3.png" alt="Art 3" />
@@ -301,110 +229,70 @@
     <img src="Art8.png" alt="Art 8" />
     <img src="Art9.png" alt="Art 9" />
   </div>
+</section>
 
-  <!-- Modal for enlarged images -->
-  <div id="modal">
-    <span class="close">&times;</span>
-    <img id="modal-img" src="" alt="Enlarged artwork" />
-  </div>
+<!-- About Me -->
+<section id="about" aria-label="About me section">
+  <h2>About Me</h2>
+  <p>Hey! I’m Kayla — artist, gamer, and K-pop enthusiast. I love drawing dreamy, soft pastel art and sharing my journey with you all. When I’m not sketching, I’m probably playing video games on my iPad or blasting my favorite K-pop tracks. Thanks for stopping by my cozy little corner of the web!</p>
+</section>
 
-  <!-- About Me Section -->
-  <section id="about">
-    <h2>About Me</h2>
-    <p>Hey there! I’m Kayla — a passionate artist who loves drawing, playing video games, and diving deep into the world of K-pop and music. I’m all about creating calming and magical vibes through my art and sharing it with you here. Thanks for stopping by and supporting my creative journey!</p>
-  </section>
+<!-- Visitors Note -->
+<section id="visitors" aria-label="Visitors note section">
+  <h2>Visitors Note</h2>
+  <p>Welcome! Feel free to explore, get inspired, and leave your thoughts in the comments. This space is all about creativity, kindness, and connection. Your support means the world.</p>
+</section>
 
-  <!-- Comments Section -->
-  <section class="comments" id="comments">
-    <h2>Comments</h2>
-    <form id="comment-form">
-      <input type="text" name="name" placeholder="Your Name" required />
-      <textarea name="comment" rows="4" placeholder="Your Comment" required></textarea>
-      <button type="submit">Post Comment</button>
-    </form>
-    <div id="comment-list"></div>
-  </section>
+<!-- Contact -->
+<section id="contact" aria-label="Contact section">
+  <h2>Contact Me</h2>
+  <form action="https://formspree.io/f/xblylpyb" method="POST" target="_blank">
+    <label for="name">Name:</label><br />
+    <input id="name" name="name" type="text" required /><br /><br />
+    <label for="reason">Reason for Contact:</label><br />
+    <input id="reason" name="reason" type="text" required /><br /><br />
+    <label for="message">Brief Description:</label><br />
+    <textarea id="message" name="message" rows="4" required></textarea><br /><br />
+    <label for="contactinfo">Preferred Method of Contact (email, social handle, etc.):</label><br />
+    <input id="contactinfo" name="contactinfo" type="text" required /><br /><br />
+    <button type="submit">Send</button>
+  </form>
+</section>
 
-  <!-- Contact Section -->
-  <section id="contact">
-    <h2>Contact Me</h2>
-    <form action="https://formspree.io/f/xblylpyb" method="POST">
-      <input type="text" name="name" placeholder="Your Name" required /><br />
-      <select name="reason" required>
-        <option value="">Reason for Contacting</option>
-        <option value="feedback">Feedback</option>
-        <option value="collab">Collaboration</option>
-        <option value="questions">Questions</option>
-        <option value="other">Other</option>
-      </select><br />
-      <textarea name="description" rows="4" placeholder="Brief Description" required></textarea><br />
-      <input
-        type="text"
-        name="contact_info"
-        placeholder="Your Contact Info (Email, IG, etc.)"
-        required
-      /><br />
-      <button type="submit">Send Message</button>
-    </form>
-  </section>
+<!-- Comments -->
+<section id="comments" aria-label="Comments section">
+  <h2>Comments</h2>
+  <p>Coming soon: a place for you to leave your thoughts and feedback.</p>
+</section>
 
-  <!-- Visitor Notes Section -->
-  <section id="visitor-notes" style="max-width: 700px; margin: 40px auto; background: #3f4e60; border-radius: 15px; padding: 20px; color: #ccd6f6; box-shadow: 0 8px 20px rgba(100, 130, 170, 0.7);">
-    <h2>Visitor Notes</h2>
-    <p>Welcome to my gallery! Feel free to explore my art, leave your thoughts in the comments, or get in touch using the contact form. Your support means the world to me. 💖</p>
-  </section>
+<footer>
+  <p>© 2025 Kayla’s Gallery. All rights reserved.</p>
+</footer>
 
-  <footer>
-    <p>Let’s connect:</p>
-    <p><a href="https://instagram.com/xkaylax_xoxo" target="_blank">@xkaylax_xoxo on Instagram</a></p>
-    <p>© 2025 Kayla’s Gallery. All rights reserved.</p>
-  </footer>
+<script>
+  // Toggle nav menu open/close
+  const navToggle = document.getElementById('navToggle');
+  const navMenu = document.getElementById('navMenu');
 
-  <script>
-    // Toggle nav menu on heart icon click
-    const navHeart = document.getElementById('nav-heart');
-    const navMenu = document.getElementById('nav-menu');
-    navHeart.addEventListener('click', () => {
-      navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+  navToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('open');
+  });
+
+  // Accessibility: toggle nav with keyboard (Enter or Space)
+  navToggle.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      navMenu.classList.toggle('open');
+    }
+  });
+
+  // Close nav menu when clicking a link
+  navMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('open');
     });
+  });
+</script>
 
-    // Close nav menu on link click
-    navMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navMenu.style.display = 'none';
-      });
-    });
-
-    // Modal image enlarge
-    const galleryImages = document.querySelectorAll('.gallery img');
-    const modal = document.getElementById('modal');
-    const modalImg = document.getElementById('modal-img');
-    const modalClose = document.querySelector('#modal .close');
-
-    galleryImages.forEach(img => {
-      img.addEventListener('click', () => {
-        modal.style.display = 'block';
-        modalImg.src = img.src;
-        modalImg.alt = img.alt;
-      });
-    });
-
-    modalClose.addEventListener('click', () => {
-      modal.style.display = 'none';
-      modalImg.src = '';
-      modalImg.alt = '';
-    });
-
-    window.addEventListener('click', e => {
-      if (e.target === modal) {
-        modal.style.display = 'none';
-        modalImg.src = '';
-        modalImg.alt = '';
-      }
-    });
-
-    // Comments feature (simple, no backend)
-    const commentForm = document.getElementById('comment-form');
-    const commentList = document.getElementById('comment-list');
-
-    commentForm.addEventListener('submit',
+</body>
+</html>
