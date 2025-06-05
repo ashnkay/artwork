@@ -1,425 +1,373 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Kayla's Magical Gallery</title>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet" />
-<style>
-  body {
-    margin: 0;
-    font-family: 'Dancing Script', cursive;
-    background: #2c2c34;
-    color: #d1d1e9;
-    text-align: center;
-    overflow-x: hidden;
-  }
-  header {
-    background: linear-gradient(135deg, #4b4b6a 0%, #6a6a89 100%);
-    padding: 40px 20px;
-    color: #eaeaff;
-    border-bottom: 4px solid #9b9bc1;
-    position: relative;
-  }
-  header h1 {
-    font-size: 3em;
-    margin: 0;
-    text-shadow: 2px 2px 8px rgba(120, 120, 160, 0.8);
-  }
-
-  /* Drawer styles */
-  #drawerToggle {
-    display: none;
-  }
-  label[for="drawerToggle"] {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: #6a6a89;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    color: #d1d1e9;
-    font-size: 28px;
-    line-height: 40px;
-    text-align: center;
-    cursor: pointer;
-    z-index: 1001;
-    box-shadow: 0 0 10px #9b9bc1;
-    user-select: none;
-    transition: background 0.3s ease;
-  }
-  label[for="drawerToggle"]:hover {
-    background: #9b9bc1;
-  }
-
-  nav {
-    position: fixed;
-    top: 0; right: 0;
-    height: 100vh;
-    width: 250px;
-    background: #44445e;
-    box-shadow: -5px 0 15px rgba(155, 155, 193, 0.8);
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
-    padding-top: 80px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    z-index: 1000;
-  }
-  #drawerToggle:checked + nav {
-    transform: translateX(0);
-  }
-
-  nav button {
-    background: transparent;
-    border: none;
-    color: #d1d1e9;
-    font-size: 1.8em;
-    cursor: pointer;
-    padding: 12px 20px;
-    text-align: left;
-    border-radius: 12px;
-    transition: background 0.3s ease;
-    font-family: 'Dancing Script', cursive;
-  }
-  nav button:hover, nav button.active {
-    background: #9b9bc1;
-    color: #2c2c34;
-  }
-
-  /* Sections */
-  section {
-    display: none;
-    padding: 60px 20px 40px;
-    max-width: 900px;
-    margin: 80px auto 40px;
-    border-radius: 15px;
-    background: #44445e;
-    box-shadow: 0 0 25px rgba(155, 155, 193, 0.7);
-    color: #d1d1e9;
-    min-height: 400px;
-    position: relative;
-    z-index: 1;
-  }
-  section.active {
-    display: block;
-  }
-
-  /* Sparkles */
-  .sparkle {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    background: url('https://www.transparenttextures.com/patterns/stardust.png');
-    animation: sparkleMove 30s linear infinite;
-    opacity: 0.15;
-    z-index: 0;
-  }
-
-  /* Gallery */
-  .gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-  }
-  .gallery-item {
-    position: relative;
-    cursor: pointer;
-  }
-  .gallery-item img {
-    width: 100%;
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(120, 120, 160, 0.6);
-    transition: transform 0.3s ease;
-  }
-  .gallery-item img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 25px #9b9bc1;
-  }
-  .caption {
-    margin-top: 6px;
-    font-size: 0.9em;
-    color: #bfc0d6;
-    font-style: italic;
-  }
-
-  /* Modal */
-  #modal {
-    display: none;
-    position: fixed;
-    z-index: 2000;
-    left: 0; top: 0;
-    width: 100vw; height: 100vh;
-    background: rgba(0,0,0,0.85);
-    justify-content: center;
-    align-items: center;
-  }
-  #modal img {
-    max-width: 90vw;
-    max-height: 90vh;
-    border-radius: 15px;
-    box-shadow: 0 0 30px #9b9bc1;
-  }
-  #modal.active {
-    display: flex;
-  }
-
-  /* About Me */
-  #about-me p {
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.5;
-  }
-
-  /* Contact Form */
-  form {
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: left;
-  }
-  label {
-    display: block;
-    margin: 15px 0 6px;
-    font-weight: bold;
-  }
-  input, textarea, select {
-    width: 100%;
-    padding: 8px;
-    border-radius: 8px;
-    border: none;
-    background: #5a5a7a;
-    color: #e1e1ff;
-    font-family: 'Dancing Script', cursive;
-    font-size: 1em;
-  }
-  input:focus, textarea:focus, select:focus {
-    outline: 2px solid #9b9bc1;
-    background: #6f6f8f;
-  }
-  button.submit-btn {
-    margin-top: 20px;
-    background: #9b9bc1;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 25px;
-    color: #2c2c34;
-    font-weight: bold;
-    font-size: 1.1em;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    font-family: 'Dancing Script', cursive;
-  }
-  button.submit-btn:hover {
-    background: #bfc0d6;
-  }
-
-  /* Animations */
-  @keyframes sparkleMove {
-    from { background-position: 0 0; }
-    to { background-position: 1000px 1000px; }
-  }
-
-  /* Responsive: hide nav buttons on bigger screens and show label only on small */
-  @media(min-width: 700px) {
-    label[for="drawerToggle"] {
-      display: none;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kayla's Art Gallery</title>
+  <style>
+    /* Base Styles */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1e1e2f;
+      color: #f0f0f5;
+    }
+    header {
+      background: linear-gradient(135deg, #3a3a5a, #2a2a3a);
+      padding: 1rem;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: #ffccff;
+      text-shadow: 0 0 5px #ff99ff;
     }
     nav {
-      position: static;
-      transform: none !important;
-      flex-direction: row;
+      margin-top: 0.5rem;
+    }
+    nav a {
+      margin: 0 1rem;
+      color: #ffccff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* Gallery Styles */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      padding: 2rem;
+    }
+    .art-piece {
+      background: #2a2a3a;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px #ff99ff;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .art-piece:hover {
+      transform: scale(1.02);
+    }
+    .art-piece img {
+      width: 100%;
+      display: block;
+    }
+    .caption {
+      padding: 0.5rem;
+      text-align: center;
+      background: #1e1e2f;
+      color: #ffccff;
+    }
+
+    /* Modal Styles */
+    #modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.8);
       justify-content: center;
-      height: auto;
-      width: auto;
-      box-shadow: none;
-      padding: 10px 0;
+      align-items: center;
+      z-index: 1000;
     }
-    nav button {
-      font-size: 1.5em;
-      padding: 10px 15px;
+    #modal img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      box-shadow: 0 0 15px white;
     }
-  }
-</style>
+    #modal-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: white;
+      font-size: 2.5rem;
+      cursor: pointer;
+    }
+
+    /* Comments Section */
+    #comments-section {
+      display: none;
+      padding: 2rem;
+      background: #2a2a3a;
+      margin: 2rem;
+      border-radius: 10px;
+    }
+    #comments-section h2 {
+      color: #ffccff;
+    }
+    #comments-list {
+      list-style: none;
+      padding: 0;
+    }
+    #comments-list li {
+      background: #1e1e2f;
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      border-radius: 5px;
+    }
+    #comment-form {
+      margin-top: 1rem;
+    }
+    #comment-input {
+      width: 80%;
+      padding: 0.5rem;
+      border-radius: 5px;
+      border: none;
+      margin-right: 0.5rem;
+    }
+    #comment-form button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      background: #ff99ff;
+      color: #1e1e2f;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Visitor Notes */
+    #visitor-notes {
+      padding: 2rem;
+      background: #2a2a3a;
+      margin: 2rem;
+      border-radius: 10px;
+    }
+    #visitor-notes h2 {
+      color: #ffccff;
+    }
+    #visitor-notes-textarea {
+      width: 100%;
+      height: 100px;
+      padding: 0.5rem;
+      border-radius: 5px;
+      border: none;
+      margin-top: 0.5rem;
+    }
+    #visitor-notes-save {
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      background: #ff99ff;
+      color: #1e1e2f;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Contact Form */
+    #contact {
+      padding: 2rem;
+      background: #2a2a3a;
+      margin: 2rem;
+      border-radius: 10px;
+    }
+    #contact h2 {
+      color: #ffccff;
+    }
+    #contact-form {
+      display: flex;
+      flex-direction: column;
+    }
+    #contact-form input,
+    #contact-form textarea {
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      border-radius: 5px;
+      border: none;
+    }
+    #contact-form button {
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      background: #ff99ff;
+      color: #1e1e2f;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      nav a {
+        display: block;
+        margin: 0.5rem 0;
+      }
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>Kayla's Art Gallery</h1>
+    <nav>
+      <a href="#gallery">Gallery</a>
+      <a href="#visitor-notes">Visitor Notes</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-<header>
-  <h1>Kayla's Magical Gallery</h1>
-</header>
+  <main>
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+      <div class="art-piece" data-art="Artwork1">
+        <img src="art1.jpg" alt="Artwork 1" />
+        <p class="caption">Sunset Over Mountains</p>
+      </div>
+      <div class="art-piece" data-art="Artwork2">
+        <img src="art2.jpg" alt="Artwork 2" />
+        <p class="caption">Ocean Breeze</p>
+      </div>
+      <!-- Add more art pieces as needed -->
+    </section>
 
-<input type="checkbox" id="drawerToggle" />
-<label for="drawerToggle" title="Toggle menu">❤️</label>
+    <!-- Comments Section -->
+    <section id="comments-section">
+      <h2>Comments</h2>
+      <ul id="comments-list"></ul>
+      <form id="comment-form">
+        <input type="text" id="comment-input" placeholder="Leave a comment..." />
+        <button type="submit">Post</button>
+      </form>
+    </section>
 
-<nav>
-  <button class="nav-btn active" data-target="home">🏠 Home</button>
-  <button class="nav-btn" data-target="gallery">🖼️ Gallery</button>
-  <button class="nav-btn" data-target="about-me">💖 About Me</button>
-  <button class="nav-btn" data-target="contact">✉️ Contact</button>
-</nav>
+    <!-- Visitor Notes Section -->
+    <section id="visitor-notes">
+      <h2>Visitor Notes</h2>
+      <textarea id="visitor-notes-textarea" placeholder="Write your notes here..."></textarea><br />
+      <button id="visitor-notes-save">Save Notes</button>
+    </section>
 
-<div class="sparkle"></div>
+    <!-- Contact Section -->
+    <section id="contact">
+      <h2>Contact Me</h2>
+      <form id="contact-form">
+        <input type="text" placeholder="Your Name" required />
+        <input type="email" placeholder="Your Email" required />
+        <textarea placeholder="Your Message" required></textarea>
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </main>
 
-<section id="home" class="active">
-  <h2>Welcome to the Magical Gallery</h2>
-  <p>Step into a world of dreamy art, sparkles, and pastel vibes. Let your creativity soar!</p>
-</section>
-
-<section id="gallery">
-  <h2>Gallery</h2>
-  <div class="gallery">
-    <div class="gallery-item" data-name="art1">
-      <img src="Art1.png" alt="Art 1" data-img="Art1.png" />
-      <div class="caption">Inspired by a tutorial from ArtWithFlo</div>
-      <div class="comments" data-for="art1"></div>
-    </div>
-    <div class="gallery-item" data-name="art2">
-      <img src="Art2.png" alt="Art 2" data-img="Art2.png" />
-      <div class="caption">My first attempt at stylized portraits</div>
-      <div class="comments" data-for="art2"></div>
-    </div>
-    <div class="gallery-item" data-name="art3">
-      <img src="Art3.png" alt="Art 3" data-img="Art3.png" />
-      <div class="caption">Soft pastel abstract vibes</div>
-      <div class="comments" data-for="art3"></div>
-    </div>
+  <!-- Modal for enlarged image -->
+  <div id="modal">
+    <span id="modal-close">&times;</span>
+    <img id="modal-img" src="" alt="" />
   </div>
-</section>
 
-<section id="about-me">
-  <h2>About Me</h2>
-  <p>
-    Hey! I'm Kayla, an art lover who dives into dreamy pastels and sparkly vibes.
-    When I'm not drawing or gaming on my iPad, I'm jamming to K-pop with my girlfriend and our three kids.
-    Thanks for stopping by my little corner of creativity!
-  </p>
-</section>
+  <script>
+    // Modal functionality
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modal-img');
+    const modalClose = document.getElementById('modal-close');
 
-<section id="contact">
-  <h2>Contact Me</h2>
-  <form id="contact-form">
-    <label for="name">Your Name</label>
-    <input type="text" id="name" name="name" required />
-
-    <label for="reason">Reason for Contact</label>
-    <select id="reason" name="reason" required>
-      <option value="">Select a reason</option>
-      <option value="commission">Commission</option>
-      <option value="feedback">Feedback</option>
-      <option value="collaboration">Collaboration</option>
-      <option value="other">Other</option>
-    </select>
-
-    <label for="message">Brief Description</label>
-    <textarea id="message" name="message" rows="5" required></textarea>
-
-    <label for="contact-method">Preferred Contact Method</label>
-    <select id="contact-method" name="contact-method" required>
-      <option value="">Select method</option>
-      <option value="email">Email</option>
-      <option value="phone">Phone</option>
-      <option value="social">Social Media</option>
-    </select>
-
-    <button type="submit" class="submit-btn">Send Message</button>
-  </form>
-</section>
-
-<div id="modal">
-  <img src="" alt="Full Size Art" />
-</div>
-
-<script>
-  // Nav button switching sections + active states
-  const navButtons = document.querySelectorAll('nav button.nav-btn');
-  const sections = document.querySelectorAll('section');
-  const drawerToggle = document.getElementById('drawerToggle');
-
-  navButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      // Close drawer if open (mobile)
-      if (drawerToggle.checked) drawerToggle.checked = false;
-
-      // Remove active from all buttons and sections
-      navButtons.forEach(btn => btn.classList.remove('active'));
-      sections.forEach(sec => sec.classList.remove('active'));
-
-      // Activate clicked button and target section
-      button.classList.add('active');
-      const target = button.getAttribute('data-target');
-      document.getElementById(target).classList.add('active');
+    document.querySelectorAll('.art-piece img').forEach(img => {
+      img.addEventListener('click', e => {
+        modal.style.display = 'flex';
+        modalImg.src = e.target.src;
+        modalImg.alt = e.target.alt;
+      });
     });
-  });
 
-  // Gallery modal logic
-  const galleryItems = document.querySelectorAll('.gallery-item img');
-  const modal = document.getElementById('modal');
-  const modalImg = modal.querySelector('img');
-
-  galleryItems.forEach(img => {
-    img.addEventListener('click', () => {
-      modalImg.src = img.dataset.img;
-      modal.classList.add('active');
+    modalClose.addEventListener('click', () => {
+      modal.style.display = 'none';
     });
-  });
 
-  modal.addEventListener('click', () => {
-    modal.classList.remove('active');
-    modalImg.src = '';
-  });
+    // Comments functionality
+    const artPieces = document.querySelectorAll('.art-piece');
+    const commentsSection = document.getElementById('comments-section');
+    const commentsList = document.getElementById('comments-list');
+    const commentForm = document.getElementById('comment-form');
+    const commentInput = document.getElementById('comment-input');
+    let currentArt = null;
 
-  // Comments per artwork
-  // Stored in-memory, resets on reload
-  const commentsData = {};
-
-  function renderComments(artName) {
-    const commentsDiv = document.querySelector(`.comments[data-for="${artName}"]`);
-    commentsDiv.innerHTML = '';
-    if (!commentsData[artName]) return;
-
-    commentsData[artName].forEach(comment => {
-      const p = document.createElement('p');
-      p.textContent = comment;
-      p.style.fontStyle = 'italic';
-      p.style.color = '#c0c0e5';
-      commentsDiv.appendChild(p);
+    artPieces.forEach(piece => {
+      piece.addEventListener('click', e => {
+        if (e.target.tagName.toLowerCase() === 'img') return;
+        currentArt = piece.getAttribute('data-art');
+        commentsSection.style.display = 'block';
+        loadComments(currentArt);
+      });
     });
-  }
 
-  // Add a simple comment form below each gallery item
-  document.querySelectorAll('.gallery-item').forEach(item => {
-    const artName = item.getAttribute('data-name');
-    const commentForm = document.createElement('form');
-    commentForm.innerHTML = `
-      <input type="text" placeholder="Add a comment" style="margin-top: 8px; width: 90%; padding: 6px; border-radius: 8px; border:none; font-family: 'Dancing Script', cursive;" required />
-      <button type="submit" style="margin-top: 4px; border:none; background:#9b9bc1; color:#2c2c34; border-radius: 12px; padding: 6px 12px; cursor:pointer; font-family: 'Dancing Script', cursive;">Post</button>
-    `;
-    const commentsDiv = item.querySelector('.comments');
-    item.appendChild(commentForm);
+    function loadComments(art) {
+      commentsList.innerHTML = '';
+      const saved = localStorage.getItem('comments_' + art);
+      const comments = saved ? JSON.parse(saved) : [];
+      if (comments.length === 0) {
+        commentsList.innerHTML = '<li>No comments yet. Be the first!</li>';
+        return;
+      }
+      comments.forEach(comment => {
+        const li = document.createElement('li');
+        li.textContent = comment;
+        commentsList.appendChild(li);
+      });
+    }
 
     commentForm.addEventListener('submit', e => {
       e.preventDefault();
-      const input = commentForm.querySelector('input');
-      if (!input.value.trim()) return;
-      if (!commentsData[artName]) commentsData[artName] = [];
-      commentsData[artName].push(input.value.trim());
-      input.value = '';
-      renderComments(artName);
+      const comment = commentInput.value.trim();
+      if (!comment) return alert('Comment cannot be empty.');
+      const saved = localStorage.getItem('comments_' + currentArt);
+      const comments = saved ? JSON.parse(saved) : [];
+      comments.push(comment);
+      localStorage.setItem('comments_' + currentArt, JSON.stringify(comments));
+      commentInput.value = '';
+      loadComments(currentArt);
     });
-  });
 
-  // Contact form submit handling (just prevents actual submission)
-  document.getElementById('contact-form').addEventListener('submit', e => {
-    e.preventDefault();
-    alert('Message sent! Thanks for reaching out, Kayla 💖');
-    e.target.reset();
-  });
-</script>
+    // Visitor Notes
+    const notesTextarea = document.getElementById('visitor-notes-textarea');
+    const saveButton = document.getElementById('visitor-notes-save');
 
+    saveButton.addEventListener('click', () => {
+      const notes = notesTextarea.value.trim();
+      localStorage.setItem('visitor_notes', notes);
+      alert('Your notes have been saved!');
+    });
+
+    window.addEventListener('load', () => {
+      const savedNotes = localStorage.getItem('visitor_notes');
+      if (savedNotes) {
+        notesTextarea.value = savedNotes;
+      }
+    });
+
+    // Contact form (Formspree)
+    const contactForm = document.getElementById('contact-form');
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(contactForm);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        const res = await fetch("https://formspree.io/f/xblylpyb", {
+          method: "POST",
+          headers: { 'Accept': 'application/json' },
+          body: formData
+        });
+
+        if (res.ok) {
+          alert("Thanks for contacting me!");
+          contactForm.reset();
+        } else {
+          alert("Oops! Something went wrong.");
+        }
+      } catch (error) {
+        alert("Failed to send your message.");
+      }
+    });
+  </script>
 </body>
 </html>
      
