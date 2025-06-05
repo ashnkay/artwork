@@ -156,49 +156,15 @@
   <div class="gallery">
     <div class="sparkle"></div>
 
-    <div>
-      <img src="Art1.png" alt="Art 1" />
-      <p class="caption">Inspired by a tutorial from ArtWithFlo</p>
-    </div>
-
-    <div>
-      <img src="Art2.png" alt="Art 2" />
-      <p class="caption">Based on a tutorial by ArtWithFlo</p>
-    </div>
-
-    <div>
-      <img src="Art3.png" alt="Art 3" />
-    </div>
-
-    <div>
-      <img src="Art4.png" alt="Art 4" />
-      <p class="caption">Based on a tutorial by ArtWithFlo</p>
-    </div>
-
-    <div>
-      <img src="Art5.png" alt="Art 5" />
-      <p class="caption">Based on a tutorial by ArtWithFlo</p>
-    </div>
-
-    <div>
-      <img src="Art6.png" alt="Art 6" />
-      <p class="caption">Based on a tutorial by ArtWithFlo</p>
-    </div>
-
-    <div>
-      <img src="Art7.png" alt="Art 7" />
-      <p class="caption">Based on a tutorial by ArtWithFlo</p>
-    </div>
-
-    <div>
-      <img src="Art8.png" alt="Art 8" />
-      <p class="caption">Inspired by a tutorial from ArtWithFlo</p>
-    </div>
-
-    <div>
-      <img src="Art9.png" alt="Art 9" />
-      <p class="caption">Based on a tutorial by ArtWithFlo</p>
-    </div>
+    <div><img src="Art1.png" alt="Art 1" onclick="openModal(this.src)"/><p class="caption">Inspired by a tutorial from ArtWithFlo</p></div>
+    <div><img src="Art2.png" alt="Art 2" onclick="openModal(this.src)"/><p class="caption">Based on a tutorial by ArtWithFlo</p></div>
+    <div><img src="Art3.png" alt="Art 3" onclick="openModal(this.src)"/></div>
+    <div><img src="Art4.png" alt="Art 4" onclick="openModal(this.src)"/><p class="caption">Based on a tutorial by ArtWithFlo</p></div>
+    <div><img src="Art5.png" alt="Art 5" onclick="openModal(this.src)"/><p class="caption">Based on a tutorial by ArtWithFlo</p></div>
+    <div><img src="Art6.png" alt="Art 6" onclick="openModal(this.src)"/><p class="caption">Based on a tutorial by ArtWithFlo</p></div>
+    <div><img src="Art7.png" alt="Art 7" onclick="openModal(this.src)"/><p class="caption">Based on a tutorial by ArtWithFlo</p></div>
+    <div><img src="Art8.png" alt="Art 8" onclick="openModal(this.src)"/><p class="caption">Inspired by a tutorial from ArtWithFlo</p></div>
+    <div><img src="Art9.png" alt="Art 9" onclick="openModal(this.src)"/><p class="caption">Based on a tutorial by ArtWithFlo</p></div>
   </div>
 
   <footer>
@@ -212,6 +178,60 @@
       </a>
     </p>
   </footer>
+
+  <!-- Fullscreen Modal Viewer -->
+  <div id="modal" onclick="closeModal()">
+    <span id="closeBtn">&times;</span>
+    <img id="modalImg" />
+  </div>
+
+  <script>
+    function openModal(src) {
+      document.getElementById("modalImg").src = src;
+      document.getElementById("modal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("modal").style.display = "none";
+    }
+  </script>
+
+  <style>
+    #modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+    }
+
+    #modal img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #fff;
+    }
+
+    #closeBtn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: white;
+      font-size: 3em;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    #closeBtn:hover {
+      color: #ffcccb;
+    }
+  </style>
 
 </body>
 </html>
