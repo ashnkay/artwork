@@ -2,116 +2,106 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kayla's Art Gallery</title>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet" />
   <style>
     body {
       margin: 0;
       font-family: 'Dancing Script', cursive;
-      background: #2e2f3e;
-      color: #e6e6e6;
+      background: #2e2f38;
+      color: #cbd5e1;
       text-align: center;
       overflow-x: hidden;
     }
-
     header {
-      background: linear-gradient(135deg, #6a7698 0%, #8fa3b0 100%);
+      background: linear-gradient(135deg, #546e7a 0%, #455a64 100%);
       padding: 40px 20px;
-      color: #fdfdfd;
-      border-bottom: 5px solid #7a92ac;
+      color: #d0d7de;
+      border-bottom: 3px solid #37474f;
       animation: fadeSlideDown 1s ease-in-out;
+      position: relative;
     }
-
     header h1 {
       font-size: 3em;
       margin: 0;
-      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
     }
-
-    .nav-heart {
-      position: fixed;
+    /* Heart nav icon top right */
+    #nav-heart {
+      position: absolute;
       top: 20px;
       right: 20px;
-      background-color: #ffb6c1;
-      color: #fff;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      font-size: 24px;
-      border: none;
-      box-shadow: 0 0 15px rgba(255, 182, 193, 0.5);
+      width: 30px;
+      height: 30px;
       cursor: pointer;
-      z-index: 1000;
-      transition: transform 0.3s ease;
+      fill: #d97c7c;
+      transition: fill 0.3s ease;
     }
-
-    .nav-heart:hover {
-      transform: scale(1.1);
+    #nav-heart:hover {
+      fill: #ffb3b3;
     }
-
-    .note-panel {
+    nav {
       position: fixed;
       top: 0;
-      right: -100%;
-      width: 300px;
-      height: 100%;
-      background-color: #4b4f5f;
-      color: #f3f3f3;
-      box-shadow: -4px 0 15px rgba(0, 0, 0, 0.4);
-      padding: 30px 20px;
-      transition: right 0.4s ease;
+      right: 0;
+      background: #39424ecc;
+      backdrop-filter: blur(10px);
+      border-radius: 0 0 0 10px;
+      padding: 60px 15px 20px 15px;
+      display: none;
+      flex-direction: column;
+      gap: 15px;
       z-index: 999;
     }
-
-    .note-panel.open {
-      right: 0;
+    nav a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.2em;
+      transition: color 0.3s ease;
     }
-
-    .note-panel h2 {
-      margin-top: 0;
-      font-size: 1.8em;
-      color: #ffcce0;
+    nav a:hover {
+      color: #ff8c94;
+      text-decoration: underline;
     }
-
     .gallery {
       position: relative;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 20px;
       padding: 40px 20px;
-      background: linear-gradient(135deg, #596b64 0%, #758b81 100%);
+      background: linear-gradient(135deg, #3b4a58 0%, #2e3c4c 100%);
       border-radius: 20px;
       max-width: 1200px;
       margin: 40px auto;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 10px 30px rgba(70, 110, 130, 0.8);
     }
-
-    .gallery-item {
-      position: relative;
-    }
-
     .gallery img {
       width: 100%;
       height: auto;
       border-radius: 15px;
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 8px 15px rgba(80, 140, 160, 0.8);
       transition: transform 0.4s ease, box-shadow 0.4s ease;
       cursor: pointer;
+      filter: drop-shadow(0 5px 5px rgba(60, 90, 110, 0.6));
       opacity: 0;
       animation: fadeInZoom 1s ease forwards;
     }
-
+    .gallery img:nth-child(2) { animation-delay: 0.2s; }
+    .gallery img:nth-child(3) { animation-delay: 0.4s; }
+    .gallery img:nth-child(4) { animation-delay: 0.6s; }
+    .gallery img:nth-child(5) { animation-delay: 0.8s; }
+    .gallery img:nth-child(6) { animation-delay: 1s; }
+    .gallery img:nth-child(7) { animation-delay: 1.2s; }
+    .gallery img:nth-child(8) { animation-delay: 1.4s; }
+    .gallery img:nth-child(9) { animation-delay: 1.6s; }
+    .gallery img:nth-child(10) { animation-delay: 1.8s; }
     .gallery img:hover {
-      transform: scale(1.05) rotate(1deg);
+      transform: scale(1.1) rotate(2deg);
+      box-shadow: 0 15px 25px rgba(120, 160, 180, 0.9);
+      filter: drop-shadow(0 8px 8px rgba(70, 110, 130, 0.8));
     }
-
-    .caption {
-      margin-top: 8px;
-      font-size: 0.95em;
-      color: #dcdcdc;
-    }
-
     .sparkle {
       position: absolute;
       top: 0;
@@ -124,143 +114,297 @@
       opacity: 0.1;
       z-index: 1;
     }
-
-    .modal {
+    footer {
+      background: #39424e;
+      padding: 30px 20px;
+      margin-top: 60px;
+      border-top: 3px solid #455a64;
+      color: #abb2bf;
+    }
+    footer p {
+      margin: 10px 0;
+    }
+    a {
+      color: #d97c7c;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    /* Comment section */
+    .comments {
+      max-width: 700px;
+      margin: 20px auto 60px;
+      background: #3f4e60;
+      border-radius: 15px;
+      padding: 20px;
+      color: #ccd6f6;
+      box-shadow: 0 8px 20px rgba(100, 130, 170, 0.7);
+    }
+    .comments h2 {
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+    .comments form textarea,
+    .comments form input {
+      width: 100%;
+      margin-bottom: 12px;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      font-family: inherit;
+      font-size: 1em;
+    }
+    .comments form button {
+      background: #d97c7c;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .comments form button:hover {
+      background: #ff8c94;
+    }
+    /* About Me & Contact styling */
+    section {
+      max-width: 800px;
+      margin: 40px auto;
+      background: #3a4553;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 8px 20px rgba(90, 100, 130, 0.8);
+      color: #cbd5e1;
+    }
+    section h2 {
+      margin-bottom: 15px;
+      font-weight: 700;
+      color: #d97c7c;
+    }
+    /* Contact form */
+    form input, form select, form textarea {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      font-family: inherit;
+      font-size: 1em;
+    }
+    form button {
+      background: #d97c7c;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    form button:hover {
+      background: #ff8c94;
+    }
+    /* Animations */
+    @keyframes fadeInZoom {
+      0% {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    @keyframes fadeSlideDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes sparkleMove {
+      from {
+        background-position: 0 0;
+      }
+      to {
+        background-position: 1000px 1000px;
+      }
+    }
+    /* Modal for image zoom */
+    #modal {
       display: none;
       position: fixed;
-      z-index: 999;
-      padding-top: 50px;
+      z-index: 10000;
+      padding-top: 80px;
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.85);
+      background-color: rgba(30, 30, 40, 0.9);
     }
-
-    .modal-content {
+    #modal img {
       margin: auto;
       display: block;
       max-width: 90%;
-      border-radius: 10px;
+      max-height: 80vh;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(217, 124, 124, 0.9);
     }
-
-    .modal-caption {
-      color: #ccc;
-      margin: 20px 0;
-      font-size: 1em;
-    }
-
-    .close {
+    #modal .close {
       position: absolute;
       top: 30px;
-      right: 50px;
-      color: #fff;
+      right: 35px;
+      color: #ffb3b3;
       font-size: 40px;
       font-weight: bold;
       cursor: pointer;
+      transition: color 0.3s ease;
     }
-
-    footer {
-      background: #3c3f4e;
-      padding: 30px 20px;
-      margin-top: 60px;
-      border-top: 3px solid #7a92ac;
-    }
-
-    footer p {
-      margin: 10px 0;
-      color: #bbb;
-    }
-
-    a {
-      color: #9dc0d0;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    /* Animations */
-    @keyframes fadeInZoom {
-      0% { opacity: 0; transform: scale(0.8); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-
-    @keyframes fadeSlideDown {
-      0% { opacity: 0; transform: translateY(-30px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes sparkleMove {
-      from { background-position: 0 0; }
-      to { background-position: 1000px 1000px; }
+    #modal .close:hover {
+      color: #ff8787;
     }
   </style>
 </head>
 <body>
-
   <header>
     <h1>Kayla's Art Gallery</h1>
     <p>Cool, calm, and totally ✨ magical ✨</p>
+    <!-- Heart icon triggers nav -->
+    <svg id="nav-heart" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="Navigation Menu" role="button" tabindex="0">
+      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+    </svg>
+    <nav id="nav-menu">
+      <a href="#gallery">Gallery</a>
+      <a href="#about">About Me</a>
+      <a href="#comments">Comments</a>
+      <a href="#contact">Contact</a>
+      <a href="#visitor-notes">Visitor Notes</a>
+    </nav>
   </header>
 
-  <button class="nav-heart" onclick="toggleNote()">💖</button>
-
-  <div class="note-panel" id="notePanel">
-    <h2>Visitor's Note</h2>
-    <p>Welcome to my cozy little art nook. Each piece here was made with heart, peace, and a little sparkle. Some of them are based on tutorials that helped me grow and feel comfort through art. Thanks for stopping by! 🌙</p>
-  </div>
-
-  <div class="gallery">
+  <div class="gallery" id="gallery">
     <div class="sparkle"></div>
-
-    <div class="gallery-item"><img src="Art1.png" alt="Art 1" onclick="enlarge(this)"/><div class="caption">Inspired by a tutorial from ArtWithFlo</div></div>
-    <div class="gallery-item"><img src="Art2.png" alt="Art 2" onclick="enlarge(this)"/><div class="caption">Based on a tutorial by ArtWithFlo</div></div>
-    <div class="gallery-item"><img src="Art3.png" alt="Art 3" onclick="enlarge(this)"/><div class="caption"></div></div>
-    <div class="gallery-item"><img src="Art4.png" alt="Art 4" onclick="enlarge(this)"/><div class="caption">Based on a tutorial by ArtWithFlo</div></div>
-    <div class="gallery-item"><img src="Art5.png" alt="Art 5" onclick="enlarge(this)"/><div class="caption">Based on a tutorial by ArtWithFlo</div></div>
-    <div class="gallery-item"><img src="Art6.png" alt="Art 6" onclick="enlarge(this)"/><div class="caption">Based on a tutorial by ArtWithFlo</div></div>
-    <div class="gallery-item"><img src="Art7.png" alt="Art 7" onclick="enlarge(this)"/><div class="caption">Based on a tutorial by ArtWithFlo</div></div>
-    <div class="gallery-item"><img src="Art8.png" alt="Art 8" onclick="enlarge(this)"/><div class="caption">Inspired by a tutorial from ArtWithFlo</div></div>
-    <div class="gallery-item"><img src="Art9.png" alt="Art 9" onclick="enlarge(this)"/><div class="caption">Based on a tutorial by ArtWithFlo</div></div>
+    <img src="Art1.png" alt="Art 1" />
+    <img src="Art2.png" alt="Art 2" />
+    <img src="Art3.png" alt="Art 3" />
+    <img src="Art4.png" alt="Art 4" />
+    <img src="Art5.png" alt="Art 5" />
+    <img src="Art6.png" alt="Art 6" />
+    <img src="Art7.png" alt="Art 7" />
+    <img src="Art8.png" alt="Art 8" />
+    <img src="Art9.png" alt="Art 9" />
   </div>
+
+  <!-- Modal for enlarged images -->
+  <div id="modal">
+    <span class="close">&times;</span>
+    <img id="modal-img" src="" alt="Enlarged artwork" />
+  </div>
+
+  <!-- About Me Section -->
+  <section id="about">
+    <h2>About Me</h2>
+    <p>Hey there! I’m Kayla — a passionate artist who loves drawing, playing video games, and diving deep into the world of K-pop and music. I’m all about creating calming and magical vibes through my art and sharing it with you here. Thanks for stopping by and supporting my creative journey!</p>
+  </section>
+
+  <!-- Comments Section -->
+  <section class="comments" id="comments">
+    <h2>Comments</h2>
+    <form id="comment-form">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <textarea name="comment" rows="4" placeholder="Your Comment" required></textarea>
+      <button type="submit">Post Comment</button>
+    </form>
+    <div id="comment-list"></div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <form action="https://formspree.io/f/xblylpyb" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required /><br />
+      <select name="reason" required>
+        <option value="">Reason for Contacting</option>
+        <option value="feedback">Feedback</option>
+        <option value="collab">Collaboration</option>
+        <option value="questions">Questions</option>
+        <option value="other">Other</option>
+      </select><br />
+      <textarea name="description" rows="4" placeholder="Brief Description" required></textarea><br />
+      <input
+        type="text"
+        name="contact_info"
+        placeholder="Your Contact Info (Email, IG, etc.)"
+        required
+      /><br />
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <!-- Visitor Notes Section -->
+  <section id="visitor-notes" style="max-width: 700px; margin: 40px auto; background: #3f4e60; border-radius: 15px; padding: 20px; color: #ccd6f6; box-shadow: 0 8px 20px rgba(100, 130, 170, 0.7);">
+    <h2>Visitor Notes</h2>
+    <p>Welcome to my gallery! Feel free to explore my art, leave your thoughts in the comments, or get in touch using the contact form. Your support means the world to me. 💖</p>
+  </section>
 
   <footer>
     <p>Let’s connect:</p>
     <p><a href="https://instagram.com/xkaylax_xoxo" target="_blank">@xkaylax_xoxo on Instagram</a></p>
-    <p>Tutorial credit goes to: <a href="https://youtube.com/@artwithflo?si=pyNUzWYFQDxi2I1n" target="_blank">ArtWithFlo on YouTube</a></p>
     <p>© 2025 Kayla’s Gallery. All rights reserved.</p>
   </footer>
 
-  <div id="modal" class="modal" onclick="closeModal()">
-    <span class="close">&times;</span>
-    <img class="modal-content" id="modal-img">
-    <div class="modal-caption" id="modal-caption"></div>
-  </div>
-
   <script>
-    function toggleNote() {
-      const panel = document.getElementById("notePanel");
-      panel.classList.toggle("open");
-    }
+    // Toggle nav menu on heart icon click
+    const navHeart = document.getElementById('nav-heart');
+    const navMenu = document.getElementById('nav-menu');
+    navHeart.addEventListener('click', () => {
+      navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+    });
 
-    function enlarge(img) {
-      const modal = document.getElementById("modal");
-      const modalImg = document.getElementById("modal-img");
-      const caption = document.getElementById("modal-caption");
+    // Close nav menu on link click
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.style.display = 'none';
+      });
+    });
 
-      modal.style.display = "block";
-      modalImg.src = img.src;
-      caption.textContent = img.alt;
-    }
+    // Modal image enlarge
+    const galleryImages = document.querySelectorAll('.gallery img');
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modal-img');
+    const modalClose = document.querySelector('#modal .close');
 
-    function closeModal() {
-      document.getElementById("modal").style.display = "none";
-    }
-  </script>
+    galleryImages.forEach(img => {
+      img.addEventListener('click', () => {
+        modal.style.display = 'block';
+        modalImg.src = img.src;
+        modalImg.alt = img.alt;
+      });
+    });
 
-</body>
-</html>
+    modalClose.addEventListener('click', () => {
+      modal.style.display = 'none';
+      modalImg.src = '';
+      modalImg.alt = '';
+    });
+
+    window.addEventListener('click', e => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+        modalImg.src = '';
+        modalImg.alt = '';
+      }
+    });
+
+    // Comments feature (simple, no backend)
+    const commentForm = document.getElementById('comment-form');
+    const commentList = document.getElementById('comment-list');
+
+    commentForm.addEventListener('submit',
