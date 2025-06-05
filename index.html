@@ -2,56 +2,47 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kayla's Art Gallery</title>
-  <link rel="stylesheet" href="styles.css" />
-
   <style>
     body {
-      margin: 0;
+      background: #2f2f3f;
+      color: #ddd;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #1e1e2f;
-      color: #f0f0f5;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
     }
 
     header {
-      text-align: center;
-      padding: 2rem 1rem;
+      background: #3a3a50;
+      padding: 1em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
     }
 
-    main {
-      padding: 2rem;
-      text-align: center;
+    #drawerToggle {
+      background: transparent;
+      border: none;
+      font-size: 1.8em;
+      color: #fff;
+      cursor: pointer;
     }
 
-    img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 0 0 12px #ff99ff;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.9rem;
-      color: #ccc;
-    }
-
-    /* Drawer styles */
     #drawer {
       position: fixed;
       top: 0;
-      left: -250px; /* hidden by default */
+      left: -250px;
       width: 250px;
       height: 100vh;
-      background: #222;
-      color: #eee;
-      padding: 2rem 1rem;
-      box-shadow: 2px 0 8px rgba(0,0,0,0.8);
+      background: #222233;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.7);
+      padding: 2em 1em;
+      box-sizing: border-box;
       transition: left 0.3s ease;
-      z-index: 110;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      z-index: 10000;
     }
 
     #drawer.open {
@@ -60,89 +51,197 @@
 
     #drawer nav a {
       display: block;
-      color: #eee;
+      color: #ccc;
       text-decoration: none;
-      margin: 1rem 0;
-      font-size: 1.25rem;
-      border-bottom: 1px solid #444;
-      padding-bottom: 0.4rem;
+      padding: 0.8em 0;
+      font-size: 1.1em;
     }
 
     #drawer nav a:hover {
-      color: #ff66cc;
-      border-color: #ff66cc;
+      color: #ff99cc;
     }
 
-    /* Drawer Toggle Button (Heart) */
-    #drawerToggle {
-      position: fixed;
-      top: 1rem;
-      left: 1rem;
-      background: #ff99ff;
-      border: none;
-      color: #ff3366;
-      font-size: 2.5rem;
-      padding: 0.2rem 0.6rem;
-      border-radius: 50%;
+    main {
+      padding: 1.5em;
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1em;
+      margin-top: 1em;
+      position: relative;
+    }
+
+    .gallery div {
+      position: relative;
       cursor: pointer;
-      z-index: 120;
-      box-shadow: 0 0 12px #ff6699;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #444;
+      background: #383849;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.3s ease;
+      border-radius: 12px;
+    }
+
+    .gallery div:hover img {
+      transform: scale(1.05);
+    }
+
+    .caption {
+      padding: 0.4em 0.6em;
+      font-size: 0.9em;
+      color: #aaa;
+      text-align: center;
+      background: rgba(0,0,0,0.3);
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.3) 2px, transparent 3px),
+                  radial-gradient(circle at 50% 50%, rgba(255,255,255,0.15) 1px, transparent 2px),
+                  radial-gradient(circle at 80% 80%, rgba(255,255,255,0.3) 2px, transparent 3px);
+      background-repeat: repeat;
+      background-size: 50px 50px;
+      animation: sparkleMove 10s linear infinite;
+      z-index: 5;
+      border-radius: 12px;
+    }
+
+    @keyframes sparkleMove {
+      from {
+        background-position: 0 0, 0 0, 0 0;
+      }
+      to {
+        background-position: 50px 50px, 50px 50px, 50px 50px;
+      }
+    }
+
+    /* Modal styles */
+    #modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+    }
+
+    #modal img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #fff;
+    }
+
+    #closeBtn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: white;
+      font-size: 3em;
+      font-weight: bold;
+      cursor: pointer;
       user-select: none;
     }
 
-    #drawerToggle:hover {
-      animation: pulse 1.5s infinite;
-      color: #ff0044;
-      box-shadow: 0 0 20px #ff6699;
-      transform: scale(1.2);
-    }
-
-    @keyframes pulse {
-      0%, 100% {
-        box-shadow: 0 0 12px #ff6699;
-        transform: scale(1.2);
-      }
-      50% {
-        box-shadow: 0 0 30px #ff3366;
-        transform: scale(1.4);
-      }
+    #closeBtn:hover {
+      color: #ffcccb;
     }
   </style>
 </head>
 <body>
+  <header>
+    <button id="drawerToggle" aria-label="Toggle navigation menu">&#9776;</button>
+    <h1>Kayla's Art Gallery</h1>
+  </header>
 
-  <!-- Heart Toggle Button -->
-  <button id="drawerToggle" aria-label="Open navigation menu">♥</button>
-
-  <!-- Drawer -->
-  <aside id="drawer" aria-label="Site navigation">
+  <aside id="drawer">
     <nav>
       <a href="index.html">Home</a>
       <a href="gallery.html">Gallery</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
-      <a href="notes.html">Notes</a>
+      <a href="notes.html">Visitor Notes</a>
     </nav>
   </aside>
 
-  <header>
-    <h1>Welcome to Kayla's Art</h1>
-    <p>Where dreams, sparkles, and cool tones meet.</p>
-  </header>
-
   <main>
-    <section>
-      <h2>Featured Piece</h2>
-      <img src="Art1.png" alt="Featured Art" />
-    </section>
+    <div class="gallery">
+      <div class="sparkle"></div>
+
+      <div>
+        <img src="Art1.png" alt="Art 1" onclick="openModal(this.src)" />
+        <p class="caption">Inspired by a tutorial from ArtWithFlo</p>
+      </div>
+      <div>
+        <img src="Art2.png" alt="Art 2" onclick="openModal(this.src)" />
+        <p class="caption">Based on a tutorial by ArtWithFlo</p>
+      </div>
+      <div>
+        <img src="Art3.png" alt="Art 3" onclick="openModal(this.src)" />
+      </div>
+      <div>
+        <img src="Art4.png" alt="Art 4" onclick="openModal(this.src)" />
+        <p class="caption">Based on a tutorial by ArtWithFlo</p>
+      </div>
+      <div>
+        <img src="Art5.png" alt="Art 5" onclick="openModal(this.src)" />
+        <p class="caption">Based on a tutorial by ArtWithFlo</p>
+      </div>
+      <div>
+        <img src="Art6.png" alt="Art 6" onclick="openModal(this.src)" />
+        <p class="caption">Based on a tutorial by ArtWithFlo</p>
+      </div>
+      <div>
+        <img src="Art7.png" alt="Art 7" onclick="openModal(this.src)" />
+        <p class="caption">Based on a tutorial by ArtWithFlo</p>
+      </div>
+      <div>
+        <img src="Art8.png" alt="Art 8" onclick="openModal(this.src)" />
+        <p class="caption">Inspired by a tutorial from ArtWithFlo</p>
+      </div>
+      <div>
+        <img src="Art9.png" alt="Art 9" onclick="openModal(this.src)" />
+        <p class="caption">Based on a tutorial by ArtWithFlo</p>
+      </div>
+    </div>
   </main>
 
-  <footer>
-    <p>© 2025 Kayla. All rights reserved.</p>
-  </footer>
+  <!-- Fullscreen Modal Viewer -->
+  <div id="modal" onclick="closeModal()">
+    <span id="closeBtn">&times;</span>
+    <img id="modalImg" />
+  </div>
 
   <script>
+    function openModal(src) {
+      document.getElementById("modalImg").src = src;
+      document.getElementById("modal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("modal").style.display = "none";
+    }
+
     const drawerToggle = document.getElementById('drawerToggle');
     const drawer = document.getElementById('drawer');
 
@@ -156,6 +255,5 @@
       }
     });
   </script>
-
 </body>
 </html>
