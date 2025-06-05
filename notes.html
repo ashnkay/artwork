@@ -2,14 +2,93 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Visitor Notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Visitor Notes - Kayla’s Art</title>
+  <link rel="stylesheet" href="style.css" />
   <style>
-    /* Drawer styles */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1e1e2f;
+      color: #f0f0f5;
+    }
+    header {
+      background: linear-gradient(135deg, #3a3a5a, #2a2a3a);
+      padding: 1.5rem;
+      text-align: center;
+      color: #ffccff;
+      text-shadow: 0 0 5px #ff99ff;
+    }
+    main {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #2a2a3a;
+      border-radius: 16px;
+      box-shadow: 0 0 12px #ff99ff;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 2rem;
+    }
+    label {
+      margin-top: 1rem;
+    }
+    input, textarea {
+      padding: 0.8rem;
+      border-radius: 8px;
+      border: none;
+      margin-top: 0.3rem;
+      font-size: 1rem;
+    }
+    button {
+      margin-top: 1.5rem;
+      padding: 0.9rem;
+      background-color: #ff66cc;
+      color: white;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 0 8px #ff99ff;
+    }
+    button:hover {
+      background-color: #ff33aa;
+      box-shadow: 0 0 16px #ff99ff;
+    }
+
+    .comment {
+      background: #444;
+      padding: 1rem;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .comment p {
+      margin: 0;
+    }
+
+    .delete-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: #ff3366;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 1rem;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
+
+    /* Drawer Styles */
     #drawer {
       position: fixed;
       top: 0;
-      left: -250px; /* hidden by default */
+      left: -250px;
       width: 250px;
       height: 100vh;
       background: #222;
@@ -18,7 +97,6 @@
       box-shadow: 2px 0 8px rgba(0,0,0,0.8);
       transition: left 0.3s ease;
       z-index: 110;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     #drawer.open {
@@ -40,7 +118,6 @@
       border-color: #ff66cc;
     }
 
-    /* Drawer Toggle Button (Heart) */
     #drawerToggle {
       position: fixed;
       top: 1rem;
@@ -54,9 +131,8 @@
       cursor: pointer;
       z-index: 120;
       box-shadow: 0 0 12px #ff6699;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      user-select: none;
     }
+
     #drawerToggle:hover {
       transform: scale(1.2);
       box-shadow: 0 0 20px #ff6699;
@@ -74,197 +150,79 @@
         transform: scale(1.4);
       }
     }
-
-    /* Page styles */
-    body {
-      background: #1e1e2f;
-      color: #f0f0f5;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-    header {
-      background: linear-gradient(135deg, #3a3a5a, #2a2a3a);
-      padding: 1rem;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
-      color: #ffccff;
-      text-shadow: 0 0 5px #ff99ff;
-    }
-    nav {
-      margin-top: 0.5rem;
-    }
-    nav a {
-      margin: 0 1rem;
-      color: #ffccff;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    nav a:hover {
-      text-decoration: underline;
-    }
-    main {
-      flex-grow: 1;
-      padding: 2rem;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    form {
-      background: #2a2a3a;
-      padding: 1.5rem;
-      border-radius: 15px;
-      box-shadow: 0 0 15px #ff99ff;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    label {
-      font-weight: bold;
-      color: #ffccff;
-    }
-    textarea {
-      padding: 0.6rem;
-      border-radius: 8px;
-      border: none;
-      outline: none;
-      font-size: 1rem;
-      resize: vertical;
-      background: #1e1e2f;
-      color: #f0f0f5;
-      box-shadow: inset 0 0 5px #ff99ff;
-      transition: box-shadow 0.3s;
-      min-height: 80px;
-    }
-    textarea:focus {
-      box-shadow: 0 0 10px #ffccff;
-    }
-    button {
-      background: #ff99ff;
-      border: none;
-      padding: 0.8rem;
-      font-weight: bold;
-      color: #1e1e2f;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: background 0.3s;
-      align-self: flex-start;
-    }
-    button:hover {
-      background: #ff77ff;
-    }
-    .notes-list {
-      margin-top: 2rem;
-      list-style: none;
-      padding: 0;
-      max-height: 300px;
-      overflow-y: auto;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #ff99ff;
-      background: #2a2a3a;
-    }
-    .notes-list li {
-      padding: 1rem;
-      border-bottom: 1px solid #ff99ff;
-      color: #f0f0f5;
-      font-style: italic;
-      white-space: pre-wrap;
-    }
-    .notes-list li:last-child {
-      border-bottom: none;
-    }
   </style>
 </head>
 <body>
 
-  <!-- Heart Toggle Button -->
+  <!-- Heart Button -->
   <button id="drawerToggle" aria-label="Open navigation menu">♥</button>
 
-  <!-- Drawer -->
+  <!-- Drawer Navigation -->
   <aside id="drawer" aria-label="Site navigation">
     <nav>
       <a href="index.html">Home</a>
       <a href="gallery.html">Gallery</a>
-      <a href="about.html">About Me</a>
+      <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
-      <a href="notes.html">Visitor Notes</a>
+      <a href="notes.html">Notes</a>
     </nav>
   </aside>
 
   <header>
-    <h1>Visitor Notes</h1>
-    <nav aria-label="Page navigation">
-      <a href="index.html">Home</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="about.html">About Me</a>
-      <a href="contact.html">Contact</a>
-      <a href="notes.html">Visitor Notes</a>
-    </nav>
+    <h1>Leave a Note</h1>
   </header>
 
   <main>
-    <form id="noteForm" novalidate>
-      <label for="noteInput">Leave a note:</label>
-      <textarea id="noteInput" name="note" placeholder="Write something nice..." required></textarea>
-      <button type="submit">Add Note</button>
+    <form id="commentForm">
+      <label for="note">Your Message:</label>
+      <textarea id="note" rows="4" required></textarea>
+      <button type="submit">Post</button>
     </form>
 
-    <ul class="notes-list" id="notesList"></ul>
+    <div id="commentsContainer"></div>
   </main>
 
   <script>
     const drawerToggle = document.getElementById('drawerToggle');
     const drawer = document.getElementById('drawer');
+    const commentForm = document.getElementById('commentForm');
+    const commentsContainer = document.getElementById('commentsContainer');
 
     drawerToggle.addEventListener('click', () => {
       drawer.classList.toggle('open');
     });
 
-    // Close drawer when clicking outside
     document.addEventListener('click', (e) => {
       if (!drawer.contains(e.target) && e.target !== drawerToggle) {
         drawer.classList.remove('open');
       }
     });
 
-    const noteForm = document.getElementById('noteForm');
-    const noteInput = document.getElementById('noteInput');
-    const notesList = document.getElementById('notesList');
-
-    let notes = JSON.parse(localStorage.getItem('visitorNotes')) || [];
-
-    function renderNotes() {
-      notesList.innerHTML = '';
-      notes.forEach((note) => {
-        const li = document.createElement('li');
-        li.textContent = note;
-        notesList.appendChild(li);
-      });
-    }
-
-    noteForm.addEventListener('submit', (e) => {
+    commentForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const newNote = noteInput.value.trim();
-      if (!newNote) {
-        alert('Please write something before submitting.');
-        return;
+      const noteText = document.getElementById('note').value;
+      if (noteText.trim()) {
+        addComment(noteText);
+        commentForm.reset();
       }
-      notes.push(newNote);
-      localStorage.setItem('visitorNotes', JSON.stringify(notes));
-      renderNotes();
-      noteInput.value = '';
     });
 
-    renderNotes();
-  </script>
+    function addComment(text) {
+      const comment = document.createElement('div');
+      comment.classList.add('comment');
 
+      const p = document.createElement('p');
+      p.textContent = text;
+
+      const btn = document.createElement('button');
+      btn.textContent = '✖';
+      btn.classList.add('delete-btn');
+      btn.onclick = () => comment.remove();
+
+      comment.appendChild(p);
+      comment.appendChild(btn);
+      commentsContainer.appendChild(comment);
+    }
+  </script>
 </body>
 </html>
