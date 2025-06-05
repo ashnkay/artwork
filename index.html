@@ -42,6 +42,12 @@
       box-shadow: 0 10px 30px rgba(100, 200, 255, 0.4);
     }
 
+    .gallery div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     .gallery img {
       width: 100%;
       height: auto;
@@ -52,6 +58,13 @@
       filter: drop-shadow(0 5px 5px rgba(100, 200, 255, 0.3));
       opacity: 0;
       animation: fadeInZoom 1s ease forwards;
+    }
+
+    .caption {
+      font-size: 0.9em;
+      color: #444;
+      font-style: italic;
+      margin-top: 8px;
     }
 
     .gallery img:nth-child(2) { animation-delay: 0.2s; }
@@ -142,21 +155,62 @@
 
   <div class="gallery">
     <div class="sparkle"></div>
-    <img src="Art1.png" alt="Art 1" />
-    <img src="Art2.png" alt="Art 2" />
-    <img src="Art3.png" alt="Art 3" />
-    <img src="Art4.png" alt="Art 4" />
-    <img src="Art5.png" alt="Art 5" />
-    <img src="Art6.png" alt="Art 6" />
-    <img src="Art7.png" alt="Art 7" />
-    <img src="Art8.png" alt="Art 8" />
-    <img src="Art9.png" alt="Art 9" />
+
+    <div>
+      <img src="Art1.png" alt="Art 1" />
+      <p class="caption">Inspired by a tutorial from ArtWithFlo</p>
+    </div>
+
+    <div>
+      <img src="Art2.png" alt="Art 2" />
+      <p class="caption">Based on a tutorial by ArtWithFlo</p>
+    </div>
+
+    <div>
+      <img src="Art3.png" alt="Art 3" />
+    </div>
+
+    <div>
+      <img src="Art4.png" alt="Art 4" />
+      <p class="caption">Based on a tutorial by ArtWithFlo</p>
+    </div>
+
+    <div>
+      <img src="Art5.png" alt="Art 5" />
+      <p class="caption">Based on a tutorial by ArtWithFlo</p>
+    </div>
+
+    <div>
+      <img src="Art6.png" alt="Art 6" />
+      <p class="caption">Based on a tutorial by ArtWithFlo</p>
+    </div>
+
+    <div>
+      <img src="Art7.png" alt="Art 7" />
+      <p class="caption">Based on a tutorial by ArtWithFlo</p>
+    </div>
+
+    <div>
+      <img src="Art8.png" alt="Art 8" />
+      <p class="caption">Inspired by a tutorial from ArtWithFlo</p>
+    </div>
+
+    <div>
+      <img src="Art9.png" alt="Art 9" />
+      <p class="caption">Based on a tutorial by ArtWithFlo</p>
+    </div>
   </div>
 
   <footer>
     <p>Let’s connect:</p>
     <p><a href="https://instagram.com/xkaylax_xoxo" target="_blank">@xkaylax_xoxo on Instagram</a></p>
     <p>© 2025 Kayla’s Gallery. All rights reserved.</p>
+    <p style="margin-top: 20px; font-size: 0.85em;">
+      Tutorial credit goes to:
+      <a href="https://youtube.com/@artwithflo?si=pyNUzWYFQDxi2I1n" target="_blank">
+        ArtWithFlo on YouTube
+      </a>
+    </p>
   </footer>
 
 </body>
