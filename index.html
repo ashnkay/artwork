@@ -2,201 +2,136 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kayla's Art Gallery</title>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
   <style>
     body {
+      background: #2f2f3f;
+      color: #ddd;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
-      font-family: 'Dancing Script', cursive;
-      background: #f0f8ff;
-      color: #333;
-      text-align: center;
+      padding: 0;
       overflow-x: hidden;
     }
 
     header {
-      background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
-      padding: 40px 20px;
-      color: white;
-      border-bottom: 5px solid #89cff0;
-      animation: fadeSlideDown 1s ease-in-out;
+      background: #3a3a50;
+      padding: 1em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
     }
 
-    header h1 {
-      font-size: 3em;
-      margin: 0;
-      text-shadow: 2px 2px 6px rgba(137, 207, 240, 0.7);
+    #drawerToggle {
+      background: transparent;
+      border: none;
+      font-size: 1.8em;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    #drawer {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100vh;
+      background: #222233;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.7);
+      padding: 2em 1em;
+      box-sizing: border-box;
+      transition: left 0.3s ease;
+      z-index: 10000;
+    }
+
+    #drawer.open {
+      left: 0;
+    }
+
+    #drawer nav a {
+      display: block;
+      color: #ccc;
+      text-decoration: none;
+      padding: 0.8em 0;
+      font-size: 1.1em;
+    }
+
+    #drawer nav a:hover {
+      color: #ff99cc;
+    }
+
+    main {
+      padding: 1.5em;
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
     }
 
     .gallery {
-      position: relative;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      padding: 40px 20px;
-      background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
-      border-radius: 20px;
-      max-width: 1200px;
-      margin: 40px auto;
-      box-shadow: 0 10px 30px rgba(100, 200, 255, 0.4);
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1em;
+      margin-top: 1em;
+      position: relative;
     }
 
     .gallery div {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #444;
+      background: #383849;
     }
 
     .gallery img {
       width: 100%;
       height: auto;
-      border-radius: 15px;
-      box-shadow: 0 8px 15px rgba(100, 200, 255, 0.6);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      cursor: pointer;
-      filter: drop-shadow(0 5px 5px rgba(100, 200, 255, 0.3));
-      opacity: 0;
-      animation: fadeInZoom 1s ease forwards;
+      display: block;
+      transition: transform 0.3s ease;
+      border-radius: 12px;
+    }
+
+    .gallery div:hover img {
+      transform: scale(1.05);
     }
 
     .caption {
+      padding: 0.4em 0.6em;
       font-size: 0.9em;
-      color: #444;
-      font-style: italic;
-      margin-top: 8px;
-    }
-
-    .gallery img:nth-child(2) { animation-delay: 0.2s; }
-    .gallery img:nth-child(3) { animation-delay: 0.4s; }
-    .gallery img:nth-child(4) { animation-delay: 0.6s; }
-    .gallery img:nth-child(5) { animation-delay: 0.8s; }
-    .gallery img:nth-child(6) { animation-delay: 1s; }
-    .gallery img:nth-child(7) { animation-delay: 1.2s; }
-    .gallery img:nth-child(8) { animation-delay: 1.4s; }
-    .gallery img:nth-child(9) { animation-delay: 1.6s; }
-    .gallery img:nth-child(10) { animation-delay: 1.8s; }
-
-    .gallery img:hover {
-      transform: scale(1.1) rotate(2deg);
-      box-shadow: 0 15px 25px rgba(100, 200, 255, 0.9);
-      filter: drop-shadow(0 8px 8px rgba(100, 200, 255, 0.6));
+      color: #aaa;
+      text-align: center;
+      background: rgba(0,0,0,0.3);
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
     }
 
     .sparkle {
       position: absolute;
-      top: 0;
-      left: 0;
       width: 100%;
       height: 100%;
       pointer-events: none;
-      background: url('https://www.transparenttextures.com/patterns/stardust.png');
-      animation: sparkleMove 30s linear infinite;
-      opacity: 0.2;
-      z-index: 1;
-    }
-
-    footer {
-      background: #e0f7ff;
-      padding: 30px 20px;
-      margin-top: 60px;
-      border-top: 3px solid #a1c4fd;
-    }
-
-    footer p {
-      margin: 10px 0;
-    }
-
-    a {
-      color: #5dade2;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    /* Animations */
-    @keyframes fadeInZoom {
-      0% {
-        opacity: 0;
-        transform: scale(0.8);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    @keyframes fadeSlideDown {
-      0% {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.3) 2px, transparent 3px),
+                  radial-gradient(circle at 50% 50%, rgba(255,255,255,0.15) 1px, transparent 2px),
+                  radial-gradient(circle at 80% 80%, rgba(255,255,255,0.3) 2px, transparent 3px);
+      background-repeat: repeat;
+      background-size: 50px 50px;
+      animation: sparkleMove 10s linear infinite;
+      z-index: 5;
+      border-radius: 12px;
     }
 
     @keyframes sparkleMove {
-      from { background-position: 0 0; }
-      to { background-position: 1000px 1000px; }
-    }
-  </style>
-</head>
-<body>
-
-  <header>
-    <h1>Kayla's Art Gallery</h1>
-    <p>Cool, calm, and totally ✨ magical ✨</p>
-  </header>
-
-  <div class="gallery">
-    <div class="sparkle"></div>
-
-    <div><img src="Art1.png" alt="Art 1" onclick="openModal(this.src)"/><p class="caption">Inspired by a tutorial from ArtWithFlo</p></div>
-    <div><img src="Art2.png" alt="Art 2" onclick="openModal(this.src)"/><p class="caption">Based on a tutorial by ArtWithFlo</p></div>
-    <div><img src="Art3.png" alt="Art 3" onclick="openModal(this.src)"/></div>
-    <div><img src="Art4.png" alt="Art 4" onclick="openModal(this.src)"/><p class="caption">Based on a tutorial by ArtWithFlo</p></div>
-    <div><img src="Art5.png" alt="Art 5" onclick="openModal(this.src)"/><p class="caption">Based on a tutorial by ArtWithFlo</p></div>
-    <div><img src="Art6.png" alt="Art 6" onclick="openModal(this.src)"/><p class="caption">Based on a tutorial by ArtWithFlo</p></div>
-    <div><img src="Art7.png" alt="Art 7" onclick="openModal(this.src)"/><p class="caption">Based on a tutorial by ArtWithFlo</p></div>
-    <div><img src="Art8.png" alt="Art 8" onclick="openModal(this.src)"/><p class="caption">Inspired by a tutorial from ArtWithFlo</p></div>
-    <div><img src="Art9.png" alt="Art 9" onclick="openModal(this.src)"/><p class="caption">Based on a tutorial by ArtWithFlo</p></div>
-  </div>
-
-  <footer>
-    <p>Let’s connect:</p>
-    <p><a href="https://instagram.com/xkaylax_xoxo" target="_blank">@xkaylax_xoxo on Instagram</a></p>
-    <p>© 2025 Kayla’s Gallery. All rights reserved.</p>
-    <p style="margin-top: 20px; font-size: 0.85em;">
-      Tutorial credit goes to:
-      <a href="https://youtube.com/@artwithflo?si=pyNUzWYFQDxi2I1n" target="_blank">
-        ArtWithFlo on YouTube
-      </a>
-    </p>
-  </footer>
-
-  <!-- Fullscreen Modal Viewer -->
-  <div id="modal" onclick="closeModal()">
-    <span id="closeBtn">&times;</span>
-    <img id="modalImg" />
-  </div>
-
-  <script>
-    function openModal(src) {
-      document.getElementById("modalImg").src = src;
-      document.getElementById("modal").style.display = "flex";
+      from {
+        background-position: 0 0, 0 0, 0 0;
+      }
+      to {
+        background-position: 50px 50px, 50px 50px, 50px 50px;
+      }
     }
 
-    function closeModal() {
-      document.getElementById("modal").style.display = "none";
-    }
-  </script>
-
-  <style>
+    /* Modal styles */
     #modal {
       display: none;
       position: fixed;
@@ -232,6 +167,93 @@
       color: #ffcccb;
     }
   </style>
+</head>
+<body>
+  <header>
+    <button id="drawerToggle" aria-label="Toggle navigation menu">&#9776;</button>
+    <h1>Kayla's Art Gallery</h1>
+  </header>
 
+  <aside id="drawer">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="notes.html">Visitor Notes</a>
+    </nav>
+  </aside>
+
+  <main>
+    <div class="gallery">
+      <div class="sparkle"></div>
+
+      <div>
+        <img src="Art1.png" alt="Art 1" onclick="openModal(this.src)" />
+        <p class="caption">Inspired by a tutorial from ArtWithFlo</p>
+      </div>
+      <div>
+        <img src="Art2.png" alt="Art 2" onclick="openModal(this.src)" />
+        <p class="caption">Based on a tutorial by ArtWithFlo</p>
+      </div>
+      <div>
+        <img src="Art3.png" alt="Art 3" onclick="openModal(this.src)" />
+      </div>
+      <div>
+        <img src="Art4.png" alt="Art 4" onclick="openModal(this.src)" />
+        <p class="caption">Based on a tutorial by ArtWithFlo</p>
+      </div>
+      <div>
+        <img src="Art5.png" alt="Art 5" onclick="openModal(this.src)" />
+        <p class="caption">Based on a tutorial by ArtWithFlo</p>
+      </div>
+      <div>
+        <img src="Art6.png" alt="Art 6" onclick="openModal(this.src)" />
+        <p class="caption">Based on a tutorial by ArtWithFlo</p>
+      </div>
+      <div>
+        <img src="Art7.png" alt="Art 7" onclick="openModal(this.src)" />
+        <p class="caption">Based on a tutorial by ArtWithFlo</p>
+      </div>
+      <div>
+        <img src="Art8.png" alt="Art 8" onclick="openModal(this.src)" />
+        <p class="caption">Inspired by a tutorial from ArtWithFlo</p>
+      </div>
+      <div>
+        <img src="Art9.png" alt="Art 9" onclick="openModal(this.src)" />
+        <p class="caption">Based on a tutorial by ArtWithFlo</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Fullscreen Modal Viewer -->
+  <div id="modal" onclick="closeModal()">
+    <span id="closeBtn">&times;</span>
+    <img id="modalImg" />
+  </div>
+
+  <script>
+    function openModal(src) {
+      document.getElementById("modalImg").src = src;
+      document.getElementById("modal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("modal").style.display = "none";
+    }
+
+    const drawerToggle = document.getElementById('drawerToggle');
+    const drawer = document.getElementById('drawer');
+
+    drawerToggle.addEventListener('click', () => {
+      drawer.classList.toggle('open');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!drawer.contains(e.target) && e.target !== drawerToggle) {
+        drawer.classList.remove('open');
+      }
+    });
+  </script>
 </body>
 </html>

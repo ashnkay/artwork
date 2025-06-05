@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Visitor Notes - Kayla’s Art</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1e1e2f;
+      color: #f0f0f5;
+    }
+    header {
+      background: linear-gradient(135deg, #3a3a5a, #2a2a3a);
+      padding: 1.5rem;
+      text-align: center;
+      color: #ffccff;
+      text-shadow: 0 0 5px #ff99ff;
+    }
+    main {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #2a2a3a;
+      border-radius: 16px;
+      box-shadow: 0 0 12px #ff99ff;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 2rem;
+    }
+    label {
+      margin-top: 1rem;
+    }
+    input, textarea {
+      padding: 0.8rem;
+      border-radius: 8px;
+      border: none;
+      margin-top: 0.3rem;
+      font-size: 1rem;
+    }
+    button {
+      margin-top: 1.5rem;
+      padding: 0.9rem;
+      background-color: #ff66cc;
+      color: white;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 0 8px #ff99ff;
+    }
+    button:hover {
+      background-color: #ff33aa;
+      box-shadow: 0 0 16px #ff99ff;
+    }
+
+    .comment {
+      background: #444;
+      padding: 1rem;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .comment p {
+      margin: 0;
+    }
+
+    .delete-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: #ff3366;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 1rem;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
+
+    /* Drawer Styles */
+    #drawer {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100vh;
+      background: #222;
+      color: #eee;
+      padding: 2rem 1rem;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.8);
+      transition: left 0.3s ease;
+      z-index: 110;
+    }
+
+    #drawer.open {
+      left: 0;
+    }
+
+    #drawer nav a {
+      display: block;
+      color: #eee;
+      text-decoration: none;
+      margin: 1rem 0;
+      font-size: 1.25rem;
+      border-bottom: 1px solid #444;
+      padding-bottom: 0.4rem;
+    }
+
+    #drawer nav a:hover {
+      color: #ff66cc;
+      border-color: #ff66cc;
+    }
+
+    #drawerToggle {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      background: #ff99ff;
+      border: none;
+      color: #ff3366;
+      font-size: 2.5rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 120;
+      box-shadow: 0 0 12px #ff6699;
+    }
+
+    #drawerToggle:hover {
+      transform: scale(1.2);
+      box-shadow: 0 0 20px #ff6699;
+      color: #ff0044;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 12px #ff6699;
+        transform: scale(1.2);
+      }
+      50% {
+        box-shadow: 0 0 30px #ff3366;
+        transform: scale(1.4);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Heart Button -->
+  <button id="drawerToggle" aria-label="Open navigation menu">♥</button>
+
+  <!-- Drawer Navigation -->
+  <aside id="drawer" aria-label="Site navigation">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="notes.html">Notes</a>
+    </nav>
+  </aside>
+
+  <header>
+    <h1>Leave a Note</h1>
+  </header>
+
+  <main>
+    <form id="commentForm">
+      <label for="note">Your Message:</label>
+      <textarea id="note" rows="4" required></textarea>
+      <button type="submit">Post</button>
+    </form>
+
+    <div id="commentsContainer"></div>
+  </main>
+
+  <script>
+    const drawerToggle = document.getElementById('drawerToggle');
+    const drawer = document.getElementById('drawer');
+    const commentForm = document.getElementById('commentForm');
+    const commentsContainer = document.getElementById('commentsContainer');
+
+    drawerToggle.addEventListener('click', () => {
+      drawer.classList.toggle('open');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!drawer.contains(e.target) && e.target !== drawerToggle) {
+        drawer.classList.remove('open');
+      }
+    });
+
+    commentForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const noteText = document.getElementById('note').value;
+      if (noteText.trim()) {
+        addComment(noteText);
+        commentForm.reset();
+      }
+    });
+
+    function addComment(text) {
+      const comment = document.createElement('div');
+      comment.classList.add('comment');
+
+      const p = document.createElement('p');
+      p.textContent = text;
+
+      const btn = document.createElement('button');
+      btn.textContent = '✖';
+      btn.classList.add('delete-btn');
+      btn.onclick = () => comment.remove();
+
+      comment.appendChild(p);
+      comment.appendChild(btn);
+      commentsContainer.appendChild(comment);
+    }
+  </script>
+</body>
+</html>
