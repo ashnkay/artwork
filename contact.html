@@ -5,10 +5,62 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Contact - Kayla’s Art</title>
   <link rel="stylesheet" href="style.css" />
-
-  <!-- NAVIGATION DRAWER & HEART BUTTON -->
   <style>
-    /* Drawer styles */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1e1e2f;
+      color: #f0f0f5;
+    }
+    header {
+      background: linear-gradient(135deg, #3a3a5a, #2a2a3a);
+      padding: 1.5rem;
+      text-align: center;
+      color: #ffccff;
+      text-shadow: 0 0 5px #ff99ff;
+    }
+    main {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #2a2a3a;
+      border-radius: 16px;
+      box-shadow: 0 0 12px #ff99ff;
+    }
+    h1, h2 {
+      color: #ffccff;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    input, textarea {
+      padding: 0.8rem;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+    }
+    button {
+      margin-top: 1.5rem;
+      padding: 0.9rem;
+      background-color: #ff66cc;
+      color: white;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 0 8px #ff99ff;
+    }
+    button:hover {
+      background-color: #ff33aa;
+      box-shadow: 0 0 16px #ff99ff;
+    }
+
+    /* Drawer Styles */
     #drawer {
       position: fixed;
       top: 0;
@@ -21,13 +73,10 @@
       box-shadow: 2px 0 8px rgba(0,0,0,0.8);
       transition: left 0.3s ease;
       z-index: 110;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-
     #drawer.open {
       left: 0;
     }
-
     #drawer nav a {
       display: block;
       color: #eee;
@@ -37,13 +86,12 @@
       border-bottom: 1px solid #444;
       padding-bottom: 0.4rem;
     }
-
     #drawer nav a:hover {
       color: #ff66cc;
       border-color: #ff66cc;
     }
 
-    /* Heart button */
+    /* Heart Button */
     #drawerToggle {
       position: fixed;
       top: 1rem;
@@ -58,9 +106,7 @@
       z-index: 120;
       box-shadow: 0 0 12px #ff6699;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      user-select: none;
     }
-
     #drawerToggle:hover {
       transform: scale(1.2);
       box-shadow: 0 0 20px #ff6699;
@@ -79,28 +125,12 @@
       }
     }
   </style>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const drawerToggle = document.getElementById("drawerToggle");
-      const drawer = document.getElementById("drawer");
-
-      drawerToggle.addEventListener("click", () => {
-        drawer.classList.toggle("open");
-      });
-
-      document.addEventListener("click", (e) => {
-        if (!drawer.contains(e.target) && e.target !== drawerToggle) {
-          drawer.classList.remove("open");
-        }
-      });
-    });
-  </script>
 </head>
-
 <body>
+  <!-- Heart Button -->
   <button id="drawerToggle" aria-label="Open navigation menu">♥</button>
 
+  <!-- Drawer Navigation -->
   <aside id="drawer" aria-label="Site navigation">
     <nav>
       <a href="index.html">Home</a>
@@ -111,25 +141,41 @@
     </nav>
   </aside>
 
+  <header>
+    <h1>Contact Me</h1>
+  </header>
+
   <main>
-    <section class="contact-section">
-      <h1>Contact Me</h1>
-      <p>If you’d like to reach out for commissions, questions, or just to say hi, fill out the form below 💌</p>
-      <form action="#" method="post">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required />
+    <h2>Say hello!</h2>
+    <p>If you want to leave a kind word, a request, or just vibes—send me a message below 💌</p>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required />
+    <form action="https://formspree.io/f/xblylpyb" method="POST">
+      <label for="name">Your Name:</label>
+      <input type="text" name="name" id="name" required />
 
-        <label for="message">Message:</label>
-        <textarea id="message" name="message" rows="5" required></textarea>
+      <label for="email">Your Email:</label>
+      <input type="email" name="email" id="email" required />
 
-        <button type="submit">Send Message</button>
-      </form>
-    </section>
+      <label for="message">Message:</label>
+      <textarea name="message" id="message" rows="6" required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
   </main>
 
-  <script src="script.js"></script>
+  <script>
+    const drawerToggle = document.getElementById('drawerToggle');
+    const drawer = document.getElementById('drawer');
+
+    drawerToggle.addEventListener('click', () => {
+      drawer.classList.toggle('open');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!drawer.contains(e.target) && e.target !== drawerToggle) {
+        drawer.classList.remove('open');
+      }
+    });
+  </script>
 </body>
 </html>
