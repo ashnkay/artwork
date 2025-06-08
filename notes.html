@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Visitor Notes</title>
+  <title>Kayla's Visitor Notes</title>
   <style>
     body {
       background: radial-gradient(circle at top left, #444 0%, #1a1a2a 100%);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #ddd;
-      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
+      padding: 0;
       overflow-x: hidden;
     }
     header {
@@ -22,7 +22,7 @@
       color: #fff;
       position: sticky;
       top: 0;
-      z-index: 10001;
+      z-index: 1000; /* Lower than drawer */
     }
     #drawerToggle {
       background: transparent;
@@ -32,7 +32,7 @@
       cursor: pointer;
     }
     #drawerToggle::before {
-      content: "\2764"; /* plain heart */
+      content: "\2764"; /* Plain heart */
     }
     #drawer {
       position: fixed;
@@ -45,7 +45,7 @@
       padding: 2em 1em;
       box-sizing: border-box;
       transition: left 0.3s ease;
-      z-index: 10000;
+      z-index: 1001; /* Higher than header */
     }
     #drawer.open {
       left: 0;
@@ -61,65 +61,65 @@
       color: #ff99cc;
     }
     main {
-      max-width: 800px;
-      margin: 2em auto;
-      padding: 0 1em 3em;
+      padding: 1.5em;
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
     }
-    h1 {
-      text-align: center;
+    form {
       margin-bottom: 1em;
     }
-    form textarea {
-      width: 100%;
-      height: 100px;
-      margin-bottom: 1em;
-      background: #222;
-      color: #fff;
-      border: 1px solid #555;
-      border-radius: 8px;
-      padding: 0.5em;
-      resize: vertical;
-      font-family: inherit;
-      font-size: 1rem;
-    }
-    button {
-      background: #ff99cc;
-      color: #000;
+    input[type="text"] {
+      width: 80%;
+      padding: 0.6em;
+      border-radius: 5px;
       border: none;
+      font-size: 1em;
+      margin-right: 0.5em;
+    }
+    button[type="submit"] {
       padding: 0.6em 1em;
-      border-radius: 6px;
+      font-size: 1em;
+      border: none;
+      border-radius: 5px;
+      background-color: #ff99cc;
+      color: #222;
       cursor: pointer;
-      font-weight: bold;
-      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+    button[type="submit"]:hover {
+      background-color: #ff66aa;
     }
     .note {
-      background: #2a2a3a;
+      background: rgba(255, 153, 204, 0.15);
+      margin-bottom: 1em;
       padding: 1em;
-      border-radius: 8px;
-      margin: 1em 0;
+      border-radius: 10px;
       position: relative;
-      word-wrap: break-word;
-      white-space: pre-wrap;
     }
     .note .meta {
-      font-size: 0.8em;
-      color: #999;
+      font-size: 0.75em;
+      color: #aaa;
       margin-top: 0.5em;
     }
-    .note button.delete {
+    .delete {
       position: absolute;
       top: 10px;
-      right: 10px;
+      right: 15px;
       background: transparent;
-      color: #ff6666;
       border: none;
-      font-size: 1.2em;
+      font-size: 1.5em;
+      color: #ff6666;
       cursor: pointer;
-      line-height: 1;
+      user-select: none;
+      transition: color 0.3s ease;
+    }
+    .delete:hover {
+      color: #ff0000;
     }
   </style>
 </head>
-<body class="homepage">
+<body>
   <header>
     <button id="drawerToggle" aria-label="Toggle navigation menu"></button>
     <h1>Visitor Notes</h1>
@@ -137,9 +137,10 @@
 
   <main>
     <form id="noteForm">
-      <textarea id="noteInput" placeholder="Leave a sweet note..." required></textarea>
-      <button type="submit">Post Note</button>
+      <input type="text" id="noteInput" placeholder="Leave your note here..." required />
+      <button type="submit">Post</button>
     </form>
+
     <div id="notesList"></div>
   </main>
 
@@ -162,7 +163,6 @@
     const db = getDatabase(app);
     const notesRef = ref(db, 'notes');
 
-    // Store user id in localStorage so it's persistent across sessions
     let userId = localStorage.getItem('visitorNotesUserId');
     if (!userId) {
       userId = crypto.randomUUID();
@@ -177,35 +177,46 @@
       e.preventDefault();
       const noteText = noteInput.value.trim();
       if (!noteText) return;
+      console.log('Submitting note:', noteText);
 
-      await push(notesRef, {
-        text: noteText,
-        createdAt: new Date().toISOString(),
-        userId
-      });
-
-      noteInput.value = '';
+      try {
+        await push(notesRef, {
+          text: noteText,
+          createdAt: new Date().toISOString(),
+          userId
+        });
+        console.log('Note posted successfully');
+        noteInput.value = '';
+      } catch (err) {
+        console.error('Error posting note:', err);
+      }
     });
 
     onValue(notesRef, (snapshot) => {
       notesList.innerHTML = '';
       const notes = snapshot.val();
       if (notes) {
-        Object.entries(notes).sort(([,a], [,b]) => new Date(b.createdAt) - new Date(a.createdAt)).forEach(([id, note]) => {
-          const noteDiv = document.createElement('div');
-          noteDiv.className = 'note';
-          noteDiv.innerHTML = `
-            <p>${escapeHtml(note.text)}</p>
-            <div class="meta">${new Date(note.createdAt).toLocaleString()}</div>
-            ${note.userId === userId ? `<button class="delete" data-id="${id}" title="Delete your note">&times;</button>` : ''}
-          `;
-          notesList.appendChild(noteDiv);
-        });
+        Object.entries(notes)
+          .sort(([,a], [,b]) => new Date(b.createdAt) - new Date(a.createdAt))
+          .forEach(([id, note]) => {
+            const noteDiv = document.createElement('div');
+            noteDiv.className = 'note';
+            noteDiv.innerHTML = `
+              <p>${escapeHtml(note.text)}</p>
+              <div class="meta">${new Date(note.createdAt).toLocaleString()}</div>
+              ${note.userId === userId ? `<button class="delete" data-id="${id}" title="Delete your note">&times;</button>` : ''}
+            `;
+            notesList.appendChild(noteDiv);
+          });
 
         document.querySelectorAll('.delete').forEach(btn => {
           btn.addEventListener('click', async () => {
             const noteId = btn.getAttribute('data-id');
-            await remove(ref(db, `notes/${noteId}`));
+            try {
+              await remove(ref(db, `notes/${noteId}`));
+            } catch (err) {
+              console.error('Error deleting note:', err);
+            }
           });
         });
       }
