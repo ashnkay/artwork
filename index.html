@@ -15,9 +15,8 @@
     }
 
     body.homepage {
-      background: radial-gradient(circle at top left, #444 0%, #1a1a2a 100%);
-      background-attachment: fixed;
-      background-size: cover;
+      /* Remove previous bg gradient for canvas */
+      background: none;
     }
 
     header {
@@ -27,6 +26,8 @@
       justify-content: space-between;
       align-items: center;
       color: #fff;
+      position: relative;
+      z-index: 10;
     }
 
     #drawerToggle {
@@ -35,6 +36,8 @@
       font-size: 1.8em;
       color: #fff;
       cursor: pointer;
+      position: relative;
+      z-index: 11;
     }
 
     #drawerToggle::before {
@@ -76,6 +79,8 @@
       max-width: 900px;
       margin: 0 auto;
       position: relative;
+      z-index: 10;
+      color: #ddd;
     }
 
     .caption {
@@ -122,6 +127,17 @@
     #closeBtn:hover {
       color: #ffcccb;
     }
+
+    /* Canvas full screen */
+    #darkForest {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none; /* Let clicks pass through */
+    }
   </style>
 </head>
 <body class="homepage">
@@ -129,6 +145,8 @@
     <button id="drawerToggle" aria-label="Toggle navigation menu"></button>
     <h1>Kayla's Art Gallery</h1>
   </header>
+
+  <canvas id="darkForest"></canvas>
 
   <aside id="drawer">
     <nav>
@@ -151,15 +169,7 @@
   </div>
 
   <script>
-    function openModal(src) {
-      document.getElementById("modalImg").src = src;
-      document.getElementById("modal").style.display = "flex";
-    }
-
-    function closeModal() {
-      document.getElementById("modal").style.display = "none";
-    }
-
+    // Drawer toggle logic
     const drawerToggle = document.getElementById('drawerToggle');
     const drawer = document.getElementById('drawer');
 
@@ -173,6 +183,99 @@
         drawer.classList.remove('open');
       }
     });
+
+    function openModal(src) {
+      document.getElementById("modalImg").src = src;
+      document.getElementById("modal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("modal").style.display = "none";
+    }
+
+    // Canvas dark forest with glowing red eyes and claws
+
+    const canvas = document.getElementById('darkForest');
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const eyesCount = 10;
+    const eyes = [];
+    const claws = [];
+
+    function randomRange(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    // Initialize eyes and claws positions
+    for(let i=0; i<eyesCount; i++) {
+      eyes.push({
+        x: randomRange(0, canvas.width),
+        y: randomRange(canvas.height * 0.3, canvas.height * 0.8),
+        radius: randomRange(5, 10),
+        glow: 0,
+        glowDir: 1
+      });
+      claws.push({
+        x: eyes[i].x + randomRange(-20, 20),
+        y: eyes[i].y + randomRange(10, 30),
+        length: randomRange(15, 30),
+        glow: 0,
+        glowDir: 1
+      });
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Dark misty forest background
+      const gradient = ctx.createRadialGradient(canvas.width/2, canvas.height/2, canvas.width*0.1, canvas.width/2, canvas.height/2, canvas.width*0.8);
+      gradient.addColorStop(0, '#1a1a2a');
+      gradient.addColorStop(1, '#000000');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Draw glowing eyes
+      eyes.forEach(eye => {
+        eye.glow += 0.05 * eye.glowDir;
+        if(eye.glow >= 1 || eye.glow <= 0) eye.glowDir *= -1;
+
+        ctx.beginPath();
+        ctx.arc(eye.x, eye.y, eye.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 0, 0, ${0.4 + 0.6 * eye.glow})`;
+        ctx.shadowColor = `rgba(255, 0, 0, ${eye.glow})`;
+        ctx.shadowBlur = 15 * eye.glow;
+        ctx.fill();
+      });
+
+      // Draw red claws below eyes
+      claws.forEach(claw => {
+        claw.glow += 0.04 * claw.glowDir;
+        if(claw.glow >= 1 || claw.glow <= 0) claw.glowDir *= -1;
+
+        ctx.strokeStyle = `rgba(255, 0, 0, ${0.3 + 0.7 * claw.glow})`;
+        ctx.shadowColor = `rgba(255, 0, 0, ${claw.glow})`;
+        ctx.shadowBlur = 10 * claw.glow;
+        ctx.lineWidth = 3;
+
+        ctx.beginPath();
+        ctx.moveTo(claw.x, claw.y);
+        ctx.lineTo(claw.x + claw.length / 2, claw.y + claw.length);
+        ctx.moveTo(claw.x + claw.length / 2, claw.y);
+        ctx.lineTo(claw.x, claw.y + claw.length);
+        ctx.stroke();
+      });
+
+      requestAnimationFrame(draw);
+    }
+
+    draw();
   </script>
 </body>
 </html>
