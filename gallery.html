@@ -96,10 +96,12 @@
       transform: scale(1.03);
     }
 
-    .gallery-item img {
+    .gallery-item img,
+    .gallery-item video {
       width: 100%;
       border-radius: 10px;
       cursor: pointer;
+      display: block;
     }
 
     .caption {
@@ -122,11 +124,16 @@
       align-items: center;
     }
 
-    #modal img {
+    #modal img,
+    #modal video {
       max-width: 90vw;
       max-height: 90vh;
       border-radius: 10px;
       box-shadow: 0 0 20px #fff;
+    }
+
+    #modal video {
+      outline: none;
     }
 
     #closeBtn {
@@ -138,6 +145,7 @@
       font-weight: bold;
       cursor: pointer;
       user-select: none;
+      z-index: 10001;
     }
 
     #closeBtn:hover {
@@ -172,17 +180,26 @@
         <img src="Art2.png" alt="Art 2" onclick="openModal(this.src)" />
         <div class="caption">"Art 2" – Dreamy vibes</div>
       </div>
-     <div class="gallery-item">
-  <img src="Art3a.png" alt="Art 3" onclick="openModal(this.src)" />
-  <div class="caption">"Art 3" – A touch of fantasy</div>
+      <div class="gallery-item">
+        <img src="Art3.png" alt="Art 3" onclick="openModal(this.src)" />
+        <div class="caption">"Art 3" – A touch of fantasy</div>
       </div>
       <div class="gallery-item">
         <img src="Art4.png" alt="Art 4" onclick="openModal(this.src)" />
         <div class="caption">"Art 4" – Power and softness</div>
       </div>
       <div class="gallery-item">
-        <img src="Art5.png" alt="Art 5" onclick="openModal(this.src)" />
-        <div class="caption">"Art 5" – Mystic energy</div>
+        <video 
+          autoplay 
+          loop 
+          muted 
+          playsinline 
+          onclick="openModalVideo(this)"
+          >
+          <source src="animatedArt5a.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div class="caption">"Art 5" – Mystic energy (animated)</div>
       </div>
       <div class="gallery-item">
         <img src="Art6.png" alt="Art 6" onclick="openModal(this.src)" />
@@ -202,14 +219,15 @@
       </div>
       <div class="gallery-item">
         <img src="Art10.png" alt="Art 10" onclick="openModal(this.src)" />
-        <div class="caption">"Art 10" – New horizons</div>
+        <div class="caption">"Art 10" – Final bloom 2</div>
       </div>
     </div>
   </main>
 
   <div id="modal" onclick="closeModal()">
-    <span id="closeBtn">&times;</span>
-    <img id="modalImg" />
+    <span id="closeBtn" onclick="closeModal(event)">&times;</span>
+    <img id="modalImg" style="display:none;" />
+    <video id="modalVideo" style="display:none;" controls autoplay></video>
   </div>
 
   <script>
@@ -228,12 +246,39 @@
     });
 
     function openModal(src) {
-      document.getElementById("modalImg").src = src;
-      document.getElementById("modal").style.display = "flex";
+      const modal = document.getElementById("modal");
+      const modalImg = document.getElementById("modalImg");
+      const modalVideo = document.getElementById("modalVideo");
+
+      modal.style.display = "flex";
+      modalImg.style.display = "block";
+      modalVideo.style.display = "none";
+      modalVideo.pause();
+
+      modalImg.src = src;
     }
 
-    function closeModal() {
-      document.getElementById("modal").style.display = "none";
+    function openModalVideo(videoElement) {
+      const modal = document.getElementById("modal");
+      const modalImg = document.getElementById("modalImg");
+      const modalVideo = document.getElementById("modalVideo");
+
+      modal.style.display = "flex";
+      modalImg.style.display = "none";
+
+      modalVideo.style.display = "block";
+      modalVideo.src = videoElement.querySelector('source').src;
+      modalVideo.play();
+    }
+
+    function closeModal(event) {
+      if(event) event.stopPropagation();
+      const modal = document.getElementById("modal");
+      const modalVideo = document.getElementById("modalVideo");
+
+      modal.style.display = "none";
+      modalVideo.pause();
+      modalVideo.src = "";
     }
   </script>
 </body>
