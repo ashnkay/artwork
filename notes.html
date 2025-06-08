@@ -2,233 +2,131 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kayla's Art Gallery - Visitor Notes</title>
-  <!-- Google Fonts: Poppins -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visitor Notes</title>
   <style>
     body {
-      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: radial-gradient(circle at top left, #444 0%, #1a1a2a 100%);
-      background-attachment: fixed;
-      background-size: cover;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #ddd;
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;
+      padding: 2em;
+      max-width: 800px;
+      margin: auto;
     }
-
-    header {
-      background: #3a3a50;
-      padding: 1em;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    h1 { text-align: center; }
+    form textarea {
+      width: 100%;
+      height: 100px;
+      margin-bottom: 1em;
+      background: #222;
       color: #fff;
-    }
-
-    #drawerToggle {
-      background: transparent;
-      border: none;
-      font-size: 1.8em;
-      color: #fff;
-      cursor: pointer;
-    }
-
-    #drawerToggle::before {
-      content: "\2764"; /* plain heart */
-    }
-
-    #drawer {
-      position: fixed;
-      top: 0;
-      left: -250px;
-      width: 250px;
-      height: 100vh;
-      background: #222233;
-      box-shadow: 2px 0 5px rgba(0,0,0,0.7);
-      padding: 2em 1em;
-      box-sizing: border-box;
-      transition: left 0.3s ease;
-      z-index: 10000;
-    }
-
-    #drawer.open {
-      left: 0;
-    }
-
-    #drawer nav a {
-      display: block;
-      color: #ccc;
-      text-decoration: none;
-      padding: 0.8em 0;
-      font-size: 1.1em;
-    }
-
-    #drawer nav a:hover {
-      color: #ff99cc;
-    }
-
-    main {
-      padding: 1.5em;
-      max-width: 900px;
-      margin: 0 auto;
-      position: relative;
-    }
-
-    h2 {
-      margin-bottom: 0.5em;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1em;
-      background: rgba(0, 0, 0, 0.3);
-      padding: 1.5em;
-      border-radius: 10px;
-      color: #ddd;
-      margin-bottom: 2em;
-    }
-
-    label {
-      font-weight: 600;
-      margin-bottom: 0.3em;
-    }
-
-    input, textarea {
-      padding: 0.6em;
-      border: none;
-      border-radius: 6px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 1em;
+      border: 1px solid #555;
+      border-radius: 8px;
+      padding: 0.5em;
       resize: vertical;
     }
-
-    input[type="submit"] {
+    button {
       background: #ff99cc;
-      color: #222;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.3s ease;
+      color: #000;
       border: none;
+      padding: 0.6em 1em;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
     }
-
-    input[type="submit"]:hover {
-      background: #ff66aa;
-      color: #fff;
-    }
-
-    #notesList {
-      background: rgba(0, 0, 0, 0.3);
-      padding: 1em;
-      border-radius: 10px;
-      max-height: 400px;
-      overflow-y: auto;
-      color: #ccc;
-    }
-
     .note {
-      border-bottom: 1px solid #555;
-      padding: 0.8em 0;
+      background: #2a2a3a;
+      padding: 1em;
+      border-radius: 8px;
+      margin: 1em 0;
+      position: relative;
     }
-
-    .note:last-child {
-      border-bottom: none;
+    .note .meta {
+      font-size: 0.8em;
+      color: #999;
     }
-
-    .note strong {
-      color: #ff99cc;
+    .note button.delete {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: transparent;
+      color: #ff6666;
+      border: none;
+      font-size: 1.2em;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <header>
-    <button id="drawerToggle" aria-label="Toggle navigation menu"></button>
-    <h1>Kayla's Art Gallery - Visitor Notes</h1>
-  </header>
+  <h1>Visitor Notes</h1>
+  <form id="noteForm">
+    <textarea id="noteInput" placeholder="Leave a sweet note..." required></textarea>
+    <button type="submit">Post Note</button>
+  </form>
+  <div id="notesList"></div>
 
-  <aside id="drawer">
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="notes.html">Visitor Notes</a>
-    </nav>
-  </aside>
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-  <main>
-    <h2>Leave a Note</h2>
-    <form id="noteForm">
-      <label for="visitorName">Name</label>
-      <input type="text" id="visitorName" name="visitorName" placeholder="Your name" required />
+    const firebaseConfig = {
+      apiKey: "AIzaSyB6fXcN5oF0a9dFdqZAfnhPu3Jr24uWoic",
+      authDomain: "kaylasartcomments.firebaseapp.com",
+      databaseURL: "https://kaylasartcomments-default-rtdb.firebaseio.com",
+      projectId: "kaylasartcomments",
+      storageBucket: "kaylasartcomments.firebasestorage.app",
+      messagingSenderId: "591454461493",
+      appId: "1:591454461493:web:4aa69c08127a8988555b7c",
+      measurementId: "G-KM52V6M1SE"
+    };
 
-      <label for="visitorNote">Note</label>
-      <textarea id="visitorNote" name="visitorNote" rows="4" placeholder="Write your note here..." required></textarea>
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const notesRef = ref(db, 'notes');
 
-      <input type="submit" value="Add Note" />
-    </form>
+    const userId = crypto.randomUUID();
 
-    <div id="notesList">
-      <!-- Notes will appear here -->
-    </div>
-  </main>
-
-  <script>
-    const drawerToggle = document.getElementById('drawerToggle');
-    const drawer = document.getElementById('drawer');
-
-    drawerToggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      drawer.classList.toggle('open');
-    });
-
-    document.addEventListener('click', (e) => {
-      if (!drawer.contains(e.target) && e.target !== drawerToggle) {
-        drawer.classList.remove('open');
-      }
-    });
-
-    // Simple client-side notes storage in localStorage
-    const noteForm = document.getElementById('noteForm');
+    const form = document.getElementById('noteForm');
+    const noteInput = document.getElementById('noteInput');
     const notesList = document.getElementById('notesList');
 
-    function renderNotes() {
-      const notes = JSON.parse(localStorage.getItem('visitorNotes') || '[]');
-      notesList.innerHTML = '';
-      if (notes.length === 0) {
-        notesList.innerHTML = '<p>No notes yet. Be the first to leave one!</p>';
-        return;
-      }
-      notes.forEach(({ name, note }, idx) => {
-        const div = document.createElement('div');
-        div.classList.add('note');
-        div.innerHTML = `<strong>${sanitize(name)}:</strong> ${sanitize(note)}`;
-        notesList.appendChild(div);
-      });
-    }
-
-    function sanitize(str) {
-      const temp = document.createElement('div');
-      temp.textContent = str;
-      return temp.innerHTML;
-    }
-
-    noteForm.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const name = noteForm.visitorName.value.trim();
-      const note = noteForm.visitorNote.value.trim();
-      if (!name || !note) return;
-
-      const notes = JSON.parse(localStorage.getItem('visitorNotes') || '[]');
-      notes.push({ name, note });
-      localStorage.setItem('visitorNotes', JSON.stringify(notes));
-      noteForm.reset();
-      renderNotes();
+      const noteText = noteInput.value.trim();
+      if (noteText) {
+        await push(notesRef, {
+          text: noteText,
+          createdAt: new Date().toISOString(),
+          userId
+        });
+        noteInput.value = '';
+      }
     });
 
-    renderNotes();
+    onValue(notesRef, (snapshot) => {
+      notesList.innerHTML = '';
+      const notes = snapshot.val();
+      if (notes) {
+        Object.entries(notes).reverse().forEach(([id, note]) => {
+          const noteDiv = document.createElement('div');
+          noteDiv.className = 'note';
+          noteDiv.innerHTML = `
+            <p>${note.text}</p>
+            <div class="meta">${new Date(note.createdAt).toLocaleString()}</div>
+            ${note.userId === userId ? `<button class="delete" data-id="${id}">&times;</button>` : ''}
+          `;
+          notesList.appendChild(noteDiv);
+        });
+
+        document.querySelectorAll('.delete').forEach(btn => {
+          btn.addEventListener('click', async () => {
+            const noteId = btn.getAttribute('data-id');
+            await remove(ref(db, `notes/${noteId}`));
+          });
+        });
+      }
+    });
   </script>
 </body>
 </html>
