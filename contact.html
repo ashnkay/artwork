@@ -2,164 +2,152 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contact - Kayla’s Art</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kayla's Art Gallery - Contact</title>
+  <!-- Google Fonts: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
   <style>
     body {
+      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle at top left, #444 0%, #1a1a2a 100%);
+      background-attachment: fixed;
+      background-size: cover;
+      color: #ddd;
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #1e1e2f;
-      color: #f0f0f5;
-    }
-    header {
-      background: linear-gradient(135deg, #3a3a5a, #2a2a3a);
-      padding: 1.5rem;
-      text-align: center;
-      color: #ffccff;
-      text-shadow: 0 0 5px #ff99ff;
-    }
-    main {
-      max-width: 600px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background: #2a2a3a;
-      border-radius: 16px;
-      box-shadow: 0 0 12px #ff99ff;
-    }
-    h1, h2 {
-      color: #ffccff;
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-    }
-    label {
-      margin-top: 1rem;
-      margin-bottom: 0.5rem;
-    }
-    input, textarea {
-      padding: 0.8rem;
-      border-radius: 8px;
-      border: none;
-      font-size: 1rem;
-    }
-    button {
-      margin-top: 1.5rem;
-      padding: 0.9rem;
-      background-color: #ff66cc;
-      color: white;
-      font-size: 1.1rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      box-shadow: 0 0 8px #ff99ff;
-    }
-    button:hover {
-      background-color: #ff33aa;
-      box-shadow: 0 0 16px #ff99ff;
+      padding: 0;
+      overflow-x: hidden;
     }
 
-    /* Drawer Styles */
+    header {
+      background: #3a3a50;
+      padding: 1em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
+    }
+
+    #drawerToggle {
+      background: transparent;
+      border: none;
+      font-size: 1.8em;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    #drawerToggle::before {
+      content: "\2764"; /* plain heart */
+    }
+
     #drawer {
       position: fixed;
       top: 0;
       left: -250px;
       width: 250px;
       height: 100vh;
-      background: #222;
-      color: #eee;
-      padding: 2rem 1rem;
-      box-shadow: 2px 0 8px rgba(0,0,0,0.8);
+      background: #222233;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.7);
+      padding: 2em 1em;
+      box-sizing: border-box;
       transition: left 0.3s ease;
-      z-index: 110;
+      z-index: 10000;
     }
+
     #drawer.open {
       left: 0;
     }
+
     #drawer nav a {
       display: block;
-      color: #eee;
+      color: #ccc;
       text-decoration: none;
-      margin: 1rem 0;
-      font-size: 1.25rem;
-      border-bottom: 1px solid #444;
-      padding-bottom: 0.4rem;
+      padding: 0.8em 0;
+      font-size: 1.1em;
     }
+
     #drawer nav a:hover {
-      color: #ff66cc;
-      border-color: #ff66cc;
+      color: #ff99cc;
     }
 
-    /* Heart Button */
-    #drawerToggle {
-      position: fixed;
-      top: 1rem;
-      left: 1rem;
-      background: #ff99ff;
+    main {
+      padding: 1.5em;
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    h2 {
+      margin-bottom: 0.5em;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 1.5em;
+      border-radius: 10px;
+      color: #ddd;
+    }
+
+    label {
+      font-weight: 600;
+      margin-bottom: 0.3em;
+    }
+
+    input, textarea {
+      padding: 0.6em;
       border: none;
-      color: #ff3366;
-      font-size: 2.5rem;
-      padding: 0.2rem 0.6rem;
-      border-radius: 50%;
-      cursor: pointer;
-      z-index: 120;
-      box-shadow: 0 0 12px #ff6699;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    #drawerToggle:hover {
-      transform: scale(1.2);
-      box-shadow: 0 0 20px #ff6699;
-      color: #ff0044;
-      animation: pulse 1.5s infinite;
+      border-radius: 6px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1em;
+      resize: vertical;
     }
 
-    @keyframes pulse {
-      0%, 100% {
-        box-shadow: 0 0 12px #ff6699;
-        transform: scale(1.2);
-      }
-      50% {
-        box-shadow: 0 0 30px #ff3366;
-        transform: scale(1.4);
-      }
+    input[type="submit"] {
+      background: #ff99cc;
+      color: #222;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      border: none;
+    }
+
+    input[type="submit"]:hover {
+      background: #ff66aa;
+      color: #fff;
     }
   </style>
 </head>
 <body>
-  <!-- Heart Button -->
-  <button id="drawerToggle" aria-label="Open navigation menu">♥</button>
+  <header>
+    <button id="drawerToggle" aria-label="Toggle navigation menu"></button>
+    <h1>Kayla's Art Gallery - Contact</h1>
+  </header>
 
-  <!-- Drawer Navigation -->
-  <aside id="drawer" aria-label="Site navigation">
+  <aside id="drawer">
     <nav>
       <a href="index.html">Home</a>
       <a href="gallery.html">Gallery</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
-      <a href="notes.html">Notes</a>
+      <a href="notes.html">Visitor Notes</a>
     </nav>
   </aside>
 
-  <header>
-    <h1>Contact Me</h1>
-  </header>
-
   <main>
-    <h2>Say hello!</h2>
-    <p>If you want to leave a kind word, a request, or just vibes—send me a message below 💌</p>
+    <h2>Contact Me</h2>
+    <form action="https://formspree.io/f/yourformid" method="POST">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Your name" required />
 
-    <form action="https://formspree.io/f/xblylpyb" method="POST">
-      <label for="name">Your Name:</label>
-      <input type="text" name="name" id="name" required />
+      <label for="email">Email</label>
+      <input type="email" id="email" name="_replyto" placeholder="Your email" required />
 
-      <label for="email">Your Email:</label>
-      <input type="email" name="email" id="email" required />
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
 
-      <label for="message">Message:</label>
-      <textarea name="message" id="message" rows="6" required></textarea>
-
-      <button type="submit">Send Message</button>
+      <input type="submit" value="Send Message" />
     </form>
   </main>
 
@@ -167,7 +155,8 @@
     const drawerToggle = document.getElementById('drawerToggle');
     const drawer = document.getElementById('drawer');
 
-    drawerToggle.addEventListener('click', () => {
+    drawerToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
       drawer.classList.toggle('open');
     });
 
