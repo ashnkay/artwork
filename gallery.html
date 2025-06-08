@@ -4,11 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kayla's Art Gallery - Gallery</title>
-  <!-- Google Fonts: Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
   <style>
     body {
-      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Poppins', sans-serif;
       background: radial-gradient(circle at top left, #444 0%, #1a1a2a 100%);
       background-attachment: fixed;
       background-size: cover;
@@ -70,45 +69,43 @@
     }
 
     main {
-      padding: 1.5em;
-      max-width: 900px;
+      padding: 2em 1.5em;
+      max-width: 1000px;
       margin: 0 auto;
-      position: relative;
     }
 
-    .gallery-grid {
+    h2 {
+      margin-bottom: 1em;
+    }
+
+    .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 1.5em;
-      margin-top: 1em;
     }
 
     .gallery-item {
-      cursor: pointer;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 0 10px rgba(255, 153, 204, 0.3);
+      background: rgba(0,0,0,0.2);
+      padding: 1em;
+      border-radius: 10px;
+      text-align: center;
       transition: transform 0.3s ease;
     }
 
     .gallery-item:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px #ff99cc;
+      transform: scale(1.03);
     }
 
     .gallery-item img {
       width: 100%;
-      display: block;
-      border-radius: 8px;
+      border-radius: 10px;
+      cursor: pointer;
     }
 
     .caption {
-      padding: 0.4em 0.6em;
-      font-size: 0.9em;
+      margin-top: 0.6em;
+      font-size: 0.95em;
       color: #aaa;
-      text-align: center;
-      background: rgba(0,0,0,0.3);
-      border-radius: 0 0 8px 8px;
     }
 
     /* Modal styles */
@@ -120,7 +117,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.85);
       justify-content: center;
       align-items: center;
     }
@@ -165,21 +162,44 @@
   </aside>
 
   <main>
-    <div class="gallery-grid">
-      <!-- Replace these with your actual images -->
-      <div class="gallery-item" onclick="openModal('images/art1.jpg')">
-        <img src="images/art1_thumb.jpg" alt="Artwork 1" />
-        <div class="caption">Artwork Title 1</div>
+    <h2>Gallery</h2>
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="Art1.png" alt="Art 1" onclick="openModal(this.src)" />
+        <div class="caption">"Art 1" – Digital magic</div>
       </div>
-      <div class="gallery-item" onclick="openModal('images/art2.jpg')">
-        <img src="images/art2_thumb.jpg" alt="Artwork 2" />
-        <div class="caption">Artwork Title 2</div>
+      <div class="gallery-item">
+        <img src="Art2.png" alt="Art 2" onclick="openModal(this.src)" />
+        <div class="caption">"Art 2" – Dreamy vibes</div>
       </div>
-      <div class="gallery-item" onclick="openModal('images/art3.jpg')">
-        <img src="images/art3_thumb.jpg" alt="Artwork 3" />
-        <div class="caption">Artwork Title 3</div>
+      <div class="gallery-item">
+        <img src="Art3.png" alt="Art 3" onclick="openModal(this.src)" />
+        <div class="caption">"Art 3" – A touch of fantasy</div>
       </div>
-      <!-- Add more gallery items as needed -->
+      <div class="gallery-item">
+        <img src="Art4.png" alt="Art 4" onclick="openModal(this.src)" />
+        <div class="caption">"Art 4" – Power and softness</div>
+      </div>
+      <div class="gallery-item">
+        <img src="Art5.png" alt="Art 5" onclick="openModal(this.src)" />
+        <div class="caption">"Art 5" – Mystic energy</div>
+      </div>
+      <div class="gallery-item">
+        <img src="Art6.png" alt="Art 6" onclick="openModal(this.src)" />
+        <div class="caption">"Art 6" – Soft glow moment</div>
+      </div>
+      <div class="gallery-item">
+        <img src="Art7.png" alt="Art 7" onclick="openModal(this.src)" />
+        <div class="caption">"Art 7" – Ethereal mood</div>
+      </div>
+      <div class="gallery-item">
+        <img src="Art8.png" alt="Art 8" onclick="openModal(this.src)" />
+        <div class="caption">"Art 8" – Night spirit</div>
+      </div>
+      <div class="gallery-item">
+        <img src="Art9.png" alt="Art 9" onclick="openModal(this.src)" />
+        <div class="caption">"Art 9" – Final bloom</div>
+      </div>
     </div>
   </main>
 
@@ -189,15 +209,6 @@
   </div>
 
   <script>
-    function openModal(src) {
-      document.getElementById("modalImg").src = src;
-      document.getElementById("modal").style.display = "flex";
-    }
-
-    function closeModal() {
-      document.getElementById("modal").style.display = "none";
-    }
-
     const drawerToggle = document.getElementById('drawerToggle');
     const drawer = document.getElementById('drawer');
 
@@ -211,6 +222,15 @@
         drawer.classList.remove('open');
       }
     });
+
+    function openModal(src) {
+      document.getElementById("modalImg").src = src;
+      document.getElementById("modal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("modal").style.display = "none";
+    }
   </script>
 </body>
 </html>
