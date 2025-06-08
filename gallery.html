@@ -3,12 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kayla's Art Gallery</title>
+  <title>Kayla's Art Gallery - Gallery</title>
+  <!-- Google Fonts: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
   <style>
     body {
-      background: #2f2f3f;
+      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle at top left, #444 0%, #1a1a2a 100%);
+      background-attachment: fixed;
+      background-size: cover;
       color: #ddd;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
       padding: 0;
       overflow-x: hidden;
@@ -29,6 +33,10 @@
       font-size: 1.8em;
       color: #fff;
       cursor: pointer;
+    }
+
+    #drawerToggle::before {
+      content: "\2764"; /* plain heart */
     }
 
     #drawer {
@@ -68,33 +76,30 @@
       position: relative;
     }
 
-    .gallery {
+    .gallery-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1em;
+      gap: 1.5em;
       margin-top: 1em;
-      position: relative;
     }
 
-    .gallery div {
-      position: relative;
+    .gallery-item {
       cursor: pointer;
+      border-radius: 8px;
       overflow: hidden;
-      border-radius: 12px;
-      box-shadow: 0 0 10px #444;
-      background: #383849;
-    }
-
-    .gallery img {
-      width: 100%;
-      height: auto;
-      display: block;
+      box-shadow: 0 0 10px rgba(255, 153, 204, 0.3);
       transition: transform 0.3s ease;
-      border-radius: 12px;
     }
 
-    .gallery div:hover img {
+    .gallery-item:hover {
       transform: scale(1.05);
+      box-shadow: 0 0 20px #ff99cc;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      border-radius: 8px;
     }
 
     .caption {
@@ -103,32 +108,7 @@
       color: #aaa;
       text-align: center;
       background: rgba(0,0,0,0.3);
-      border-bottom-left-radius: 12px;
-      border-bottom-right-radius: 12px;
-    }
-
-    .sparkle {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.3) 2px, transparent 3px),
-                  radial-gradient(circle at 50% 50%, rgba(255,255,255,0.15) 1px, transparent 2px),
-                  radial-gradient(circle at 80% 80%, rgba(255,255,255,0.3) 2px, transparent 3px);
-      background-repeat: repeat;
-      background-size: 50px 50px;
-      animation: sparkleMove 10s linear infinite;
-      z-index: 5;
-      border-radius: 12px;
-    }
-
-    @keyframes sparkleMove {
-      from {
-        background-position: 0 0, 0 0, 0 0;
-      }
-      to {
-        background-position: 50px 50px, 50px 50px, 50px 50px;
-      }
+      border-radius: 0 0 8px 8px;
     }
 
     /* Modal styles */
@@ -161,7 +141,6 @@
       font-weight: bold;
       cursor: pointer;
       user-select: none;
-      z-index: 10000;
     }
 
     #closeBtn:hover {
@@ -171,8 +150,8 @@
 </head>
 <body>
   <header>
-    <button id="drawerToggle" aria-label="Toggle navigation menu">&#9776;</button>
-    <h1>Kayla's Art Gallery</h1>
+    <button id="drawerToggle" aria-label="Toggle navigation menu"></button>
+    <h1>Kayla's Art Gallery - Gallery</h1>
   </header>
 
   <aside id="drawer">
@@ -186,50 +165,26 @@
   </aside>
 
   <main>
-    <div class="gallery">
-      <div class="sparkle"></div>
-
-      <div>
-        <img src="Art1.png" alt="Art 1" onclick="openModal(this.src)" />
-        <p class="caption">Inspired by a tutorial from ArtWithFlo</p>
+    <div class="gallery-grid">
+      <!-- Replace these with your actual images -->
+      <div class="gallery-item" onclick="openModal('images/art1.jpg')">
+        <img src="images/art1_thumb.jpg" alt="Artwork 1" />
+        <div class="caption">Artwork Title 1</div>
       </div>
-      <div>
-        <img src="Art2.png" alt="Art 2" onclick="openModal(this.src)" />
-        <p class="caption">Based on a tutorial by ArtWithFlo</p>
+      <div class="gallery-item" onclick="openModal('images/art2.jpg')">
+        <img src="images/art2_thumb.jpg" alt="Artwork 2" />
+        <div class="caption">Artwork Title 2</div>
       </div>
-      <div>
-        <img src="Art3.png" alt="Art 3" onclick="openModal(this.src)" />
+      <div class="gallery-item" onclick="openModal('images/art3.jpg')">
+        <img src="images/art3_thumb.jpg" alt="Artwork 3" />
+        <div class="caption">Artwork Title 3</div>
       </div>
-      <div>
-        <img src="Art4.png" alt="Art 4" onclick="openModal(this.src)" />
-        <p class="caption">Based on a tutorial by ArtWithFlo</p>
-      </div>
-      <div>
-        <img src="Art5.png" alt="Art 5" onclick="openModal(this.src)" />
-        <p class="caption">Based on a tutorial by ArtWithFlo</p>
-      </div>
-      <div>
-        <img src="Art6.png" alt="Art 6" onclick="openModal(this.src)" />
-        <p class="caption">Based on a tutorial by ArtWithFlo</p>
-      </div>
-      <div>
-        <img src="Art7.png" alt="Art 7" onclick="openModal(this.src)" />
-        <p class="caption">Based on a tutorial by ArtWithFlo</p>
-      </div>
-      <div>
-        <img src="Art8.png" alt="Art 8" onclick="openModal(this.src)" />
-        <p class="caption">Inspired by a tutorial from ArtWithFlo</p>
-      </div>
-      <div>
-        <img src="Art9.png" alt="Art 9" onclick="openModal(this.src)" />
-        <p class="caption">Based on a tutorial by ArtWithFlo</p>
-      </div>
+      <!-- Add more gallery items as needed -->
     </div>
   </main>
 
-  <!-- Fullscreen Modal Viewer -->
-  <div id="modal" onclick="closeModal(event)">
-    <span id="closeBtn" onclick="closeModal(event)">&times;</span>
+  <div id="modal" onclick="closeModal()">
+    <span id="closeBtn">&times;</span>
     <img id="modalImg" />
   </div>
 
@@ -239,15 +194,15 @@
       document.getElementById("modal").style.display = "flex";
     }
 
-    function closeModal(e) {
-      e.stopPropagation();
+    function closeModal() {
       document.getElementById("modal").style.display = "none";
     }
 
     const drawerToggle = document.getElementById('drawerToggle');
     const drawer = document.getElementById('drawer');
 
-    drawerToggle.addEventListener('click', () => {
+    drawerToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
       drawer.classList.toggle('open');
     });
 
