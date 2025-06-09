@@ -7,10 +7,10 @@
   <style>
     body {
       margin: 0;
-      padding-bottom: 70px; /* space for footer */
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #1c1c2e;
       color: #dcdde1;
+      padding-bottom: 3rem;
     }
 
     header {
@@ -22,53 +22,44 @@
       color: #e668a1;
       font-size: 2rem;
       font-weight: 700;
+      padding: 1rem;
       letter-spacing: 0.05em;
-      padding: 1rem 3.5rem 1rem 1rem;
       user-select: none;
       z-index: 1100;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.7);
       display: flex;
       align-items: center;
       justify-content: flex-start;
-    }
-
-    /* Credit text */
-    .credit {
-      text-align: center;
-      color: #bbaacc;
-      font-size: 0.9rem;
-      font-style: italic;
-      margin-top: 3.8rem; /* pushed down so it’s below header */
-      user-select: none;
-      font-weight: 400;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.7);
     }
 
     .heart-button {
       position: fixed;
       top: 1rem;
       right: 1rem;
-      background: transparent;
+      background: none;
       border: none;
-      cursor: pointer;
       color: #e668a1;
       font-size: 1.8rem;
+      cursor: default;
       user-select: none;
       z-index: 1200;
-      transition: color 0.3s ease;
     }
-    .heart-button:hover {
-      color: #ff5c8d;
+
+    .credit {
+      margin-top: 5.5rem;
+      text-align: center;
+      font-style: italic;
+      color: #bbaacc;
+      font-size: 0.9rem;
     }
 
     .gallery {
-      margin-top: 6.5rem; /* space for header + credit */
+      margin: 1rem auto;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1rem;
       padding: 1rem;
       max-width: 960px;
-      margin-left: auto;
-      margin-right: auto;
     }
 
     .gallery img {
@@ -102,53 +93,16 @@
       border-radius: 8px;
       box-shadow: 0 0 30px #e668a1;
     }
-
-    footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background-color: #292945;
-      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.7);
-      z-index: 1000;
-    }
-
-    .bottom-nav ul {
-      display: flex;
-      justify-content: space-around;
-      list-style: none;
-      padding: 0.5rem 0;
-      margin: 0;
-    }
-
-    .bottom-nav ul li a {
-      color: #c7d0db;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1rem;
-      padding: 0.5rem 1rem;
-      display: block;
-      transition: color 0.3s ease;
-      user-select: none;
-    }
-
-    .bottom-nav ul li a:hover,
-    .bottom-nav ul li a[aria-current="page"] {
-      color: #e668a1;
-      text-shadow: 0 0 6px #e668a1;
-    }
   </style>
 </head>
 <body>
   <header>Kayla's Art Gallery</header>
 
+  <button class="heart-button" aria-hidden="true" tabindex="-1">❤️</button>
+
   <div class="credit">
     Credit to <strong>ArtWithFlo</strong> for the inspiring tutorial
   </div>
-
-  <button class="heart-button" aria-label="Favorite">
-    ❤️
-  </button>
 
   <main>
     <div class="gallery">
@@ -168,18 +122,6 @@
   <div id="imageModal" aria-hidden="true" role="dialog" tabindex="-1">
     <img id="modalImg" alt="Enlarged artwork" />
   </div>
-
-  <footer>
-    <nav class="bottom-nav" aria-label="Bottom navigation">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="gallery.html" aria-current="page">Gallery</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="notes.html">Visitor Notes</a></li>
-      </ul>
-    </nav>
-  </footer>
 
   <script>
     const modal = document.getElementById('imageModal');
