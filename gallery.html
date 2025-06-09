@@ -3,277 +3,110 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kayla's Art Gallery - Gallery</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <title>Kayla's Art Gallery</title>
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle at top left, #444 0%, #1a1a2a 100%);
-      background-attachment: fixed;
-      background-size: cover;
-      color: #ddd;
+      background-color: #1e1e2f; /* dark pastel vibe */
+      color: #dcdde1;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
       padding: 0;
-      overflow-x: hidden;
     }
-
     header {
-      background: #3a3a50;
-      padding: 1em;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #fff;
+      background-color: #2c2c44;
+      padding: 1rem;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: #a1c3d1; /* pastel blue */
+      text-shadow: 0 0 8px #a1c3d1;
     }
-
-    #drawerToggle {
-      background: transparent;
-      border: none;
-      font-size: 1.8em;
-      color: #fff;
-      cursor: pointer;
-    }
-
-    #drawerToggle::before {
-      content: "\2764"; /* plain heart */
-    }
-
-    #drawer {
-      position: fixed;
-      top: 0;
-      left: -250px;
-      width: 250px;
-      height: 100vh;
-      background: #222233;
-      box-shadow: 2px 0 5px rgba(0,0,0,0.7);
-      padding: 2em 1em;
-      box-sizing: border-box;
-      transition: left 0.3s ease;
-      z-index: 10000;
-    }
-
-    #drawer.open {
-      left: 0;
-    }
-
-    #drawer nav a {
-      display: block;
-      color: #ccc;
-      text-decoration: none;
-      padding: 0.8em 0;
-      font-size: 1.1em;
-    }
-
-    #drawer nav a:hover {
-      color: #ff99cc;
-    }
-
-    main {
-      padding: 2em 1.5em;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    h2 {
-      margin-bottom: 1em;
-    }
-
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5em;
+      gap: 1rem;
+      padding: 1rem 2rem;
     }
-
     .gallery-item {
-      background: rgba(0,0,0,0.2);
-      padding: 1em;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
       border-radius: 10px;
-      text-align: center;
+      box-shadow: 0 0 10px #333;
+      background: #292945;
       transition: transform 0.3s ease;
     }
-
     .gallery-item:hover {
-      transform: scale(1.03);
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #6b90c7;
+      z-index: 5;
     }
-
-    .gallery-item img,
-    .gallery-item video {
+    .gallery-item img {
       width: 100%;
-      border-radius: 10px;
-      cursor: pointer;
+      height: auto;
       display: block;
-    }
-
-    .caption {
-      margin-top: 0.6em;
-      font-size: 0.95em;
-      color: #aaa;
-    }
-
-    /* Modal styles */
-    #modal {
-      display: none;
-      position: fixed;
-      z-index: 9999;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.85);
-      justify-content: center;
-      align-items: center;
-    }
-
-    #modal img,
-    #modal video {
-      max-width: 90vw;
-      max-height: 90vh;
       border-radius: 10px;
-      box-shadow: 0 0 20px #fff;
-    }
-
-    #modal video {
-      outline: none;
-    }
-
-    #closeBtn {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      color: white;
-      font-size: 3em;
-      font-weight: bold;
-      cursor: pointer;
       user-select: none;
-      z-index: 10001;
+      pointer-events: none;
     }
-
-    #closeBtn:hover {
-      color: #ffcccb;
+    .caption {
+      position: absolute;
+      bottom: 0;
+      background: rgba(15, 15, 30, 0.8);
+      color: #c7d0db;
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 0.9rem;
+      text-align: center;
+      backdrop-filter: blur(5px);
+      border-radius: 0 0 10px 10px;
     }
   </style>
 </head>
 <body>
-  <header>
-    <button id="drawerToggle" aria-label="Toggle navigation menu"></button>
-    <h1>Kayla's Art Gallery - Gallery</h1>
-  </header>
-
-  <aside id="drawer">
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="notes.html">Visitor Notes</a>
-    </nav>
-  </aside>
-
-  <main>
-    <h2>Gallery</h2>
-    <div class="gallery">
-      <div class="gallery-item">
-        <img src="Art1.png" alt="Art 1" onclick="openModal(this.src)" />
-        <div class="caption">"Art 1" – Digital magic</div>
-      </div>
-      <div class="gallery-item">
-        <img src="Art2.png" alt="Art 2" onclick="openModal(this.src)" />
-        <div class="caption">"Art 2" – Dreamy vibes</div>
-      </div>
-      <div class="gallery-item">
-        <img src="Art3a.png" alt="Art 3" onclick="openModal(this.src)" />
-        <div class="caption">"Art 3" – A touch of fantasy</div>
-      </div>
-      <div class="gallery-item">
-        <img src="Art4.png" alt="Art 4" onclick="openModal(this.src)" />
-        <div class="caption">"Art 4" – Power and softness</div>
-      </div>
-      <div class="gallery-item">
-        <video autoplay loop muted playsinline onclick="openModalVideo(this)">
-          <source src="AnimatedArt5.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-        <div class="caption">"Art 5" – Mystic energy</div>
-      </div>
-      <div class="gallery-item">
-        <img src="Art6.png" alt="Art 6" onclick="openModal(this.src)" />
-        <div class="caption">"Art 6" – Soft glow moment</div>
-      </div>
-      <div class="gallery-item">
-        <img src="Art7.png" alt="Art 7" onclick="openModal(this.src)" />
-        <div class="caption">"Art 7" – Ethereal mood</div>
-      </div>
-      <div class="gallery-item">
-        <img src="Art8.png" alt="Art 8" onclick="openModal(this.src)" />
-        <div class="caption">"Art 8" – Night spirit</div>
-      </div>
-      <div class="gallery-item">
-        <img src="Art9.png" alt="Art 9" onclick="openModal(this.src)" />
-        <div class="caption">"Art 9" – Final bloom</div>
-      </div>
-      <div class="gallery-item">
-        <img src="Art10.png" alt="Art 10" onclick="openModal(this.src)" />
-        <div class="caption">"Art 10" – Final bloom 2</div>
-      </div>
+  <header>Kayla's Art Gallery</header>
+  <section class="gallery" aria-label="Gallery of Kayla's artwork">
+    <div class="gallery-item" tabindex="0" aria-describedby="caption1">
+      <img src="Art1.png" alt="Artwork 1 by Kayla" />
+      <div class="caption" id="caption1">Artwork 1 - Watermarked</div>
     </div>
-  </main>
-
-  <div id="modal" onclick="closeModal()">
-    <span id="closeBtn" onclick="closeModal(event)">&times;</span>
-    <img id="modalImg" style="display:none;" />
-    <video id="modalVideo" style="display:none;" controls autoplay></video>
-  </div>
-
-  <script>
-    const drawerToggle = document.getElementById('drawerToggle');
-    const drawer = document.getElementById('drawer');
-
-    drawerToggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      drawer.classList.toggle('open');
-    });
-
-    document.addEventListener('click', (e) => {
-      if (!drawer.contains(e.target) && e.target !== drawerToggle) {
-        drawer.classList.remove('open');
-      }
-    });
-
-    function openModal(src) {
-      const modal = document.getElementById("modal");
-      const modalImg = document.getElementById("modalImg");
-      const modalVideo = document.getElementById("modalVideo");
-
-      modal.style.display = "flex";
-      modalImg.style.display = "block";
-      modalVideo.style.display = "none";
-      modalVideo.pause();
-
-      modalImg.src = src;
-    }
-
-    function openModalVideo(videoElement) {
-      const modal = document.getElementById("modal");
-      const modalImg = document.getElementById("modalImg");
-      const modalVideo = document.getElementById("modalVideo");
-
-      modal.style.display = "flex";
-      modalImg.style.display = "none";
-
-      modalVideo.style.display = "block";
-      modalVideo.src = videoElement.querySelector('source').src;
-      modalVideo.play();
-    }
-
-    function closeModal(event) {
-      if(event) event.stopPropagation();
-      const modal = document.getElementById("modal");
-      const modalVideo = document.getElementById("modalVideo");
-
-      modal.style.display = "none";
-      modalVideo.pause();
-      modalVideo.src = "";
-    }
-  </script>
+    <div class="gallery-item" tabindex="0" aria-describedby="caption2">
+      <img src="Art2.png" alt="Artwork 2 by Kayla" />
+      <div class="caption" id="caption2">Artwork 2 - Watermarked</div>
+    </div>
+    <div class="gallery-item" tabindex="0" aria-describedby="caption3">
+      <img src="Art3.png" alt="Artwork 3 by Kayla" />
+      <div class="caption" id="caption3">Artwork 3 - Watermarked</div>
+    </div>
+    <div class="gallery-item" tabindex="0" aria-describedby="caption4">
+      <img src="Art4.png" alt="Artwork 4 by Kayla" />
+      <div class="caption" id="caption4">Artwork 4 - Watermarked</div>
+    </div>
+    <div class="gallery-item" tabindex="0" aria-describedby="caption5">
+      <img src="Art5.png" alt="Artwork 5 by Kayla" />
+      <div class="caption" id="caption5">Artwork 5 - Watermarked</div>
+    </div>
+    <div class="gallery-item" tabindex="0" aria-describedby="caption6">
+      <img src="Art6.png" alt="Artwork 6 by Kayla" />
+      <div class="caption" id="caption6">Artwork 6 - Watermarked</div>
+    </div>
+    <div class="gallery-item" tabindex="0" aria-describedby="caption7">
+      <img src="Art7.png" alt="Artwork 7 by Kayla" />
+      <div class="caption" id="caption7">Artwork 7 - Watermarked</div>
+    </div>
+    <div class="gallery-item" tabindex="0" aria-describedby="caption8">
+      <img src="Art8.png" alt="Artwork 8 by Kayla" />
+      <div class="caption" id="caption8">Artwork 8 - Watermarked</div>
+    </div>
+    <div class="gallery-item" tabindex="0" aria-describedby="caption9">
+      <img src="Art9.png" alt="Artwork 9 by Kayla" />
+      <div class="caption" id="caption9">Artwork 9 - Watermarked</div>
+    </div>
+    <div class="gallery-item" tabindex="0" aria-describedby="caption10">
+      <img src="AnimatedArtwork.png" alt="Animated Artwork by Kayla" />
+      <div class="caption" id="caption10">Animated Artwork - Watermarked</div>
+    </div>
+  </section>
 </body>
 </html>
