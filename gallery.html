@@ -6,7 +6,7 @@
   <title>Kayla's Art Gallery</title>
   <style>
     body {
-      background-color: #1e1e2f; /* dark pastel vibe */
+      background-color: #1e1e2f;
       color: #dcdde1;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
@@ -19,7 +19,7 @@
       font-size: 2rem;
       font-weight: 600;
       letter-spacing: 0.1em;
-      color: #a1c3d1; /* pastel blue */
+      color: #a1c3d1;
       text-shadow: 0 0 8px #a1c3d1;
     }
     .gallery {
@@ -36,19 +36,23 @@
       box-shadow: 0 0 10px #333;
       background: #292945;
       transition: transform 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .gallery-item:hover {
       transform: scale(1.05);
       box-shadow: 0 0 20px #6b90c7;
       z-index: 5;
     }
-    .gallery-item img {
-      width: 100%;
-      height: auto;
-      display: block;
+    .gallery-item img,
+    .gallery-item video {
+      max-width: 100%;
+      max-height: 250px;
       border-radius: 10px;
       user-select: none;
       pointer-events: none;
+      display: block;
     }
     .caption {
       position: absolute;
@@ -68,43 +72,46 @@
   <header>Kayla's Art Gallery</header>
   <section class="gallery" aria-label="Gallery of Kayla's artwork">
     <div class="gallery-item" tabindex="0" aria-describedby="caption1">
-      <img src="Art1.png" alt="Artwork 1 by Kayla" />
+      <img src="Art1.jpg" alt="Artwork 1 by Kayla" />
       <div class="caption" id="caption1">Artwork 1 - Watermarked</div>
     </div>
     <div class="gallery-item" tabindex="0" aria-describedby="caption2">
-      <img src="Art2.png" alt="Artwork 2 by Kayla" />
+      <img src="Art2.jpg" alt="Artwork 2 by Kayla" />
       <div class="caption" id="caption2">Artwork 2 - Watermarked</div>
     </div>
     <div class="gallery-item" tabindex="0" aria-describedby="caption3">
-      <img src="Art3.png" alt="Artwork 3 by Kayla" />
+      <img src="Art3.jpg" alt="Artwork 3 by Kayla" />
       <div class="caption" id="caption3">Artwork 3 - Watermarked</div>
     </div>
     <div class="gallery-item" tabindex="0" aria-describedby="caption4">
-      <img src="Art4.png" alt="Artwork 4 by Kayla" />
+      <img src="Art4.jpg" alt="Artwork 4 by Kayla" />
       <div class="caption" id="caption4">Artwork 4 - Watermarked</div>
     </div>
     <div class="gallery-item" tabindex="0" aria-describedby="caption5">
-      <img src="Art5.png" alt="Artwork 5 by Kayla" />
+      <img src="Art5.jpg" alt="Artwork 5 by Kayla" />
       <div class="caption" id="caption5">Artwork 5 - Watermarked</div>
     </div>
     <div class="gallery-item" tabindex="0" aria-describedby="caption6">
-      <img src="Art6.png" alt="Artwork 6 by Kayla" />
+      <img src="Art6.jpg" alt="Artwork 6 by Kayla" />
       <div class="caption" id="caption6">Artwork 6 - Watermarked</div>
     </div>
     <div class="gallery-item" tabindex="0" aria-describedby="caption7">
-      <img src="Art7.png" alt="Artwork 7 by Kayla" />
+      <img src="Art7.jpg" alt="Artwork 7 by Kayla" />
       <div class="caption" id="caption7">Artwork 7 - Watermarked</div>
     </div>
     <div class="gallery-item" tabindex="0" aria-describedby="caption8">
-      <img src="Art8.png" alt="Artwork 8 by Kayla" />
+      <img src="Art8.jpg" alt="Artwork 8 by Kayla" />
       <div class="caption" id="caption8">Artwork 8 - Watermarked</div>
     </div>
     <div class="gallery-item" tabindex="0" aria-describedby="caption9">
-      <img src="Art9.png" alt="Artwork 9 by Kayla" />
+      <img src="Art9.jpg" alt="Artwork 9 by Kayla" />
       <div class="caption" id="caption9">Artwork 9 - Watermarked</div>
     </div>
     <div class="gallery-item" tabindex="0" aria-describedby="caption10">
-      <img src="AnimatedArtwork.png" alt="Animated Artwork by Kayla" />
+      <video controls muted loop>
+        <source src="AnimatedArtwork.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
       <div class="caption" id="caption10">Animated Artwork - Watermarked</div>
     </div>
   </section>
