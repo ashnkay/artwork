@@ -3,151 +3,171 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kayla's Visitor Notes</title>
+  <title>Visitor Notes</title>
   <style>
-    body {
-      background: radial-gradient(circle at top left, #444 0%, #1a1a2a 100%);
-      color: #ddd;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Reset */
+    * {
       margin: 0;
       padding: 0;
-      overflow-x: hidden;
-    }
-    header {
-      background: #3a3a50;
-      padding: 1em;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #fff;
-      position: sticky;
-      top: 0;
-      z-index: 1000; /* Lower than drawer */
-    }
-    #drawerToggle {
-      background: transparent;
-      border: none;
-      font-size: 1.8em;
-      color: #fff;
-      cursor: pointer;
-    }
-    #drawerToggle::before {
-      content: "\2764"; /* Plain heart */
-    }
-    #drawer {
-      position: fixed;
-      top: 0;
-      left: -250px;
-      width: 250px;
-      height: 100vh;
-      background: #222233;
-      box-shadow: 2px 0 5px rgba(0,0,0,0.7);
-      padding: 2em 1em;
       box-sizing: border-box;
-      transition: left 0.3s ease;
-      z-index: 1001; /* Higher than header */
     }
-    #drawer.open {
-      left: 0;
+
+    body {
+      background-color: #1e1e2f;
+      color: #dcdde1;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding-bottom: 60px; /* space for bottom nav */
+      line-height: 1.6;
     }
-    #drawer nav a {
-      display: block;
-      color: #ccc;
-      text-decoration: none;
-      padding: 0.8em 0;
-      font-size: 1.1em;
+
+    header {
+      background-color: #2c2c44;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #a1c3d1;
+      text-shadow: 0 0 8px #a1c3d1;
+      user-select: none;
     }
-    #drawer nav a:hover {
-      color: #ff99cc;
-    }
+
     main {
-      padding: 1.5em;
-      max-width: 900px;
-      margin: 0 auto;
-      position: relative;
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      font-size: 1.15rem;
+      color: #c7d0db;
     }
+
     form {
-      margin-bottom: 1em;
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
-    input[type="text"] {
-      width: 80%;
-      padding: 0.6em;
-      border-radius: 5px;
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+      padding: 0.6rem;
+      border-radius: 6px;
       border: none;
-      font-size: 1em;
-      margin-right: 0.5em;
-    }
-    button[type="submit"] {
-      padding: 0.6em 1em;
-      font-size: 1em;
-      border: none;
-      border-radius: 5px;
-      background-color: #ff99cc;
-      color: #222;
-      cursor: pointer;
+      font-family: inherit;
+      font-size: 1rem;
+      background-color: #333354;
+      color: #eee;
       transition: background-color 0.3s ease;
     }
-    button[type="submit"]:hover {
-      background-color: #ff66aa;
+
+    textarea:focus {
+      outline: 2px solid #e668a1;
+      background-color: #444466;
     }
-    .note {
-      background: rgba(255, 153, 204, 0.15);
-      margin-bottom: 1em;
-      padding: 1em;
-      border-radius: 10px;
-      position: relative;
-    }
-    .note .meta {
-      font-size: 0.75em;
-      color: #aaa;
-      margin-top: 0.5em;
-    }
-    .delete {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      background: transparent;
+
+    button {
+      width: 120px;
+      padding: 0.7rem 1rem;
+      background-color: #e668a1;
       border: none;
-      font-size: 1.5em;
-      color: #ff6666;
+      border-radius: 6px;
+      color: white;
+      font-weight: 700;
       cursor: pointer;
-      user-select: none;
+      transition: background-color 0.3s ease;
+      align-self: flex-start;
+    }
+
+    button:hover {
+      background-color: #c0527d;
+    }
+
+    #notesList {
+      margin-top: 2rem;
+      max-height: 300px;
+      overflow-y: auto;
+      background-color: #292945;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: inset 0 0 8px #0008;
+    }
+
+    .note {
+      padding: 0.6rem;
+      border-bottom: 1px solid #444466;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+    }
+
+    /* Bottom Nav Footer */
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #292945;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.7);
+      z-index: 50;
+    }
+
+    .bottom-nav ul {
+      display: flex;
+      justify-content: space-around;
+      list-style: none;
+      padding: 0.5rem 0;
+      margin: 0;
+    }
+
+    .bottom-nav ul li a {
+      color: #c7d0db;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      display: block;
       transition: color 0.3s ease;
     }
-    .delete:hover {
-      color: #ff0000;
+
+    .bottom-nav ul li a:hover,
+    .bottom-nav ul li a[aria-current="page"] {
+      color: #e668a1;
+      text-shadow: 0 0 6px #e668a1;
     }
   </style>
 </head>
 <body>
-  <header>
-    <button id="drawerToggle" aria-label="Toggle navigation menu"></button>
-    <h1>Visitor Notes</h1>
-  </header>
 
-  <aside id="drawer">
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="notes.html">Visitor Notes</a>
-    </nav>
-  </aside>
+  <header>Visitor Notes</header>
 
   <main>
+    <p>Thanks for visiting my gallery! Feel free to leave a note, share your thoughts, or just say hi.</p>
+
     <form id="noteForm">
-      <input type="text" id="noteInput" placeholder="Leave your note here..." required />
-      <button type="submit">Post</button>
+      <textarea id="noteInput" placeholder="Write your note here..." required></textarea>
+      <button type="submit">Add Note</button>
     </form>
 
     <div id="notesList"></div>
   </main>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+  <footer>
+    <nav class="bottom-nav" aria-label="Bottom navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="notes.html" aria-current="page">Visitor Notes</a></li>
+      </ul>
+    </nav>
+  </footer>
 
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+
+  <script>
+    // Your Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyB6fXcN5oF0a9dFdqZAfnhPu3Jr24uWoic",
       authDomain: "kaylasartcomments.firebaseapp.com",
@@ -159,94 +179,50 @@
       measurementId: "G-KM52V6M1SE"
     };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    const notesRef = ref(db, 'notes');
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
 
-    let userId = localStorage.getItem('visitorNotesUserId');
-    if (!userId) {
-      userId = crypto.randomUUID();
-      localStorage.setItem('visitorNotesUserId', userId);
-    }
-
-    const form = document.getElementById('noteForm');
-    const noteInput = document.getElementById('noteInput');
     const notesList = document.getElementById('notesList');
+    const noteForm = document.getElementById('noteForm');
+    const noteInput = document.getElementById('noteInput');
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const noteText = noteInput.value.trim();
-      if (!noteText) return;
-      console.log('Submitting note:', noteText);
-
-      try {
-        await push(notesRef, {
-          text: noteText,
-          createdAt: new Date().toISOString(),
-          userId
-        });
-        console.log('Note posted successfully');
-        noteInput.value = '';
-      } catch (err) {
-        console.error('Error posting note:', err);
-      }
-    });
-
-    onValue(notesRef, (snapshot) => {
-      notesList.innerHTML = '';
-      const notes = snapshot.val();
-      if (notes) {
-        Object.entries(notes)
-          .sort(([,a], [,b]) => new Date(b.createdAt) - new Date(a.createdAt))
-          .forEach(([id, note]) => {
-            const noteDiv = document.createElement('div');
-            noteDiv.className = 'note';
-            noteDiv.innerHTML = `
-              <p>${escapeHtml(note.text)}</p>
-              <div class="meta">${new Date(note.createdAt).toLocaleString()}</div>
-              ${note.userId === userId ? `<button class="delete" data-id="${id}" title="Delete your note">&times;</button>` : ''}
-            `;
-            notesList.appendChild(noteDiv);
+    // Load notes from Firebase
+    function loadNotes() {
+      db.ref('notes').on('value', snapshot => {
+        notesList.innerHTML = '';
+        const notes = snapshot.val();
+        if (notes) {
+          Object.entries(notes).forEach(([key, note]) => {
+            const div = document.createElement('div');
+            div.classList.add('note');
+            div.textContent = note.text;
+            notesList.appendChild(div);
           });
-
-        document.querySelectorAll('.delete').forEach(btn => {
-          btn.addEventListener('click', async () => {
-            const noteId = btn.getAttribute('data-id');
-            try {
-              await remove(ref(db, `notes/${noteId}`));
-            } catch (err) {
-              console.error('Error deleting note:', err);
-            }
-          });
-        });
-      }
-    });
-
-    function escapeHtml(text) {
-      return text.replace(/[&<>"']/g, function(m) {
-        return ({
-          '&': '&amp;',
-          '<': '&lt;',
-          '>': '&gt;',
-          '"': '&quot;',
-          "'": '&#39;'
-        })[m];
+        } else {
+          notesList.textContent = 'No notes yet. Be the first to leave one!';
+        }
       });
     }
 
-    const drawerToggle = document.getElementById('drawerToggle');
-    const drawer = document.getElementById('drawer');
+    // Add note to Firebase
+    noteForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const text = noteInput.value.trim();
+      if (!text) return;
 
-    drawerToggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      drawer.classList.toggle('open');
+      const newNoteRef = db.ref('notes').push();
+      newNoteRef.set({ text })
+        .then(() => {
+          noteInput.value = '';
+        })
+        .catch(err => {
+          alert('Error adding note: ' + err.message);
+        });
     });
 
-    document.addEventListener('click', (e) => {
-      if (!drawer.contains(e.target) && e.target !== drawerToggle) {
-        drawer.classList.remove('open');
-      }
-    });
+    // Initialize
+    loadNotes();
   </script>
 </body>
 </html>
