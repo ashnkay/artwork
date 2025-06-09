@@ -5,157 +5,76 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kayla's Art Gallery</title>
   <style>
-    /* Basic Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      background-color: #1e1e2f;
-      color: #dcdde1;
+      margin: 0;
+      padding-bottom: 70px; /* space so content isn't hidden behind footer */
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      overflow-x: hidden;
-      padding-bottom: 60px; /* space for bottom nav */
+      background-color: #1c1c2e;
+      color: #dcdde1;
     }
 
     header {
-      background-color: #2c2c44;
       padding: 1rem;
       text-align: center;
-      font-size: 2rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      color: #a1c3d1;
-      text-shadow: 0 0 8px #a1c3d1;
-      position: relative;
-      z-index: 10;
-    }
-
-    /* Nav Drawer */
-    nav {
-      position: fixed;
-      top: 0;
-      left: -250px;
-      width: 250px;
-      height: 100vh;
       background-color: #292945;
-      box-shadow: 2px 0 5px rgba(0,0,0,0.7);
-      padding-top: 4rem;
-      transition: left 0.3s ease;
-      z-index: 20;
-    }
-
-    nav.open {
-      left: 0;
-    }
-
-    nav ul {
-      list-style: none;
-    }
-
-    nav ul li {
-      margin: 1rem 0;
-      text-align: center;
-    }
-
-    nav ul li a {
-      color: #c7d0db;
-      text-decoration: none;
-      font-size: 1.2rem;
-      display: block;
-      padding: 0.5rem 0;
-      transition: color 0.2s ease;
-    }
-
-    nav ul li a:hover {
-      color: #a1c3d1;
-    }
-
-    /* Heart Button */
-    #navToggle {
-      position: fixed;
-      top: 15px;
-      left: 15px;
-      width: 40px;
-      height: 40px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      z-index: 30;
-      color: #a1c3d1;
-      font-size: 28px;
-      line-height: 40px;
-      text-align: center;
-      user-select: none;
-      transition: color 0.3s ease;
-    }
-
-    #navToggle:hover {
       color: #e668a1;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      user-select: none;
     }
 
-    /* Gallery Styles */
     .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1rem;
-      padding: 1rem 2rem;
-      margin-top: 70px; /* space below header/nav toggle */
+      padding: 1rem;
+      max-width: 960px;
+      margin: 0 auto;
     }
 
-    .gallery-item {
-      position: relative;
-      cursor: pointer;
-      overflow: hidden;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #333;
-      background: #292945;
+    .gallery img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 12px #e668a1;
+      cursor: zoom-in;
       transition: transform 0.3s ease;
-      display: flex;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Modal styles */
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
       justify-content: center;
       align-items: center;
+      z-index: 10000;
+      cursor: zoom-out;
     }
 
-    .gallery-item:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px #6b90c7;
-      z-index: 5;
+    #modalImg {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 8px;
+      box-shadow: 0 0 30px #e668a1;
     }
 
-    .gallery-item img,
-    .gallery-item video {
-      max-width: 100%;
-      max-height: 250px;
-      border-radius: 10px;
-      user-select: none;
-      pointer-events: none;
-      display: block;
-    }
-
-    .caption {
-      position: absolute;
-      bottom: 0;
-      background: rgba(15, 15, 30, 0.8);
-      color: #c7d0db;
-      width: 100%;
-      padding: 0.5rem;
-      font-size: 0.9rem;
-      text-align: center;
-      backdrop-filter: blur(5px);
-      border-radius: 0 0 10px 10px;
-    }
-
-    /* Bottom Nav Footer */
+    /* Fixed footer with nav */
     footer {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
       background-color: #292945;
-      box-shadow: 0 -2px 8px rgba(0,0,0,0.7);
-      z-index: 50;
+      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.7);
+      z-index: 1000;
     }
 
     .bottom-nav ul {
@@ -174,6 +93,7 @@
       padding: 0.5rem 1rem;
       display: block;
       transition: color 0.3s ease;
+      user-select: none;
     }
 
     .bottom-nav ul li a:hover,
@@ -184,66 +104,27 @@
   </style>
 </head>
 <body>
-
-  <button id="navToggle" aria-label="Toggle navigation menu">♥</button>
-
-  <nav id="navDrawer" aria-label="Main navigation">
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="gallery.html" aria-current="page">Gallery</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="notes.html">Visitor Notes</a></li>
-    </ul>
-  </nav>
-
   <header>Kayla's Art Gallery</header>
 
-  <section class="gallery" aria-label="Gallery of Kayla's artwork">
-    <div class="gallery-item" tabindex="0" aria-describedby="caption1">
-      <img src="Art1.jpg" alt="Artwork 1 by Kayla" />
-      <div class="caption" id="caption1">Artwork 1 - Watermarked</div>
+  <main>
+    <div class="gallery">
+      <img src="Art1.jpg" alt="Art 1" />
+      <img src="Art2.jpg" alt="Art 2" />
+      <img src="Art3.jpg" alt="Art 3" />
+      <img src="Art4.jpg" alt="Art 4" />
+      <img src="Art5.jpg" alt="Art 5" />
+      <img src="Art6.jpg" alt="Art 6" />
+      <img src="Art7.jpg" alt="Art 7" />
+      <img src="Art8.jpg" alt="Art 8" />
+      <img src="Art9.jpg" alt="Art 9" />
+      <video src="AnimatedArtwork.mp4" controls muted style="width:100%; border-radius:8px; box-shadow: 0 0 12px #e668a1;"></video>
     </div>
-    <div class="gallery-item" tabindex="0" aria-describedby="caption2">
-      <img src="Art2.jpg" alt="Artwork 2 by Kayla" />
-      <div class="caption" id="caption2">Artwork 2 - Watermarked</div>
-    </div>
-    <div class="gallery-item" tabindex="0" aria-describedby="caption3">
-      <img src="Art3.jpg" alt="Artwork 3 by Kayla" />
-      <div class="caption" id="caption3">Artwork 3 - Watermarked</div>
-    </div>
-    <div class="gallery-item" tabindex="0" aria-describedby="caption4">
-      <img src="Art4.jpg" alt="Artwork 4 by Kayla" />
-      <div class="caption" id="caption4">Artwork 4 - Watermarked</div>
-    </div>
-    <div class="gallery-item" tabindex="0" aria-describedby="caption5">
-      <img src="Art5.jpg" alt="Artwork 5 by Kayla" />
-      <div class="caption" id="caption5">Artwork 5 - Watermarked</div>
-    </div>
-    <div class="gallery-item" tabindex="0" aria-describedby="caption6">
-      <img src="Art6.jpg" alt="Artwork 6 by Kayla" />
-      <div class="caption" id="caption6">Artwork 6 - Watermarked</div>
-    </div>
-    <div class="gallery-item" tabindex="0" aria-describedby="caption7">
-      <img src="Art7.jpg" alt="Artwork 7 by Kayla" />
-      <div class="caption" id="caption7">Artwork 7 - Watermarked</div>
-    </div>
-    <div class="gallery-item" tabindex="0" aria-describedby="caption8">
-      <img src="Art8.jpg" alt="Artwork 8 by Kayla" />
-      <div class="caption" id="caption8">Artwork 8 - Watermarked</div>
-    </div>
-    <div class="gallery-item" tabindex="0" aria-describedby="caption9">
-      <img src="Art9.jpg" alt="Artwork 9 by Kayla" />
-      <div class="caption" id="caption9">Artwork 9 - Watermarked</div>
-    </div>
-    <div class="gallery-item" tabindex="0" aria-describedby="caption10">
-      <video controls muted loop>
-        <source src="AnimatedArtwork.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-      <div class="caption" id="caption10">Animated Artwork - Watermarked</div>
-    </div>
-  </section>
+  </main>
+
+  <!-- Modal for image zoom -->
+  <div id="imageModal" aria-hidden="true" role="dialog" tabindex="-1">
+    <img id="modalImg" alt="Enlarged artwork" />
+  </div>
 
   <footer>
     <nav class="bottom-nav" aria-label="Bottom navigation">
@@ -258,17 +139,35 @@
   </footer>
 
   <script>
-    const navToggle = document.getElementById('navToggle');
-    const navDrawer = document.getElementById('navDrawer');
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
 
-    navToggle.addEventListener('click', () => {
-      navDrawer.classList.toggle('open');
+    document.querySelectorAll('.gallery img').forEach(img => {
+      img.style.cursor = 'zoom-in';
+
+      img.addEventListener('click', () => {
+        modal.style.display = 'flex';
+        modalImg.src = img.src;
+        modalImg.alt = img.alt;
+        modal.setAttribute('aria-hidden', 'false');
+        modal.focus();
+      });
     });
 
-    // Close nav drawer when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!navDrawer.contains(e.target) && e.target !== navToggle) {
-        navDrawer.classList.remove('open');
+    modal.addEventListener('click', e => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+        modalImg.src = '';
+        modal.setAttribute('aria-hidden', 'true');
+      }
+    });
+
+    // Optional: close modal on Esc key
+    document.addEventListener('keydown', e => {
+      if (e.key === "Escape" && modal.style.display === 'flex') {
+        modal.style.display = 'none';
+        modalImg.src = '';
+        modal.setAttribute('aria-hidden', 'true');
       }
     });
   </script>
