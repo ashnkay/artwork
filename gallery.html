@@ -5,13 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kayla's Art Gallery</title>
   <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
       background-color: #1e1e2f;
       color: #dcdde1;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
+      overflow-x: hidden;
     }
+
     header {
       background-color: #2c2c44;
       padding: 1rem;
@@ -21,13 +28,82 @@
       letter-spacing: 0.1em;
       color: #a1c3d1;
       text-shadow: 0 0 8px #a1c3d1;
+      position: relative;
+      z-index: 10;
     }
+
+    /* Nav Drawer */
+    nav {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100vh;
+      background-color: #292945;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.7);
+      padding-top: 4rem;
+      transition: left 0.3s ease;
+      z-index: 20;
+    }
+
+    nav.open {
+      left: 0;
+    }
+
+    nav ul {
+      list-style: none;
+    }
+
+    nav ul li {
+      margin: 1rem 0;
+      text-align: center;
+    }
+
+    nav ul li a {
+      color: #c7d0db;
+      text-decoration: none;
+      font-size: 1.2rem;
+      display: block;
+      padding: 0.5rem 0;
+      transition: color 0.2s ease;
+    }
+
+    nav ul li a:hover {
+      color: #a1c3d1;
+    }
+
+    /* Heart Button */
+    #navToggle {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 30;
+      color: #a1c3d1;
+      font-size: 28px;
+      line-height: 40px;
+      text-align: center;
+      user-select: none;
+      transition: color 0.3s ease;
+    }
+
+    #navToggle:hover {
+      color: #e668a1;
+    }
+
+    /* Gallery Styles */
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 1rem;
       padding: 1rem 2rem;
+      margin-top: 70px; /* space below header/nav toggle */
     }
+
     .gallery-item {
       position: relative;
       cursor: pointer;
@@ -40,11 +116,13 @@
       justify-content: center;
       align-items: center;
     }
+
     .gallery-item:hover {
       transform: scale(1.05);
       box-shadow: 0 0 20px #6b90c7;
       z-index: 5;
     }
+
     .gallery-item img,
     .gallery-item video {
       max-width: 100%;
@@ -54,6 +132,7 @@
       pointer-events: none;
       display: block;
     }
+
     .caption {
       position: absolute;
       bottom: 0;
@@ -69,7 +148,21 @@
   </style>
 </head>
 <body>
+
+  <button id="navToggle" aria-label="Toggle navigation menu">♥</button>
+
+  <nav id="navDrawer" aria-label="Main navigation">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="notes.html">Visitor Notes</a></li>
+    </ul>
+  </nav>
+
   <header>Kayla's Art Gallery</header>
+
   <section class="gallery" aria-label="Gallery of Kayla's artwork">
     <div class="gallery-item" tabindex="0" aria-describedby="caption1">
       <img src="Art1.jpg" alt="Artwork 1 by Kayla" />
@@ -115,5 +208,21 @@
       <div class="caption" id="caption10">Animated Artwork - Watermarked</div>
     </div>
   </section>
+
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const navDrawer = document.getElementById('navDrawer');
+
+    navToggle.addEventListener('click', () => {
+      navDrawer.classList.toggle('open');
+    });
+
+    // Close nav drawer when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!navDrawer.contains(e.target) && e.target !== navToggle) {
+        navDrawer.classList.remove('open');
+      }
+    });
+  </script>
 </body>
 </html>
