@@ -7,30 +7,68 @@
   <style>
     body {
       margin: 0;
-      padding-bottom: 70px; /* space so content isn't hidden behind footer */
+      padding-bottom: 70px; /* space for footer */
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #1c1c2e;
       color: #dcdde1;
     }
 
     header {
-      padding: 1rem;
-      text-align: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
       background-color: #292945;
       color: #e668a1;
       font-size: 2rem;
       font-weight: 700;
       letter-spacing: 0.05em;
+      padding: 1rem 3.5rem 1rem 1rem;
       user-select: none;
+      z-index: 1100;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    /* Credit text */
+    .credit {
+      text-align: center;
+      color: #bbaacc;
+      font-size: 0.9rem;
+      font-style: italic;
+      margin-top: 3.8rem; /* pushed down so it’s below header */
+      user-select: none;
+      font-weight: 400;
+    }
+
+    .heart-button {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: #e668a1;
+      font-size: 1.8rem;
+      user-select: none;
+      z-index: 1200;
+      transition: color 0.3s ease;
+    }
+    .heart-button:hover {
+      color: #ff5c8d;
     }
 
     .gallery {
+      margin-top: 6.5rem; /* space for header + credit */
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1rem;
       padding: 1rem;
       max-width: 960px;
-      margin: 0 auto;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .gallery img {
@@ -46,7 +84,6 @@
       transform: scale(1.05);
     }
 
-    /* Modal styles */
     #imageModal {
       display: none;
       position: fixed;
@@ -66,7 +103,6 @@
       box-shadow: 0 0 30px #e668a1;
     }
 
-    /* Fixed footer with nav */
     footer {
       position: fixed;
       bottom: 0;
@@ -106,6 +142,14 @@
 <body>
   <header>Kayla's Art Gallery</header>
 
+  <div class="credit">
+    Credit to <strong>ArtWithFlo</strong> for the inspiring tutorial
+  </div>
+
+  <button class="heart-button" aria-label="Favorite">
+    ❤️
+  </button>
+
   <main>
     <div class="gallery">
       <img src="Art1.jpg" alt="Art 1" />
@@ -121,7 +165,6 @@
     </div>
   </main>
 
-  <!-- Modal for image zoom -->
   <div id="imageModal" aria-hidden="true" role="dialog" tabindex="-1">
     <img id="modalImg" alt="Enlarged artwork" />
   </div>
@@ -162,7 +205,6 @@
       }
     });
 
-    // Optional: close modal on Esc key
     document.addEventListener('keydown', e => {
       if (e.key === "Escape" && modal.style.display === 'flex') {
         modal.style.display = 'none';
