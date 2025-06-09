@@ -17,6 +17,7 @@
       color: #dcdde1;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       overflow-x: hidden;
+      padding-bottom: 60px; /* space for bottom nav */
     }
 
     header {
@@ -145,6 +146,41 @@
       backdrop-filter: blur(5px);
       border-radius: 0 0 10px 10px;
     }
+
+    /* Bottom Nav Footer */
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #292945;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.7);
+      z-index: 50;
+    }
+
+    .bottom-nav ul {
+      display: flex;
+      justify-content: space-around;
+      list-style: none;
+      padding: 0.5rem 0;
+      margin: 0;
+    }
+
+    .bottom-nav ul li a {
+      color: #c7d0db;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      display: block;
+      transition: color 0.3s ease;
+    }
+
+    .bottom-nav ul li a:hover,
+    .bottom-nav ul li a[aria-current="page"] {
+      color: #e668a1;
+      text-shadow: 0 0 6px #e668a1;
+    }
   </style>
 </head>
 <body>
@@ -154,7 +190,7 @@
   <nav id="navDrawer" aria-label="Main navigation">
     <ul>
       <li><a href="index.html">Home</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="gallery.html" aria-current="page">Gallery</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
       <li><a href="notes.html">Visitor Notes</a></li>
@@ -208,6 +244,18 @@
       <div class="caption" id="caption10">Animated Artwork - Watermarked</div>
     </div>
   </section>
+
+  <footer>
+    <nav class="bottom-nav" aria-label="Bottom navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="gallery.html" aria-current="page">Gallery</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="notes.html">Visitor Notes</a></li>
+      </ul>
+    </nav>
+  </footer>
 
   <script>
     const navToggle = document.getElementById('navToggle');
