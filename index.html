@@ -3,111 +3,116 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Welcome to Kayla's Art</title>
+  <title>Kayla's Art Gallery</title>
   <style>
-    /* Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      background-color: #1e1e2f;
-      color: #dcdde1;
+      margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      padding-bottom: 60px; /* space for bottom nav */
-      line-height: 1.6;
+      background-color: #1c1c2e;
+      color: #dcdde1;
+      padding-top: 5.5rem;
+      padding-bottom: 5rem;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
     }
 
     header {
-      background-color: #2c2c44;
-      padding: 1.5rem 1rem;
-      text-align: center;
-      font-size: 2.5rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #292945;
+      color: #e668a1;
+      font-size: 2rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
-      color: #a1c3d1;
-      text-shadow: 0 0 8px #a1c3d1;
+      padding: 1rem;
+      letter-spacing: 0.05em;
       user-select: none;
-      flex-shrink: 0;
+      z-index: 1100;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.7);
+    }
+
+    .heart-button {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: #e668a1;
+      font-size: 1.8rem;
+      cursor: default;
+      user-select: none;
+      z-index: 1200;
     }
 
     main {
-      flex-grow: 1;
-      max-width: 800px;
-      margin: 3rem auto 2rem;
-      padding: 0 1rem;
-      font-size: 1.2rem;
-      color: #c7d0db;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
       text-align: center;
     }
 
-    main p {
-      margin-bottom: 1.5rem;
+    h1 {
+      font-size: 2.5rem;
+      color: #e668a1;
+      margin-bottom: 1rem;
     }
 
-    /* Bottom Nav Footer */
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      max-width: 700px;
+    }
+
     footer {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
       background-color: #292945;
-      box-shadow: 0 -2px 8px rgba(0,0,0,0.7);
-      z-index: 50;
-      flex-shrink: 0;
-    }
-
-    .bottom-nav ul {
       display: flex;
       justify-content: space-around;
-      list-style: none;
-      padding: 0.5rem 0;
-      margin: 0;
+      align-items: center;
+      padding: 0.75rem 0;
+      z-index: 1000;
+      box-shadow: 0 -2px 6px rgba(0,0,0,0.7);
     }
 
-    .bottom-nav ul li a {
-      color: #c7d0db;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1rem;
-      padding: 0.5rem 1rem;
-      display: block;
-      transition: color 0.3s ease;
-    }
-
-    .bottom-nav ul li a:hover,
-    .bottom-nav ul li a[aria-current="page"] {
+    footer a {
       color: #e668a1;
-      text-shadow: 0 0 6px #e668a1;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    footer a:hover {
+      text-shadow: 0 0 5px #e668a1;
     }
   </style>
 </head>
 <body>
+  <header>Kayla's Art Gallery</header>
 
-  <header>Kayla's Art</header>
+  <button class="heart-button" aria-hidden="true" tabindex="-1">❤️</button>
 
   <main>
-    <p>Welcome to my creative world! Here, you’ll find a curated gallery of my artwork, infused with passion and imagination.</p>
-    <p>Whether you're a fellow artist, a K-pop fan, or just curious, I’m glad you’re here.</p>
-    <p>Navigate through the gallery, learn a bit about me, or drop a message in the contact page.</p>
+    <h1>Welcome to My Magical Art Space</h1>
+    <p>Come explore my world of creativity, sparkle, and fantasy. Whether you're here for inspiration, beauty, or just some badass artwork, you're in the right place. 💖</p>
   </main>
 
   <footer>
-    <nav class="bottom-nav" aria-label="Bottom navigation">
-      <ul>
-        <li><a href="index.html" aria-current="page">Home</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="notes.html">Visitor Notes</a></li>
-      </ul>
-    </nav>
+    <a href="index.html">Home</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="notes.html">Notes</a>
   </footer>
-
 </body>
 </html>
