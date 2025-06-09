@@ -93,6 +93,7 @@
       margin-top: 1rem;
       border-radius: 8px;
       box-shadow: 0 0 6px rgba(230, 104, 161, 0.5);
+      word-break: break-word;
     }
 
     .note p {
@@ -124,51 +125,6 @@
       text-shadow: 0 0 5px #e668a1;
     }
   </style>
-
-  <!-- Firebase -->
-  <script type="module">
-    // Firebase setup
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyB6fXcN5oF0a9dFdqZAfnhPu3Jr24uWoic",
-      authDomain: "kaylasartcomments.firebaseapp.com",
-      databaseURL: "https://kaylasartcomments-default-rtdb.firebaseio.com",
-      projectId: "kaylasartcomments",
-      storageBucket: "kaylasartcomments.firebasestorage.app",
-      messagingSenderId: "591454461493",
-      appId: "1:591454461493:web:4aa69c08127a8988555b7c",
-      measurementId: "G-KM52V6M1SE"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    const notesRef = ref(db, 'visitor-notes');
-
-    const form = document.getElementById("noteForm");
-    const notesList = document.getElementById("notesList");
-
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const noteText = form.note.value.trim();
-      if (noteText) {
-        push(notesRef, { text: noteText });
-        form.reset();
-      }
-    });
-
-    onValue(notesRef, (snapshot) => {
-      notesList.innerHTML = "";
-      snapshot.forEach((child) => {
-        const note = child.val();
-        const div = document.createElement("div");
-        div.className = "note";
-        div.innerHTML = `<p>${note.text}</p>`;
-        notesList.appendChild(div);
-      });
-    });
-  </script>
 </head>
 
 <body>
@@ -191,5 +147,57 @@
     <a href="contact.html">Contact</a>
     <a href="notes.html">Notes</a>
   </footer>
+
+  <!-- Firebase scripts loaded at bottom -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const firebaseConfig = {
+        apiKey: "AIzaSyB6fXcN5oF0a9dFdqZAfnhPu3Jr24uWoic",
+        authDomain: "kaylasartcomments.firebaseapp.com",
+        databaseURL: "https://kaylasartcomments-default-rtdb.firebaseio.com",
+        projectId: "kaylasartcomments",
+        storageBucket: "kaylasartcomments.firebasestorage.app",
+        messagingSenderId: "591454461493",
+        appId: "1:591454461493:web:4aa69c08127a8988555b7c",
+        measurementId: "G-KM52V6M1SE"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+      const notesRef = ref(db, 'visitor-notes');
+
+      const form = document.getElementById("noteForm");
+      const notesList = document.getElementById("notesList");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const noteText = form.note.value.trim();
+        if (noteText.length > 0) {
+          push(notesRef, { text: noteText })
+            .then(() => {
+              form.reset();
+            })
+            .catch(err => {
+              console.error("Failed to post note:", err);
+              alert("Oops, failed to post your note. Try again.");
+            });
+        }
+      });
+
+      onValue(notesRef, (snapshot) => {
+        notesList.innerHTML = "";
+        snapshot.forEach((child) => {
+          const note = child.val();
+          const div = document.createElement("div");
+          div.className = "note";
+          div.textContent = note.text;
+          notesList.appendChild(div);
+        });
+      });
+    });
+  </script>
 </body>
 </html>
