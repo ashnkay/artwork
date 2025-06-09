@@ -5,169 +5,132 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Visitor Notes</title>
   <style>
-    /* Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      background-color: #1e1e2f;
-      color: #dcdde1;
+      margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      padding-bottom: 60px; /* space for bottom nav */
-      line-height: 1.6;
+      background-color: #1c1c2e;
+      color: #dcdde1;
+      padding-top: 5.5rem;
+      padding-bottom: 5rem;
     }
 
     header {
-      background-color: #2c2c44;
-      padding: 1.5rem 1rem;
-      text-align: center;
-      font-size: 2.5rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #292945;
+      color: #e668a1;
+      font-size: 2rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
-      color: #a1c3d1;
-      text-shadow: 0 0 8px #a1c3d1;
+      padding: 1rem;
+      letter-spacing: 0.05em;
       user-select: none;
+      z-index: 1100;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.7);
+    }
+
+    .heart-button {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: #e668a1;
+      font-size: 1.8rem;
+      cursor: default;
+      user-select: none;
+      z-index: 1200;
     }
 
     main {
-      max-width: 700px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-      font-size: 1.15rem;
-      color: #c7d0db;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    h2 {
+      color: #e668a1;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
     }
 
     form {
-      margin-top: 1.5rem;
       display: flex;
       flex-direction: column;
       gap: 1rem;
     }
 
-    textarea {
-      resize: vertical;
-      min-height: 100px;
-      padding: 0.6rem;
+    input, textarea {
+      padding: 0.75rem;
       border-radius: 6px;
       border: none;
-      font-family: inherit;
       font-size: 1rem;
-      background-color: #333354;
-      color: #eee;
-      transition: background-color 0.3s ease;
-    }
-
-    textarea:focus {
-      outline: 2px solid #e668a1;
-      background-color: #444466;
     }
 
     button {
-      width: 120px;
-      padding: 0.7rem 1rem;
       background-color: #e668a1;
+      color: #fff;
       border: none;
+      padding: 0.75rem;
       border-radius: 6px;
-      color: white;
-      font-weight: 700;
+      font-weight: bold;
+      font-size: 1rem;
       cursor: pointer;
-      transition: background-color 0.3s ease;
-      align-self: flex-start;
     }
 
     button:hover {
-      background-color: #c0527d;
-    }
-
-    #notesList {
-      margin-top: 2rem;
-      max-height: 300px;
-      overflow-y: auto;
-      background-color: #292945;
-      padding: 1rem;
-      border-radius: 8px;
-      box-shadow: inset 0 0 8px #0008;
+      background-color: #ff85c2;
+      box-shadow: 0 0 8px #e668a1;
     }
 
     .note {
-      padding: 0.6rem;
-      border-bottom: 1px solid #444466;
-      word-wrap: break-word;
-      white-space: pre-wrap;
+      background-color: #2a2a40;
+      padding: 1rem;
+      margin-top: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 6px rgba(230, 104, 161, 0.5);
     }
 
-    /* Bottom Nav Footer */
+    .note p {
+      margin: 0;
+    }
+
     footer {
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
       background-color: #292945;
-      box-shadow: 0 -2px 8px rgba(0,0,0,0.7);
-      z-index: 50;
-    }
-
-    .bottom-nav ul {
       display: flex;
       justify-content: space-around;
-      list-style: none;
-      padding: 0.5rem 0;
-      margin: 0;
+      align-items: center;
+      padding: 0.75rem 0;
+      z-index: 1000;
+      box-shadow: 0 -2px 6px rgba(0,0,0,0.7);
     }
 
-    .bottom-nav ul li a {
-      color: #c7d0db;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1rem;
-      padding: 0.5rem 1rem;
-      display: block;
-      transition: color 0.3s ease;
-    }
-
-    .bottom-nav ul li a:hover,
-    .bottom-nav ul li a[aria-current="page"] {
+    footer a {
       color: #e668a1;
-      text-shadow: 0 0 6px #e668a1;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    footer a:hover {
+      text-shadow: 0 0 5px #e668a1;
     }
   </style>
-</head>
-<body>
 
-  <header>Visitor Notes</header>
+  <!-- Firebase -->
+  <script type="module">
+    // Firebase setup
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-  <main>
-    <p>Thanks for visiting my gallery! Feel free to leave a note, share your thoughts, or just say hi.</p>
-
-    <form id="noteForm">
-      <textarea id="noteInput" placeholder="Write your note here..." required></textarea>
-      <button type="submit">Add Note</button>
-    </form>
-
-    <div id="notesList"></div>
-  </main>
-
-  <footer>
-    <nav class="bottom-nav" aria-label="Bottom navigation">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="notes.html" aria-current="page">Visitor Notes</a></li>
-      </ul>
-    </nav>
-  </footer>
-
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
-
-  <script>
-    // Your Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyB6fXcN5oF0a9dFdqZAfnhPu3Jr24uWoic",
       authDomain: "kaylasartcomments.firebaseapp.com",
@@ -179,50 +142,54 @@
       measurementId: "G-KM52V6M1SE"
     };
 
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const notesRef = ref(db, 'visitor-notes');
 
-    const notesList = document.getElementById('notesList');
-    const noteForm = document.getElementById('noteForm');
-    const noteInput = document.getElementById('noteInput');
+    const form = document.getElementById("noteForm");
+    const notesList = document.getElementById("notesList");
 
-    // Load notes from Firebase
-    function loadNotes() {
-      db.ref('notes').on('value', snapshot => {
-        notesList.innerHTML = '';
-        const notes = snapshot.val();
-        if (notes) {
-          Object.entries(notes).forEach(([key, note]) => {
-            const div = document.createElement('div');
-            div.classList.add('note');
-            div.textContent = note.text;
-            notesList.appendChild(div);
-          });
-        } else {
-          notesList.textContent = 'No notes yet. Be the first to leave one!';
-        }
-      });
-    }
-
-    // Add note to Firebase
-    noteForm.addEventListener('submit', e => {
+    form.addEventListener("submit", (e) => {
       e.preventDefault();
-      const text = noteInput.value.trim();
-      if (!text) return;
-
-      const newNoteRef = db.ref('notes').push();
-      newNoteRef.set({ text })
-        .then(() => {
-          noteInput.value = '';
-        })
-        .catch(err => {
-          alert('Error adding note: ' + err.message);
-        });
+      const noteText = form.note.value.trim();
+      if (noteText) {
+        push(notesRef, { text: noteText });
+        form.reset();
+      }
     });
 
-    // Initialize
-    loadNotes();
+    onValue(notesRef, (snapshot) => {
+      notesList.innerHTML = "";
+      snapshot.forEach((child) => {
+        const note = child.val();
+        const div = document.createElement("div");
+        div.className = "note";
+        div.innerHTML = `<p>${note.text}</p>`;
+        notesList.appendChild(div);
+      });
+    });
   </script>
+</head>
+
+<body>
+  <header>Visitor Notes</header>
+  <button class="heart-button" aria-hidden="true" tabindex="-1">❤️</button>
+
+  <main>
+    <h2>Leave a note ✨</h2>
+    <form id="noteForm">
+      <textarea name="note" rows="4" placeholder="Write something nice..." required></textarea>
+      <button type="submit">Post</button>
+    </form>
+    <div id="notesList"></div>
+  </main>
+
+  <footer>
+    <a href="index.html">Home</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="notes.html">Notes</a>
+  </footer>
 </body>
 </html>
