@@ -5,6 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kayla's Art Gallery</title>
   <style>
+    html {
+  scroll-behavior: smooth;
+}
+.scroll-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 100%;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.scroll-gallery img {
+  width: 100%;
+  height: auto;
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 10px;
+  object-fit: contain;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+  
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -137,7 +159,7 @@
   </div>
   
   <main>
-    <div class="gallery">
+    <div class="scroll-gallery">
       <img src="Art1.jpg" alt="Art 1" />
       <img src="Art2.jpg" alt="Art 2" />
       <img src="Art3.jpg" alt="Art 3" />
