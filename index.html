@@ -117,14 +117,12 @@
   <script type="module">
   import { createSparkleBurst } from './sparkle.js';
 
-  const heart = document.querySelector('.heart-button');
-  heart.addEventListener('click', () => {
-    const rect = heart.getBoundingClientRect();
+  document.querySelector('.heart-button').addEventListener('click', () => {
     createSparkleBurst({
-      count: 80,
-      color: '#e668a1',
-      size: 25,
-      duration: 2000,
+      count: 150,
+      color: '#c0c0c0',
+      size: 50,
+      duration: 500,
       originX: rect.left + rect.width / 2,
       originY: rect.top + rect.height / 2
     });
