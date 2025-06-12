@@ -3,8 +3,8 @@ export function createSparkleBurst({ count = 100, color = '#fff', size = 40, dur
   for (let i = 0; i < count; i++) {
     const sparkle = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     sparkle.setAttribute('viewBox', '0 0 200 200');
-    sparkle.setAttribute('width', size);
-    sparkle.setAttribute('height', size);
+    sparkle.setAttribute('width', size 40px);
+    sparkle.setAttribute('height', size40px);
     sparkle.style.position = 'fixed';
     sparkle.style.pointerEvents = 'none';
     sparkle.style.zIndex = '9999';
