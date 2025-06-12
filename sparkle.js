@@ -1,7 +1,7 @@
 export function createSparkleBurst({
-  count = 30p,
+  count = 200p,
   color = '#c0c0c0',
-  size = 60,
+  size = 75,
   duration = 3000,
   originX = window.innerWidth / 3,
   originY = window.innerHeight / 3
@@ -52,7 +52,7 @@ export function createSparkleBurst({
     document.body.appendChild(sparkle);
 
     const angle = Math.random() * 2 * Math.PI;
-    const distance = Math.random() * 200 + 50;
+    const distance = Math.random() *600 + 150;
     const x = Math.cos(angle) * distance;
     const y = Math.sin(angle) * distance;
 
