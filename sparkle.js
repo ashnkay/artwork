@@ -3,15 +3,15 @@ export function createSparkleBurst({ count = 100, color = '#fff', size = 40, dur
   for (let i = 0; i < count; i++) {
     const sparkle = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     sparkle.setAttribute('viewBox', '0 0 200 200');
-    sparkle.setAttribute('width', size 40px);
-    sparkle.setAttribute('height', size 40px);
+    sparkle.setAttribute('width', size);
+    sparkle.setAttribute('height', size);
     sparkle.style.position = 'fixed';
     sparkle.style.pointerEvents = 'none';
     sparkle.style.zIndex = '9999';
 
     const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     path.setAttribute('fill', color);
-    path.setAttribute('d', `"M115.45,24.121c-0.68-3.585-1.822-7.034-3.053-9.882c-3.778-8.745-11.119-15.551-21.219-14.023
+    path.setAttribute('d', `M115.45,24.121c-0.68-3.585-1.822-7.034-3.053-9.882c-3.778-8.745-11.119-15.551-21.219-14.023
 		C78.013,2.206,71.348,14.79,67.905,26.301c-0.033,0.109,0.01,0.2,0.036,0.296c-7.555-0.947-16.285,2.545-17.869,10.103
 		c-9.098-5.922-24.508-9.775-33.745-2.788c-9.252,6.999-5.156,19.363-1.133,28.102c2.85,6.191,7.381,12.598,13.452,15.743
 		C3.545,115.893,19.276,169.2,59.478,188.769c-5.429,6.829-2.74,19.349,5.574,22.588c7.482,2.915,14.658-1.96,18.557-8.362
