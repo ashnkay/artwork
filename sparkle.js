@@ -1,5 +1,5 @@
 
-export function createSparkleBurst({ count = 100, color = '#fff', size = 40, duration = 3000 } = {}) {
+export function createSparkleBurst({ count = 100, color = '#c0c0c0', size = 60, duration = 3000 } = {}) {
   for (let i = 0; i < count; i++) {
     const sparkle = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     sparkle.setAttribute('viewBox', '0 0 200 200');
