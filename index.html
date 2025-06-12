@@ -5,15 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kayla's Art Gallery</title>
   <style>
-    body {
+    html, body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 0;
       background-color: #1c1c2e;
       color: #dcdde1;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       padding-top: 5.5rem;
       padding-bottom: 5rem;
-      display: flex;
-      flex-direction: column;
       min-height: 100vh;
     }
 
@@ -27,13 +26,11 @@
       font-size: 2rem;
       font-weight: 700;
       padding: 1rem;
-      letter-spacing: 0.05em;
       user-select: none;
       z-index: 1100;
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.7);
     }
 
     .heart-button {
@@ -47,25 +44,7 @@
       z-index: 9999;
     }
 
-    .sparkle {
-      position: absolute;
-      pointer-events: none;
-      animation: sparkle-fade 1s ease-out forwards;
-    }
-
-    @keyframes sparkle-fade {
-      0% {
-        opacity: 1;
-        transform: scale(1);
-      }
-      100% {
-        opacity: 0;
-        transform: scale(2.5) rotate(45deg);
-      }
-    }
-
     main {
-      flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -82,8 +61,8 @@
 
     p {
       font-size: 1.2rem;
-      line-height: 1.6;
       max-width: 700px;
+      line-height: 1.6;
     }
 
     footer {
@@ -97,7 +76,6 @@
       align-items: center;
       padding: 0.75rem 0;
       z-index: 1000;
-      box-shadow: 0 -2px 6px rgba(0,0,0,0.7);
     }
 
     footer a {
@@ -110,11 +88,37 @@
     footer a:hover {
       text-shadow: 0 0 5px #e668a1;
     }
+
+    svg#sparkle-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      z-index: 5000;
+    }
+
+    .sparkle-shape {
+      fill: #c0c0c0;
+      opacity: 1;
+      transform-origin: center;
+      transform-box: fill-box;
+      animation: sparkleFade 0.8s ease-out forwards;
+    }
+
+    @keyframes sparkleFade {
+      to {
+        opacity: 0;
+        transform: scale(0.2) rotate(90deg);
+      }
+    }
   </style>
 </head>
 <body>
-
   <header>Kayla's Art Gallery</header>
+
   <button class="heart-button">❤️</button>
 
   <main>
@@ -130,9 +134,10 @@
     <a href="notes.html">Notes</a>
   </footer>
 
-  <!-- Hidden SVG Sparkle Shape -->
-  <svg id="sparkle-shape" viewBox="0 0 100 100" style="display: none;">
-    <polygon points="M115.45,24.121c-0.68-3.585-1.822-7.034-3.053-9.882c-3.778-8.745-11.119-15.551-21.219-14.023
+  <svg id="sparkle-layer"></svg>
+
+  <script>
+    const pathData = `M115.45,24.121c-0.68-3.585-1.822-7.034-3.053-9.882c-3.778-8.745-11.119-15.551-21.219-14.023
 		C78.013,2.206,71.348,14.79,67.905,26.301c-0.033,0.109,0.01,0.2,0.036,0.296c-7.555-0.947-16.285,2.545-17.869,10.103
 		c-9.098-5.922-24.508-9.775-33.745-2.788c-9.252,6.999-5.156,19.363-1.133,28.102c2.85,6.191,7.381,12.598,13.452,15.743
 		C3.545,115.893,19.276,169.2,59.478,188.769c-5.429,6.829-2.74,19.349,5.574,22.588c7.482,2.915,14.658-1.96,18.557-8.362
@@ -169,38 +174,38 @@
 		C102.936,118.619,103.486,84.832,102.793,57.309z"/>
 	<path d="M164.42,77.981c-12.588-16.504-27.772-21.114-47.793-23.195c-0.955-0.099-1.499,0.412-1.704,1.084
 		c-0.278,0.165-0.491,0.397-0.622,0.701c-0.341,0.184-0.633,0.458-0.694,0.941c-2.843,22.31,2.124,49.88,17.293,67.406
-		c9.164,10.589,25.663,15.938,35.995,3.713C178.822,114.52,174.655,91.401,164.42,77.981z" fill="white"/>
-  </svg>
+		c9.164,10.589,25.663,15.938,35.995,3.713C178.822,114.52,174.655,91.401,164.42,77.981z';
 
-  <!-- JavaScript Sparkle Logic -->
-  <script>
-    const heartBtn = document.querySelector('.heart-button');
+    function createSVGShape(x, y, size) {
+      const svg = document.getElementById("sparkle-layer");
+      const sparkle = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      sparkle.setAttribute("d", pathData);
+      sparkle.setAttribute("class", "sparkle-shape");
+      sparkle.setAttribute("transform", `translate(${x}, ${y}) scale(${size})`);
+      svg.appendChild(sparkle);
 
-    heartBtn.addEventListener('click', () => {
-      const rect = heartBtn.getBoundingClientRect();
-      for (let i = 0; i < 15; i++) {
-        createSparkle(rect.left + rect.width / 2, rect.top + rect.height / 2);
-      }
-    });
-
-    function createSparkle(x, y) {
-      const sparkle = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-      sparkle.setAttribute("viewBox", "0 0 100 100");
-      sparkle.classList.add("sparkle");
-
-      const shape = document.querySelector('#sparkle-shape polygon').cloneNode(true);
-      shape.setAttribute("fill", "#c0c0c0");
-      sparkle.appendChild(shape);
-
-      sparkle.style.left = `${x + (Math.random() * 100 - 50)}px`;
-      sparkle.style.top = `${y + (Math.random() * 100 - 50)}px`;
-      sparkle.style.width = `${Math.random() * 16 + 8}px`;
-      sparkle.style.height = sparkle.style.width;
-      sparkle.style.position = "absolute";
-      document.body.appendChild(sparkle);
-
-      setTimeout(() => sparkle.remove(), 1000);
+      setTimeout(() => {
+        svg.removeChild(sparkle);
+      }, 1000);
     }
+
+    function createSparkleBurst({ count = 40, originX, originY }) {
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const distance = Math.random() * 80;
+        const x = originX + Math.cos(angle) * distance;
+        const y = originY + Math.sin(angle) * distance;
+        const size = Math.random() * 0.07 + 0.03;
+        createSVGShape(x, y, size);
+      }
+    }
+
+    document.querySelector('.heart-button').addEventListener('click', () => {
+      const rect = event.target.getBoundingClientRect();
+      const originX = rect.left + rect.width / 2;
+      const originY = rect.top + rect.height / 2;
+      createSparkleBurst({ originX, originY });
+    });
   </script>
 </body>
 </html>
