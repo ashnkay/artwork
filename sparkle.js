@@ -1,10 +1,10 @@
 export function createSparkleBurst({
-  count = 100,
-  color = '#fff',
-  size = 40,
+  count = 30p,
+  color = '#c0c0c0',
+  size = 60,
   duration = 3000,
-  originX = window.innerWidth / 2,
-  originY = window.innerHeight / 2
+  originX = window.innerWidth / 3,
+  originY = window.innerHeight / 3
 } = {}) {
   for (let i = 0; i < count; i++) {
     const sparkle = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
