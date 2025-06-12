@@ -1,10 +1,10 @@
-export function createSparkleBurst({ 
-  count = 100, 
-  color = '#e668a1', 
-  size = 40, 
-  duration = 3000, 
-  originX = window.innerWidth / 2, 
-  originY = window.innerHeight / 2 
+export function createSparkleBurst({
+  count = 100,
+  color = '#fff',
+  size = 40,
+  duration = 3000,
+  originX = window.innerWidth / 2,
+  originY = window.innerHeight / 2
 } = {}) {
   for (let i = 0; i < count; i++) {
     const sparkle = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -16,12 +16,9 @@ export function createSparkleBurst({
     sparkle.style.zIndex = '9999';
     sparkle.style.left = `${originX}px`;
     sparkle.style.top = `${originY}px`;
-    sparkle.style.backgroundColor = 'transparent';
 
     const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     path.setAttribute('fill', color);
-    path.setAttribute('stroke', '#fff');           // White stroke for visibility
-    path.setAttribute('stroke-width', '2');
     path.setAttribute('d', `M115.45,24.121c-0.68-3.585-1.822-7.034-3.053-9.882c-3.778-8.745-11.119-15.551-21.219-14.023
       C78.013,2.206,71.348,14.79,67.905,26.301c-0.033,0.109,0.01,0.2,0.036,0.296c-7.555-0.947-16.285,2.545-17.869,10.103
       c-9.098-5.922-24.508-9.775-33.745-2.788c-9.252,6.999-5.156,19.363-1.133,28.102c2.85,6.191,7.381,12.598,13.452,15.743
@@ -50,18 +47,15 @@ export function createSparkleBurst({
       c2.55,0.951,5.336,1.339,8.365,0.908c13.351-1.902,18.408-16.415,20.085-27.992c1.526,0.62,3.157,0.954,4.824,0.895
       c5.98-0.21,13.204-4.98,15.073-10.977c8.543,5.825,23.974,9.496,32.356,1.56c4.381-4.148,5.212-10.408,4.444-16.556
       c41.044-2.833,78.606,27.275,87.056,67.036C211.015,131.808,196.542,174.704,156.17,186.4z"/>
-    `);
-    sparkle.appendChild(path);
 
+    sparkle.appendChild(path);
     document.body.appendChild(sparkle);
 
-    // Random angle and distance for burst
     const angle = Math.random() * 2 * Math.PI;
     const distance = Math.random() * 200 + 50;
     const x = Math.cos(angle) * distance;
     const y = Math.sin(angle) * distance;
 
-    // Animate sparkle flying outward & fading out
     sparkle.animate([
       { transform: 'translate(0, 0)', opacity: 1 },
       { transform: `translate(${x}px, ${y}px)`, opacity: 0 }
@@ -71,7 +65,6 @@ export function createSparkleBurst({
       fill: 'forwards'
     });
 
-    // Cleanup after animation finishes
     setTimeout(() => sparkle.remove(), duration);
   }
 }
