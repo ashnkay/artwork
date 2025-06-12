@@ -114,15 +114,18 @@
     <a href="contact.html">Contact</a>
     <a href="notes.html">Notes</a>
   </footer>
-  <script type="module">
+<script type="module">
   import { createSparkleBurst } from './sparkle.js';
 
-  document.querySelector('.heart-button').addEventListener('click', () => {
+  const heartBtn = document.querySelector('.heart-button');
+  
+  heartBtn.addEventListener('click', () => {
+    const rect = heartBtn.getBoundingClientRect();
     createSparkleBurst({
       count: 150,
       color: '#c0c0c0',
       size: 50,
-      duration: 500,
+      duration: 1000,
       originX: rect.left + rect.width / 2,
       originY: rect.top + rect.height / 2
     });
