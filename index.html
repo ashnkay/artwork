@@ -119,15 +119,11 @@
   const heartBtn = document.querySelector('.heart-button');
   
   heartBtn.addEventListener('click', () => {
-    const rect = heartBtn.getBoundingClientRect();
-    createSparkleBurst({
-      count: 150,
-      color: '#c0c0c0',
-      size: 50,
-      duration: 1000,
-      originX: rect.left + rect.width / 2,
-      originY: rect.top + rect.height / 2
-    });
+    const heartBtn = document.querySelector('.heart-button');
+
+heartBtn.addEventListener('click', () => {
+  alert('Heart clicked! Sparkle function should run.');
+});
   });
 </script>
 </body>
