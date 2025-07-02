@@ -8,25 +8,6 @@
     html {
   scroll-behavior: smooth;
 }
-.scroll-gallery {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  max-width:50%;
-  padding: 20px;
-  overflow-y: auto;
-}
-
-.scroll-gallery img {
-  width: 100%;
-  height: auto;
-  max-width: 800px;
-  margin: 0 auto;
-  border-radius: 10px;
-  object-fit: contain;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-}
-  
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -78,10 +59,10 @@
     .gallery {
       margin: 1rem auto;
       display: grid;
-      grid-template-columns: repeat(4, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 1.5rem;
       padding: 2rem;
-      max-width: 960px;
+      max-width: 1200px;
       justify-items: center;
     }
 
@@ -188,7 +169,7 @@
   </div>
   
   <main>
-    <div class="scroll-gallery">
+    <div class="gallery">
       <div class="art-item">
   <video src="AnimatedArt1.mp4" width="100%" autoplay loop muted playsinline></video>
   <p class="caption">
@@ -527,7 +508,7 @@
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImg');
 
-    document.querySelectorAll('.gallery img').forEach(img => {
+    document.querySelectorAll('.art-item img').forEach(img => {
       img.style.cursor = 'zoom-in';
 
       img.addEventListener('click', () => {
