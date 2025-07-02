@@ -8,21 +8,21 @@
     html {
   scroll-behavior: smooth;
 }
-.scroll-gallery {
+.grid-gallery {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  max-width: 100%;
+  max-width:50%;
   padding: 20px;
   overflow-y: auto;
 }
 
-.scroll-gallery img {
-  width: 100%;
+.grid-gallery img {
+  width: 50%;
   height: auto;
-  max-width: 800px;
+  max-width: 200px;
   margin: 0 auto;
-  border-radius: 10px;
+  border-radius: 3px;
   object-fit: contain;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
@@ -85,7 +85,7 @@
     }
 
     .gallery img {
-      width: 100%;
+      width: 50%;
       height: auto;
       border-radius: 8px;
       box-shadow: 0 0 12px #e668a1;
@@ -187,7 +187,7 @@
   </div>
   
   <main>
-    <div class="scroll-gallery">
+    <div class="grid-gallery">
       <div class="art-item">
   <video src="AnimatedArt1.mp4" width="100%" autoplay loop muted playsinline></video>
   <p class="caption">
