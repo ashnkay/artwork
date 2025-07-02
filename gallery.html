@@ -508,13 +508,13 @@
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImg');
 
-    document.querySelectorAll('.art-item img').forEach(img => {
-      img.style.cursor = 'zoom-in';
+    document.querySelectorAll('.art-item img, .art-item video').forEach(media => {
+      media.style.cursor = 'zoom-in';
 
       img.addEventListener('click', () => {
         modal.style.display = 'flex';
-        modalImg.src = img.src;
-        modalImg.alt = img.alt;
+        modalImg.src = media.src;
+        modalImg.alt = media.alt || "Artwork";
         modal.setAttribute('aria-hidden', 'false');
         modal.focus();
       });
