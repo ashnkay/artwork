@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kayla's Art Gallery</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     html, body {
       margin: 0;
@@ -33,16 +34,18 @@
       justify-content: flex-start;
     }
 
-    .heart-button {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      font-size: 24px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      z-index: 9999;
-    }
+	  .insta-icon {
+  margin-left: auto;
+  margin-right: 1rem;
+  font-size: 1.6rem;
+  color: #e668a1;
+  text-decoration: none;
+}
+
+.insta-icon:hover {
+  color: #fff;
+  text-shadow: 0 0 5px #e668a1;
+}
 
     main {
       display: flex;
@@ -117,7 +120,11 @@
   </style>
 </head>
 <body>
-  <header>Kayla's Art Gallery</header>
+  <header>Kayla's Art Gallery
+  <a href="https://www.instagram.com/YOURUSERNAME" target="_blank" class="insta-icon" aria-label="Instagram">
+    <i class="fab fa-instagram"></i>
+  </a>
+</header>
 
   <button class="heart-button">❤️</button>
 
