@@ -116,6 +116,18 @@
 </header>
 
   <main>
+    <form action="https://formspree.io/f/xblylpyb" method="POST">
+  <!-- 🕵️‍♀️ Invisible Honeypot Field -->
+  <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+  <label for="name">Name:</label><br />
+  <input type="text" name="name" required /><br /><br />
+
+  <label for="message">Message:</label><br />
+  <textarea name="message" rows="6" required></textarea><br /><br />
+
+  <button type="submit">Send Note</button>
+</form>
     <textarea id="note" placeholder="Leave your thoughts here..."></textarea>
     <button onclick="postNote()">Post Note</button>
     <ul id="notes-list"></ul>
