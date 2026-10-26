@@ -1,236 +1,759 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kayla's Art Gallery</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      background-color: #1c1c2e;
-      color: #dcdde1;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      padding-top: 5.5rem;
-      padding-bottom: 5rem;
-      min-height: 100vh;
-    }
-
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background-color: #292945;
-      color: #e668a1;
-      font-size: 2rem;
-      font-weight: 700;
-      padding: 1rem;
-      user-select: none;
-      z-index: 1100;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-    }
-
-.insta-icon {
-  margin-left: auto;
-  margin-right: 1rem;
-  font-size: 1.6rem;
-  color: #e668a1;
-  text-decoration: none;
-}
-
-.insta-icon:hover {
-  color: #fff;
-  text-shadow: 0 0 5px #e668a1;
-}
-	  
-.custom-pricing {
-  background-color: #292945;
-  color: #e6d0f8;
-  padding: 1rem;
-  text-align: left;
-  font-size: 0.5rem;
-  margin-top: 2rem; /* Adjust if it overlaps with your fixed header */
-  border-bottom: 1px solid #444;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
-}
-
-.custom-pricing strong {
-  color: #e668a1;
-}
-
-    main {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      color: #e668a1;
-      margin-bottom: 1rem;
-    }
-
-    p {
-      font-size: 1.2rem;
-      max-width: 700px;
-      line-height: 1.6;
-    }
-
-    footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background-color: #292945;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      padding: 0.75rem 0;
-      z-index: 1000;
-    }
-
-    footer a {
-      color: #e668a1;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1rem;
-    }
-
-    footer a:hover {
-      text-shadow: 0 0 5px #e668a1;
-    }
-
-    svg#sparkle-layer {
-      position: absolute;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      width: 100%;
-      height: 100%;
-      overflow: visible;
-      z-index: 5000;
-    }
-
-    .sparkle-shape {
-      fill: #c0c0c0;
-      opacity: 1;
-      transform-origin: center;
-      transform-box: fill-box;
-      animation: sparkleFade 0.8s ease-out forwards;
-    }
-
-    @keyframes sparkleFade {
-      to {
-        opacity: 0;
-        transform: scale(0.2) rotate(90deg);
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="icon" href="data:," />
+    <title>Kayla's Art Gallery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+    <style>
+      :root{
+        --bg:#05050a;
+        --bg-2:#0a0a14;
+        --panel:#0e0e1a;
+        --line:#262040;
+        --ink:#f4effa;
+        --muted:#b7b0cc;
+        --faint:#847ca3;
+        --magenta:#ff00ff;
+        --pink:#ff6fb5;
+        --pink-soft:#e668a1;
+        --glow:0 0 18px rgba(255,0,255,.45), 0 0 46px rgba(255,0,255,.18);
+        --serif:"Marcellus", Georgia, serif;
+        --sans:"Jost", "Segoe UI", system-ui, sans-serif;
       }
-    }
-  </style>
-</head>
-<body>
-  <header>Kayla's Art Gallery
-  <a href="https://www.instagram.com/YOURUSERNAME" target="_blank" class="insta-icon" aria-label="Instagram">
-    <i class="fab fa-instagram"></i>
-  <div class="custom-pricing">
-  <p>
-    <strong>Custom Drawings:</strong> $10 – Simple, less detailed. $15 – Decent details with better quality. $20 – Detailed with bigger canvas and enhanced quality. Mostly, it depends on what you want. <strong>Contact me and I can go into more detail!</strong>
-  </p>
-</div>
-  </a>
-</header>
-
-
-  <main>
-    <h1>Welcome to My Magical Art Space</h1>
-    <p>Come explore my world of creativity, sparkle, and fantasy. Whether you're here for inspiration, beauty, or just some nice and neat artwork, you're in the right place. 💖</p>
-  </main>
-
-  <footer>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="contact.html">Contact</a>
-  </footer>
-
-  <svg id="sparkle-layer"></svg>
-
-  <script>
-    const pathData = `M115.45,24.121c-0.68-3.585-1.822-7.034-3.053-9.882c-3.778-8.745-11.119-15.551-21.219-14.023
-		C78.013,2.206,71.348,14.79,67.905,26.301c-0.033,0.109,0.01,0.2,0.036,0.296c-7.555-0.947-16.285,2.545-17.869,10.103
-		c-9.098-5.922-24.508-9.775-33.745-2.788c-9.252,6.999-5.156,19.363-1.133,28.102c2.85,6.191,7.381,12.598,13.452,15.743
-		C3.545,115.893,19.276,169.2,59.478,188.769c-5.429,6.829-2.74,19.349,5.574,22.588c7.482,2.915,14.658-1.96,18.557-8.362
-		c0.651,7.272,5.022,13.617,13.349,14.421c7.223,0.698,13.778-4.078,16.4-10.51c2.025,6.844,7.164,12.737,15.052,11.926
-		c7.362-0.756,11.664-6.702,12.578-13.306c4.076,6.776,11.325,12.423,18.974,8.948c10.283-4.673,4.202-18.884-1.055-25.602
-		C247.859,162.808,206.068,9.181,115.45,24.121z M109.568,15.233c3.357,7.6,5.849,16.767,0.628,23.87
-		c-7.27,9.889-21.39,4.779-30.616,0.439c-0.047-0.022-0.083,0.005-0.129-0.011c0.007-0.071,0.039-0.138,0.045-0.209
-		c0.469-5.941-2.717-9.731-7.136-11.578C84.281,25.608,97.968,16.497,97.4,3.652C102.469,5.153,106.899,9.192,109.568,15.233z
-		 M80.204,8.411c4.93-4.476,10.352-6.015,15.318-5.189c-1.36,13.35-14.197,21.085-26.418,23.464
-		C71.899,20.235,74.9,13.227,80.204,8.411z M61.546,29.007c6.82-1.601,16.037,1.892,15.146,10.122
-		c-0.545,5.031-5.535,8.689-10.101,10.175c-6.533,2.126-13.211-2.965-14.554-9.432c0.065-0.2-0.003-0.406-0.132-0.583
-		c-0.025-0.16-0.089-0.31-0.107-0.471C53.384,33.991,56.086,30.289,61.546,29.007z M27.227,32.979
-		c7.852-0.591,15.324,3.25,22.674,5.416c-0.02,0.315-0.025,0.638-0.046,0.953c-4.715,1.178-9.388,2.271-14.294,2.464
-		c-6.577,0.258-10.523-2.42-14.787-7.085c-0.066-0.072-0.152-0.06-0.227-0.103C22.347,33.779,24.516,33.183,27.227,32.979z
-		 M18.047,61.938c-4.349-9.004-7.161-21.431,1.136-26.614c-0.021,0.181-0.025,0.369,0.097,0.556
-		c7.108,10.921,20.364,9.99,31.165,4.949c0.014,0.004,0.025,0.018,0.039,0.021c0.62,4.106,3.444,7.893,7.14,9.971
-		c-2.353,8.873-4.634,19.328-13.31,24.269C32.624,81.746,22.743,71.66,18.047,61.938z M156.17,186.4
-		c-1.215,0.352-1.35,1.657-0.799,2.456c-0.053,0.423,0.048,0.876,0.386,1.284c3.986,4.801,11.235,18.619,1.56,21.499
-		c-7.375,2.195-13.696-6.094-16.493-12.373c-0.153-0.806-0.34-1.606-0.6-2.381c-0.617-1.842-3.382-1.105-2.925,0.806
-		c1.839,7.679-0.676,18.708-10.753,18.118c-8.46-0.495-11.097-9.395-12.056-16.417c-0.013-0.126-0.008-0.25-0.024-0.376
-		c-0.005-0.042-0.04-0.055-0.048-0.096c-0.008-0.066-0.023-0.138-0.031-0.204c-0.043-0.347-0.219-0.575-0.438-0.731
-		c-0.818-0.753-2.31-0.436-2.459,1.031c-0.797,7.866-5.135,15.861-14.3,14.963c-9.479-0.929-10.22-9.318-11.092-16.853
-		c0.075-0.296,0.164-0.593,0.223-0.887c0.414-2.061-2.75-2.941-3.161-0.872c-1.432,7.217-9.355,16.978-17.794,12.524
-		c-7.645-4.036-5.226-13.01-2.693-19.235c0.48-0.707,0.478-1.689-0.515-2.159c-41.674-19.72-52.238-68.596-31.482-107.833
-		c2.55,0.951,5.336,1.339,8.365,0.908c13.351-1.902,18.408-16.415,20.085-27.992c1.526,0.62,3.157,0.954,4.824,0.895
-		c5.98-0.21,13.204-4.98,15.073-10.977c8.543,5.825,23.974,9.496,32.356,1.56c4.381-4.148,5.212-10.408,4.444-16.556
-		c41.044-2.833,78.606,27.275,87.056,67.036C211.015,131.808,196.542,174.704,156.17,186.4z"/>
-	<path d="M120.966,148.559c-0.671-0.604-1.451-0.545-2.037-0.179c-0.137-0.001-0.279,0.009-0.436,0.061
-		c-7.746,2.572-14.245,11.421-13.915,19.746c0.113,2.845,1.943,4.986,4.947,5.007c2.586,0.019,4.916-1.518,6.808-3.466
-		c0.466,2.143,1.493,4.105,3.439,5.478c3.079,2.173,7.088,1.644,9.523-1.218C135.727,166.427,126.696,153.713,120.966,148.559z"/>
-	<path d="M102.793,57.309c-0.011-0.436-0.181-0.75-0.402-1.008c-0.076-0.323-0.28-0.61-0.659-0.778
-		c-0.572-0.254-0.986-0.378-1.588-0.155c-0.031,0.012-0.047,0.041-0.077,0.054c-0.22-0.09-0.467-0.118-0.738-0.031
-		c-22.401,7.195-39.903,24.55-49.963,45.617c-6.925,14.502-13.66,37.211,0.908,49.568c12.33,10.458,27.051,2.627,35.417-8.67
-		C102.936,118.619,103.486,84.832,102.793,57.309z"/>
-	<path d="M164.42,77.981c-12.588-16.504-27.772-21.114-47.793-23.195c-0.955-0.099-1.499,0.412-1.704,1.084
-		c-0.278,0.165-0.491,0.397-0.622,0.701c-0.341,0.184-0.633,0.458-0.694,0.941c-2.843,22.31,2.124,49.88,17.293,67.406
-		c9.164,10.589,25.663,15.938,35.995,3.713C178.822,114.52,174.655,91.401,164.42,77.981z';
-
-    function createSVGShape(x, y, size) {
-      const svg = document.getElementById("sparkle-layer");
-      const sparkle = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      sparkle.setAttribute("d", pathData);
-      sparkle.setAttribute("class", "sparkle-shape");
-      sparkle.setAttribute("transform", `translate(${x}, ${y}) scale(${size})`);
-      svg.appendChild(sparkle);
-
-      setTimeout(() => {
-        svg.removeChild(sparkle);
-      }, 1000);
-    }
-
-    function createSparkleBurst({ count = 40, originX, originY }) {
-      for (let i = 0; i < count; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const distance = Math.random() * 80;
-        const x = originX + Math.cos(angle) * distance;
-        const y = originY + Math.sin(angle) * distance;
-        const size = Math.random() * 0.07 + 0.03;
-        createSVGShape(x, y, size);
+      *{ box-sizing:border-box; }
+      html{ scroll-behavior:smooth; }
+      body{
+        margin:0; background:var(--bg); color:var(--ink);
+        font-family:var(--sans); font-weight:300; line-height:1.6;
+        overflow-x:hidden;
       }
-    }
+      ::selection{ background:var(--magenta); color:#fff; }
+      img{ max-width:100%; display:block; }
+      a{ color:var(--pink); }
 
-    document.querySelector('.heart-button').addEventListener('click', () => {
-      const rect = event.target.getBoundingClientRect();
-      const originX = rect.left + rect.width / 2;
-      const originY = rect.top + rect.height / 2;
-      createSparkleBurst({ originX, originY });
-    });
-  </script>
-</body>
+      /* ---------- nav ---------- */
+      nav{
+        position:fixed; inset:0 0 auto 0; z-index:60;
+        display:flex; align-items:center; gap:1.4rem;
+        padding:.7rem clamp(1rem,4vw,2.5rem);
+        background:rgba(5,5,10,.78); backdrop-filter:blur(10px);
+        border-bottom:1px solid rgba(255,0,255,.16);
+      }
+      nav .links{ display:flex; gap:1.3rem; margin-left:auto; flex-wrap:wrap; }
+      nav a{
+        color:var(--muted); text-decoration:none; font-size:.82rem;
+        letter-spacing:.18em; text-transform:uppercase; font-weight:500;
+      }
+      nav a:hover{ color:#fff; text-shadow:0 0 10px var(--magenta); }
+      nav .dot{ color:var(--magenta); text-shadow:var(--glow); font-size:1rem; line-height:1; }
+
+      /* ---------- hero ---------- */
+      header.hero{
+        position:relative; overflow:hidden;
+        padding:8.5rem clamp(1rem,5vw,3rem) 4.5rem;
+        background:
+          radial-gradient(900px 480px at 85% -10%, rgba(255,0,255,.14), transparent 60%),
+          radial-gradient(700px 420px at 8% 110%, rgba(230,104,161,.12), transparent 60%),
+          var(--bg);
+      }
+      .stars{ position:absolute; inset:0; pointer-events:none; }
+      .stars i{
+        position:absolute; width:3px; height:3px; border-radius:50%;
+        background:#ffd7f4; opacity:.25;
+      }
+      @media (prefers-reduced-motion: no-preference){
+        .stars i{ animation:twinkle 3.4s ease-in-out infinite alternate; }
+      }
+      @keyframes twinkle{ from{ opacity:.08; transform:scale(.7);} to{ opacity:.85; transform:scale(1.25);} }
+      .hero-inner{
+        position:relative; max-width:1180px; margin:0 auto;
+        display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(2rem,5vw,4.5rem);
+        align-items:center;
+      }
+      .hero h1{
+        font-family:var(--serif); font-weight:400;
+        font-size:clamp(2.6rem,6.5vw,4.6rem); line-height:1.04; margin:.2rem 0 1rem;
+      }
+      .hero h1 .neon{
+        color:#fff;
+        text-shadow:0 0 6px #fff, 0 0 18px var(--magenta), 0 0 42px var(--magenta), 0 0 80px rgba(255,0,255,.6);
+      }
+      .hero .lede{ font-size:clamp(1.05rem,2vw,1.25rem); color:var(--muted); max-width:34rem; margin:0 0 1.6rem; }
+      .hero .lede strong{ color:var(--ink); font-weight:500; }
+      .kicker{
+        color:var(--pink); letter-spacing:.34em; text-transform:uppercase;
+        font-size:.78rem; font-weight:600; margin:0;
+      }
+      .cta-row{ display:flex; gap:.9rem; flex-wrap:wrap; }
+      .btn{
+        display:inline-block; text-decoration:none; font-weight:500; letter-spacing:.06em;
+        padding:.8rem 1.5rem; border-radius:999px; font-size:.98rem;
+        transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+      }
+      .btn-solid{ background:var(--magenta); color:#fff; box-shadow:var(--glow); }
+      .btn-solid:hover{ transform:translateY(-2px); box-shadow:0 0 26px rgba(255,0,255,.65), 0 0 60px rgba(255,0,255,.25); }
+      .btn-ghost{ border:1px solid var(--pink-soft); color:var(--pink); background:transparent; }
+      .btn-ghost:hover{ background:rgba(255,111,181,.1); transform:translateY(-2px); }
+      .stats{ display:flex; gap:2.2rem; margin-top:2.4rem; flex-wrap:wrap; }
+      .stats div b{ display:block; font-family:var(--serif); font-size:1.7rem; font-weight:400; color:#fff; text-shadow:0 0 14px rgba(255,0,255,.55); }
+      .stats div span{ font-size:.8rem; letter-spacing:.16em; text-transform:uppercase; color:var(--faint); }
+      .hero-art{ position:relative; }
+      .hero-art figure{
+        margin:0; border-radius:18px; overflow:hidden;
+        border:1px solid rgba(255,0,255,.35);
+        box-shadow:0 0 0 1px rgba(0,0,0,.6), 0 24px 70px rgba(0,0,0,.75), 0 0 55px rgba(255,0,255,.22);
+        transform:rotate(1.2deg);
+      }
+      .hero-art img{ width:100%; height:auto; }
+      .hero-art figcaption{
+        position:absolute; left:1rem; bottom:1rem;
+        background:rgba(5,5,10,.72); backdrop-filter:blur(6px);
+        border:1px solid rgba(255,111,181,.35); border-radius:10px;
+        padding:.45rem .8rem; font-size:.85rem; color:var(--ink);
+      }
+      .hero-art figcaption em{ color:var(--pink); font-style:normal; }
+
+      /* ---------- sections ---------- */
+      section{ padding:4.2rem clamp(1rem,5vw,3rem); }
+      .wrap{ max-width:1180px; margin:0 auto; }
+      h2{
+        font-family:var(--serif); font-weight:400; font-size:clamp(1.9rem,4vw,2.7rem);
+        margin:0 0 .4rem; color:#fff;
+      }
+      h2 .amp{ color:var(--magenta); text-shadow:var(--glow); }
+      .sub{ color:var(--muted); margin:0 0 2rem; max-width:40rem; }
+      .rule{ height:1px; background:linear-gradient(90deg, transparent, rgba(255,0,255,.4), transparent); border:0; margin:0; }
+
+      /* ---------- motion ---------- */
+      .motion-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; }
+      .motion-card{
+        position:relative; border-radius:16px; overflow:hidden; cursor:pointer;
+        border:1px solid var(--line); background:var(--panel); padding:0; text-align:left;
+        font:inherit; color:inherit; width:100%;
+      }
+      .motion-card video{ width:100%; aspect-ratio:16/10; object-fit:cover; display:block; pointer-events:none; }
+      .motion-card .tag{
+        position:absolute; left:.9rem; bottom:.9rem; display:flex; align-items:center; gap:.5rem;
+        background:rgba(5,5,10,.75); border:1px solid rgba(255,0,255,.4); border-radius:999px;
+        padding:.35rem .85rem; font-size:.85rem; letter-spacing:.08em;
+      }
+      .motion-card .tag::before{
+        content:""; width:0; height:0; border-left:9px solid var(--magenta);
+        border-top:5.5px solid transparent; border-bottom:5.5px solid transparent;
+        filter:drop-shadow(0 0 5px var(--magenta));
+      }
+      .motion-card:hover{ border-color:var(--magenta); box-shadow:var(--glow); }
+
+      /* ---------- filters + grid ---------- */
+      .filters{ display:flex; gap:.55rem; flex-wrap:wrap; margin-bottom:1.6rem; }
+      .chip{
+        font:inherit; font-size:.88rem; font-weight:500; letter-spacing:.05em;
+        padding:.5rem 1.05rem; border-radius:999px; cursor:pointer;
+        background:transparent; color:var(--muted); border:1px solid var(--line);
+        transition:all .16s ease;
+      }
+      .chip:hover{ color:#fff; border-color:var(--pink-soft); }
+      .chip[aria-pressed="true"]{
+        background:var(--magenta); border-color:var(--magenta); color:#fff; box-shadow:var(--glow);
+      }
+      .count-note{ color:var(--faint); font-size:.9rem; margin:0 0 1.2rem; letter-spacing:.06em; }
+      .grid{
+        display:grid; gap:1rem;
+        grid-template-columns:repeat(auto-fill, minmax(215px, 1fr));
+      }
+      .tile{
+        position:relative; border-radius:14px; overflow:hidden; cursor:pointer;
+        border:1px solid var(--line); background:var(--panel);
+        padding:0; font:inherit; text-align:left; color:inherit; width:100%;
+        transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+      }
+      .tile img{ width:100%; aspect-ratio:4/5; object-fit:cover; transition:transform .45s ease; }
+      .tile:hover{ border-color:var(--magenta); box-shadow:var(--glow); transform:translateY(-3px); }
+      .tile:hover img{ transform:scale(1.05); }
+      .tile .cap{
+        position:absolute; inset:auto 0 0 0; padding:2rem .9rem .7rem;
+        background:linear-gradient(transparent, rgba(3,3,8,.88));
+        display:flex; justify-content:space-between; align-items:baseline; gap:.5rem;
+        opacity:0; transition:opacity .2s ease;
+      }
+      .tile:hover .cap, .tile:focus-visible .cap{ opacity:1; }
+      .tile .cap b{ font-weight:500; font-size:.95rem; }
+      .tile .cap span{ color:var(--pink); font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; white-space:nowrap; }
+      .tile:focus-visible, .chip:focus-visible, .btn:focus-visible, .motion-card:focus-visible{
+        outline:2px solid var(--pink); outline-offset:2px;
+      }
+
+      /* ---------- commissions ---------- */
+      #commissions{ background:linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 50%, var(--bg) 100%); }
+      .tiers{ display:grid; grid-template-columns:repeat(3, 1fr); gap:1.2rem; }
+      .tier{
+        background:var(--panel); border:1px solid var(--line); border-radius:16px;
+        padding:1.8rem 1.6rem;
+      }
+      .tier.hot{ border-color:rgba(255,0,255,.55); box-shadow:0 0 32px rgba(255,0,255,.14); }
+      .tier .price{ font-family:var(--serif); font-size:2.6rem; color:#fff; margin:0; }
+      .tier .price sup{ font-size:1.2rem; color:var(--pink); }
+      .tier h3{ margin:.2rem 0 .6rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; font-size:.85rem; color:var(--pink); }
+      .tier p{ color:var(--muted); margin:0; font-size:.98rem; }
+      .tier .flag{ display:inline-block; font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--magenta); border:1px solid rgba(255,0,255,.5); border-radius:999px; padding:.2rem .6rem; margin-bottom:.9rem; }
+      .fineprint{ color:var(--faint); margin-top:1.4rem; max-width:44rem; }
+
+      /* ---------- about / contact ---------- */
+      .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(2rem,5vw,4rem); align-items:start; }
+      .about-copy p{ color:var(--muted); font-size:1.06rem; margin:0 0 1rem; }
+      .about-copy p strong{ color:var(--ink); font-weight:500; }
+      .about-art{ border-radius:16px; overflow:hidden; border:1px solid rgba(255,0,255,.3); box-shadow:0 0 40px rgba(255,0,255,.15); transform:rotate(-1.1deg); }
+      .contact-cards{ display:grid; grid-template-columns:repeat(3, 1fr); gap:1.2rem; }
+      .ccard{
+        display:block; text-decoration:none; background:var(--panel);
+        border:1px solid var(--line); border-radius:16px; padding:1.6rem;
+        transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+      }
+      .ccard:hover{ border-color:var(--magenta); box-shadow:var(--glow); transform:translateY(-3px); }
+      .ccard h3{ margin:0 0 .3rem; font-family:var(--serif); font-weight:400; font-size:1.35rem; color:#fff; }
+      .ccard p{ margin:0; color:var(--muted); font-size:.95rem; }
+      .ccard .handle{ color:var(--pink); font-weight:500; }
+
+      /* ---------- contact form ---------- */
+      .contact-form{
+        margin-top:1.2rem; background:var(--panel);
+        border:1px solid var(--line); border-radius:16px;
+        padding:1.8rem 1.6rem;
+      }
+      .contact-form h3{ margin:0 0 .3rem; font-family:var(--serif); font-weight:400; font-size:1.35rem; color:#fff; }
+      .contact-form .form-sub{ margin:0 0 1.3rem; color:var(--muted); font-size:.95rem; }
+      .contact-form form{ display:flex; flex-direction:column; gap:1rem; }
+      .contact-form label{
+        display:block; font-size:.8rem; font-weight:500; letter-spacing:.14em;
+        text-transform:uppercase; color:var(--pink); margin-bottom:.4rem;
+      }
+      .contact-form input, .contact-form textarea{
+        width:100%; font:inherit; font-size:1rem; color:var(--ink);
+        background:var(--bg-2); border:1px solid var(--line); border-radius:10px;
+        padding:.75rem .9rem;
+      }
+      .contact-form textarea{ resize:vertical; min-height:8rem; }
+      .contact-form input::placeholder, .contact-form textarea::placeholder{ color:var(--faint); }
+      .contact-form input:focus, .contact-form textarea:focus{
+        outline:none; border-color:var(--magenta); box-shadow:0 0 12px rgba(255,0,255,.3);
+      }
+      .contact-form .send-btn{
+        align-self:flex-start; font:inherit; font-weight:500; letter-spacing:.06em;
+        font-size:.98rem; padding:.8rem 1.6rem; border:0; border-radius:999px; cursor:pointer;
+        background:var(--magenta); color:#fff; box-shadow:var(--glow);
+        transition:transform .18s ease, box-shadow .18s ease;
+      }
+      .contact-form .send-btn:hover{ transform:translateY(-2px); box-shadow:0 0 26px rgba(255,0,255,.65), 0 0 60px rgba(255,0,255,.25); }
+      .contact-form .send-btn:focus-visible{ outline:2px solid var(--pink); outline-offset:2px; }
+      .contact-form .send-btn:disabled{ opacity:.55; cursor:wait; transform:none; }
+      .contact-form .form-status{ margin:0; font-size:.98rem; min-height:1.4em; }
+      .contact-form .form-status.ok{ color:#8be9c9; }
+      .contact-form .form-status.err{ color:#ff9db1; }
+
+      footer{
+        padding:2.4rem clamp(1rem,5vw,3rem) 3rem; text-align:center;
+        color:var(--faint); font-size:.9rem;
+      }
+      footer .sig{ font-family:var(--serif); color:var(--muted); font-size:1.05rem; }
+      footer .heart{ color:var(--magenta); text-shadow:var(--glow); }
+
+      /* ---------- lightbox ---------- */
+      .lightbox{
+        position:fixed; inset:0; z-index:100; display:none;
+        background:rgba(2,2,6,.94); backdrop-filter:blur(8px);
+        align-items:center; justify-content:center; flex-direction:column;
+        padding:1.2rem;
+      }
+      .lightbox.open{ display:flex; }
+      .lb-stage{ max-width:min(92vw, 880px); width:100%; text-align:center; }
+      .lb-stage img, .lb-stage video{
+        max-width:100%; max-height:74vh; width:auto; margin:0 auto;
+        border-radius:12px; border:1px solid rgba(255,0,255,.4);
+        box-shadow:0 0 60px rgba(255,0,255,.25), 0 30px 80px rgba(0,0,0,.8);
+        object-fit:contain; background:#000;
+      }
+      .lb-meta{ margin-top:1.1rem; display:flex; align-items:baseline; justify-content:center; gap:1rem; flex-wrap:wrap; }
+      .lb-meta b{ font-family:var(--serif); font-weight:400; font-size:1.5rem; color:#fff; }
+      .lb-meta span{ color:var(--pink); letter-spacing:.14em; text-transform:uppercase; font-size:.78rem; }
+      .lb-meta .of{ color:var(--faint); letter-spacing:.06em; text-transform:none; font-size:.9rem; }
+      .lb-btn{
+        position:absolute; top:50%; transform:translateY(-50%);
+        width:52px; height:52px; border-radius:50%; cursor:pointer;
+        background:rgba(14,14,26,.85); border:1px solid rgba(255,0,255,.45); color:#fff;
+        font-size:1.5rem; line-height:1; display:flex; align-items:center; justify-content:center;
+        transition:background .15s ease, box-shadow .15s ease;
+      }
+      .lb-btn:hover{ background:rgba(255,0,255,.25); box-shadow:var(--glow); }
+      .lb-prev{ left:1rem; } .lb-next{ right:1rem; }
+      .lb-close{
+        top:1.1rem; right:1.1rem; transform:none; width:46px; height:46px; font-size:1.25rem;
+      }
+
+      .sparkle{
+        position:fixed; z-index:90; pointer-events:none; color:var(--pink);
+        font-size:12px; line-height:1; opacity:0;
+      }
+      @media (prefers-reduced-motion: no-preference){
+        .sparkle{ animation:sparkleFade .8s ease-out forwards; }
+      }
+      @keyframes sparkleFade{ 0%{ opacity:1; } 100%{ opacity:0; transform:scale(.2) rotate(90deg); } }
+
+      /* ---------- responsive ---------- */
+      @media (max-width: 860px){
+        .hero-inner{ grid-template-columns:1fr; }
+        .hero-art{ max-width:430px; }
+        .motion-grid, .tiers, .contact-cards, .about-grid{ grid-template-columns:1fr; }
+        .grid{ grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:.7rem; }
+        header.hero{ padding-top:6.5rem; }
+        .lb-prev{ left:.4rem; } .lb-next{ right:.4rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <nav aria-label="Sections">
+      <span class="dot" aria-hidden="true">✦</span>
+      <div class="links">
+        <a href="#motion">In Motion</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#commissions">Commissions</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="stars" id="stars" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <div>
+          <p class="kicker">Digital art by Kayla</p>
+          <h1>Kayla's <span class="neon">Art Gallery</span></h1>
+          <p class="lede">A midnight gallery of <strong>fantasy worlds, magical creatures, and soft dark palettes</strong> — moonlit wolves, melting sunsets, cozy little rooms, and potions, all drawn on an iPad used like a wand.</p>
+          <div class="cta-row">
+            <a class="btn btn-solid" href="#gallery">Browse the gallery</a>
+            <a class="btn btn-ghost" href="#commissions">Commission a piece</a>
+          </div>
+          <div class="stats">
+            <div><b>55</b><span>Artworks</span></div>
+            <div><b>2</b><span>Animations</span></div>
+            <div><b>1</b><span>iPad wand</span></div>
+          </div>
+        </div>
+        <div class="hero-art">
+          <figure>
+            <img src="Art1.jpg" alt="Twilight Wolf — a wolf silhouette filled with a purple mountain night sky, howling" width="900" height="1174" />
+            <figcaption><em>Twilight Wolf</em> · from the collection</figcaption>
+          </figure>
+        </div>
+      </div>
+    </header>
+
+    <hr class="rule" />
+
+    <section id="motion">
+      <div class="wrap">
+        <h2>In <span class="amp">Motion</span></h2>
+        <p class="sub">Two of the pieces move. Tap either one to watch it full-screen.</p>
+        <div class="motion-grid">
+          <button class="motion-card" type="button" data-motion="1" aria-label="Play Animated Piece No. 1">
+            <video src="AnimatedArt1.mp4" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+            <span class="tag">Animated No. 1</span>
+          </button>
+          <button class="motion-card" type="button" data-motion="2" aria-label="Play Animated Piece No. 2">
+            <video src="AnimatedArt2.mp4" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+            <span class="tag">Animated No. 2</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <section id="gallery">
+      <div class="wrap">
+        <h2>The <span class="amp">Gallery</span></h2>
+        <p class="sub">All fifty-five pieces. Filter by mood, then tap any piece to see it up close.</p>
+        <div class="filters" id="filters" role="group" aria-label="Filter artwork by mood"></div>
+        <p class="count-note" id="countNote" aria-live="polite"></p>
+        <div class="grid" id="grid"></div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <section id="commissions">
+      <div class="wrap">
+        <h2>Custom <span class="amp">Drawings</span></h2>
+        <p class="sub">Want something made just for you? Pick a tier — or message me and we'll dream up the details together.</p>
+        <div class="tiers">
+          <div class="tier">
+            <p class="price"><sup>$</sup>10</p>
+            <h3>Simple</h3>
+            <p>Simple and sweet, less detailed — a small piece with a lot of heart.</p>
+          </div>
+          <div class="tier hot">
+            <span class="flag">Most loved</span>
+            <p class="price"><sup>$</sup>15</p>
+            <h3>Detailed</h3>
+            <p>Decent details with better quality — more depth, more glow, more magic.</p>
+          </div>
+          <div class="tier">
+            <p class="price"><sup>$</sup>20</p>
+            <h3>Showpiece</h3>
+            <p>Fully detailed on a bigger canvas with enhanced quality — the whole spell.</p>
+          </div>
+        </div>
+        <p class="fineprint">Mostly, it depends on what you want. Contact me and I can go into more detail — find me fastest on Instagram below.</p>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <section id="about">
+      <div class="wrap about-grid">
+        <div class="about-copy">
+          <h2>About <span class="amp">Kayla</span></h2>
+          <p><strong>Hey, I'm Kayla!</strong> I'm a passionate artist who loves drawing, gaming, and vibing to K-pop while creating. I pour my heart into each piece, blending elegance with just a hint of mischief.</p>
+          <p>I'm inspired by fantasy worlds, magical creatures, and soft dark palettes. I've got three amazing kids, a badass girlfriend, and an iPad I use like a wand.</p>
+          <p>This space is where I share what I love — thank you for being part of it. 💖</p>
+        </div>
+        <div class="about-art">
+          <img src="Art55.jpg" alt="Magenta Highlands — pink and purple mountain landscape under a glowing sun" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <section id="contact">
+      <div class="wrap">
+        <h2>Say <span class="amp">Hello</span></h2>
+        <p class="sub">Commissions, questions, or just art talk — here's where to find me.</p>
+        <div class="contact-cards">
+          <a class="ccard" href="https://www.instagram.com/xkaylasart/" target="_blank" rel="noopener">
+            <h3>Instagram</h3>
+            <p>New pieces, works in progress, and the fastest way to reach me for a commission.</p>
+            <p class="handle">@xkaylasart</p>
+          </a>
+          <a class="ccard" href="https://www.threads.net/@xkaylasart" target="_blank" rel="noopener">
+            <h3>Threads</h3>
+            <p>Art posts and everyday chaos, in roughly equal measure.</p>
+            <p class="handle">@xkaylasart</p>
+          </a>
+          <a class="ccard" href="gallery.html" target="_blank" rel="noopener">
+            <h3>The Original Gallery</h3>
+            <p>The first version of this gallery, still standing on GitHub Pages.</p>
+            <p class="handle">ashnkay.github.io/artwork</p>
+          </a>
+        </div>
+        <div class="contact-form">
+          <h3>Send me a message</h3>
+          <p class="form-sub">Prefer email? Write me here and it lands straight in my inbox.</p>
+          <form id="contactForm" action="https://formspree.io/f/xblylpyb" method="POST">
+            <div>
+              <label for="cf-name">Your name</label>
+              <input id="cf-name" type="text" name="name" placeholder="Your Name" required />
+            </div>
+            <div>
+              <label for="cf-email">Your email</label>
+              <input id="cf-email" type="email" name="email" placeholder="Your Email" required />
+            </div>
+            <div>
+              <label for="cf-message">Your message</label>
+              <textarea id="cf-message" name="message" rows="6" placeholder="Your Message" required></textarea>
+            </div>
+            <button class="send-btn" id="cfSend" type="submit">Send Message</button>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p class="sig">Every piece drawn with love — and a little mischief.</p>
+      <p>Artwork © Kayla · <span class="heart">💜</span> · Watermarked pieces are signed @kaylasart</p>
+    </footer>
+
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork viewer">
+      <div class="lb-stage">
+        <img id="lbImg" alt="" />
+        <video id="lbVideo" controls loop playsinline style="display:none"></video>
+        <div class="lb-meta">
+          <b id="lbTitle"></b>
+          <span id="lbCat"></span>
+          <span class="of" id="lbOf"></span>
+        </div>
+      </div>
+      <button class="lb-btn lb-prev" id="lbPrev" type="button" aria-label="Previous piece">‹</button>
+      <button class="lb-btn lb-next" id="lbNext" type="button" aria-label="Next piece">›</button>
+      <button class="lb-btn lb-close" id="lbClose" type="button" aria-label="Close viewer">✕</button>
+    </div>
+
+    <script>
+      var PIECES = [
+        [1,"Twilight Wolf","wild"],[2,"Star Confetti","night"],[3,"Little Red Mushroom","sweet"],
+        [4,"Neon Crescent","night"],[5,"Pink Plush Octopus","wild"],[6,"Blue Plush Octopus","wild"],
+        [7,"Galaxy Deer","wild"],[8,"River Sunset","golden"],[9,"Howl at the Moon","wild"],
+        [10,"Kaleidoscope Bloom","dream"],[11,"Melting Moonlight","night"],[12,"Melting Sunset","golden"],
+        [13,"Sunny Corner Room","cozy"],[14,"Galaxy Astronaut","dream"],[15,"Sweetheart Mushroom","sweet"],
+        [16,"Desert Sun","golden"],[17,"Deer in the Hollow","wild"],[18,"Violet Forest Falls","dream"],
+        [19,"Misty Lake","dream"],[20,"Rolling Green Hills","golden"],[21,"Moonrise Reflection","night"],
+        [22,"Lavender Bedroom","cozy"],[23,"Patchwork Bunny","wild"],[24,"Sunburst Shore","golden"],
+        [25,"Mint Room","cozy"],[26,"Pink Pines Sunset","golden"],[27,"Pink Steps","cozy"],
+        [28,"Galaxy Boba","sweet"],[29,"Cosmic Whale","wild"],[30,"Amber Eye","dream"],
+        [31,"Moonlit Peaks","night"],[32,"Violet Drip Moon","night"],[33,"Forest Guardian","wild"],
+        [34,"Blue Raspberry Boba","sweet"],[35,"Glitter Unicorn","wild"],[36,"Deep Blue Eye","dream"],
+        [37,"Lone Star Wolf","wild"],[38,"Moon Fairy","night"],[39,"Strawberry Jamie","sweet"],
+        [40,"Night Drive","night"],[41,"Golden Study","cozy"],[42,"Silent Summit","dream"],
+        [43,"Lighthouse Glow","golden"],[44,"Potion No. Blue","sweet"],[45,"Jellyshrooms","dream"],
+        [46,"Mushroom Cottage","cozy"],[47,"Starlight Library","cozy"],[48,"Rose Library","cozy"],
+        [49,"The Drop","sweet"],[50,"House on the Hill","night"],[51,"Sky Temple","golden"],
+        [52,"Open Spellbook","sweet"],[53,"Crimson Mist Peaks","golden"],[54,"The Old Tree","dream"],
+        [55,"Magenta Highlands","golden"]
+      ];
+      var CATS = [
+        ["all","All 55"],
+        ["night","Moonlight"],
+        ["wild","Wild Things"],
+        ["golden","Golden Hour"],
+        ["cozy","Cozy Corners"],
+        ["sweet","Sweet & Small"],
+        ["dream","Dreamscapes"]
+      ];
+      var CATNAME = {};
+      CATS.forEach(function(c){ CATNAME[c[0]] = c[1]; });
+
+      var grid = document.getElementById('grid');
+      var countNote = document.getElementById('countNote');
+      var tiles = [];
+
+      PIECES.forEach(function(p){
+        var n = p[0], title = p[1], cat = p[2];
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'tile';
+        btn.dataset.cat = cat;
+        btn.dataset.n = n;
+        btn.setAttribute('aria-label', 'View ' + title);
+        var img = document.createElement('img');
+        img.src = 'Art' + n + '.jpg';
+        img.alt = title + ' — digital artwork by Kayla';
+        var cap = document.createElement('span');
+        cap.className = 'cap';
+        cap.innerHTML = '<b></b><span></span>';
+        cap.querySelector('b').textContent = title;
+        cap.querySelector('span').textContent = CATNAME[cat];
+        btn.appendChild(img);
+        btn.appendChild(cap);
+        btn.addEventListener('click', function(){ openLB('art', n); });
+        grid.appendChild(btn);
+        tiles.push(btn);
+      });
+
+      /* filters */
+      var filtersEl = document.getElementById('filters');
+      var currentFilter = 'all';
+      CATS.forEach(function(c){
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'chip';
+        b.textContent = c[1];
+        b.setAttribute('aria-pressed', c[0] === 'all' ? 'true' : 'false');
+        b.addEventListener('click', function(){
+          currentFilter = c[0];
+          filtersEl.querySelectorAll('.chip').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+          b.setAttribute('aria-pressed','true');
+          applyFilter();
+        });
+        filtersEl.appendChild(b);
+      });
+      function visiblePieces(){
+        return PIECES.filter(function(p){ return currentFilter === 'all' || p[2] === currentFilter; });
+      }
+      function applyFilter(){
+        var vis = visiblePieces();
+        tiles.forEach(function(t){
+          var show = currentFilter === 'all' || t.dataset.cat === currentFilter;
+          t.style.display = show ? '' : 'none';
+        });
+        countNote.textContent = currentFilter === 'all'
+          ? 'Showing all 55 pieces'
+          : 'Showing ' + vis.length + ' pieces · ' + CATNAME[currentFilter];
+      }
+      applyFilter();
+
+      /* ---------- lightbox ---------- */
+      var lb = document.getElementById('lightbox');
+      var lbImg = document.getElementById('lbImg');
+      var lbVideo = document.getElementById('lbVideo');
+      var lbTitle = document.getElementById('lbTitle');
+      var lbCat = document.getElementById('lbCat');
+      var lbOf = document.getElementById('lbOf');
+      var mode = 'art';           /* 'art' | 'motion' */
+      var current = 1;            /* piece number or motion number */
+      var lastFocus = null;
+
+      function pieceByN(n){ for (var i=0;i<PIECES.length;i++) if (PIECES[i][0]===n) return PIECES[i]; return PIECES[0]; }
+
+      function renderLB(){
+        if (mode === 'motion'){
+          lbImg.style.display = 'none';
+          lbVideo.style.display = '';
+          lbVideo.src = 'AnimatedArt' + current + '.mp4';
+          lbVideo.play().catch(function(){});
+          lbTitle.textContent = 'Animated Piece No. ' + current;
+          lbCat.textContent = 'In Motion';
+          lbOf.textContent = current + ' of 2';
+        } else {
+          var p = pieceByN(current);
+          lbVideo.pause();
+          lbVideo.removeAttribute('src');
+          lbVideo.style.display = 'none';
+          lbImg.style.display = '';
+          lbImg.src = 'Art' + current + '.jpg';
+          lbImg.alt = p[1] + ' — digital artwork by Kayla';
+          lbTitle.textContent = p[1];
+          lbCat.textContent = CATNAME[p[2]];
+          var list = visiblePieces();
+          var idx = -1;
+          list.forEach(function(x,i){ if (x[0]===current) idx = i; });
+          lbOf.textContent = idx >= 0 ? (idx+1) + ' of ' + list.length + ' shown' : '';
+        }
+      }
+      function openLB(m, n){
+        mode = m; current = n;
+        lastFocus = document.activeElement;
+        renderLB();
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        document.getElementById('lbClose').focus();
+      }
+      function closeLB(){
+        lb.classList.remove('open');
+        lbVideo.pause();
+        document.body.style.overflow = '';
+        if (lastFocus) lastFocus.focus();
+      }
+      function step(dir){
+        if (mode === 'motion'){
+          current = current === 1 ? 2 : 1;
+        } else {
+          var list = visiblePieces();
+          var idx = -1;
+          list.forEach(function(x,i){ if (x[0]===current) idx = i; });
+          if (idx < 0) idx = 0;
+          idx = (idx + dir + list.length) % list.length;
+          current = list[idx][0];
+        }
+        renderLB();
+      }
+      document.getElementById('lbClose').addEventListener('click', closeLB);
+      document.getElementById('lbPrev').addEventListener('click', function(){ step(-1); });
+      document.getElementById('lbNext').addEventListener('click', function(){ step(1); });
+      lb.addEventListener('click', function(e){ if (e.target === lb) closeLB(); });
+      document.addEventListener('keydown', function(e){
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') closeLB();
+        if (e.key === 'ArrowLeft') step(-1);
+        if (e.key === 'ArrowRight') step(1);
+      });
+
+      /* motion cards */
+      document.querySelectorAll('.motion-card').forEach(function(card){
+        var v = card.querySelector('video');
+        card.addEventListener('mouseenter', function(){ v.play().catch(function(){}); });
+        card.addEventListener('mouseleave', function(){ v.pause(); });
+        card.addEventListener('click', function(){ openLB('motion', parseInt(card.dataset.motion, 10)); });
+        /* gentle autoplay when scrolled into view (muted, decorative) */
+        if ('IntersectionObserver' in window){
+          var io = new IntersectionObserver(function(entries){
+            entries.forEach(function(en){
+              if (en.isIntersecting) v.play().catch(function(){});
+              else if (!card.matches(':hover')) v.pause();
+            });
+          }, { threshold: 0.35 });
+          io.observe(card);
+        }
+      });
+
+      /* ---------- contact form: submit to Formspree via fetch ----------
+         A plain form submission navigates the page, and inside this
+         sandboxed preview that navigation can reach Formspree as a GET,
+         which it rejects with "Form should POST". Posting with fetch
+         keeps the real POST, stays on the page, and reports back inline. */
+      (function(){
+        var form = document.getElementById('contactForm');
+        if (!form) return;
+        var status = document.getElementById('formStatus');
+        var sendBtn = document.getElementById('cfSend');
+        form.addEventListener('submit', function(e){
+          e.preventDefault();
+          status.textContent = 'Sending…';
+          status.className = 'form-status';
+          sendBtn.disabled = true;
+          fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+          }).then(function(res){
+            if (res.ok){
+              form.reset();
+              status.textContent = 'Message sent — thank you! It\'s on its way to my inbox. 💜';
+              status.className = 'form-status ok';
+            } else {
+              return res.json().then(function(data){
+                var msg = 'Something went wrong sending that — please try again, or reach me on Instagram.';
+                if (data && data.errors && data.errors.length){
+                  msg = data.errors.map(function(x){ return x.message; }).join(' ');
+                }
+                throw new Error(msg);
+              });
+            }
+          }).catch(function(err){
+            status.textContent = err.message || 'Something went wrong sending that — please try again, or reach me on Instagram.';
+            status.className = 'form-status err';
+          }).then(function(){
+            sendBtn.disabled = false;
+          });
+        });
+      })();
+
+      /* hero stars */
+      (function(){
+        var box = document.getElementById('stars');
+        for (var i = 0; i < 42; i++){
+          var s = document.createElement('i');
+          s.style.left = Math.random() * 100 + '%';
+          s.style.top = Math.random() * 100 + '%';
+          s.style.animationDelay = (Math.random() * 3.4) + 's';
+          if (Math.random() > 0.7){ s.style.background = '#ff9fd6'; s.style.boxShadow = '0 0 6px #ff00ff'; }
+          box.appendChild(s);
+        }
+      })();
+
+      /* pointer sparkles — a nod to the original site's sparkle layer */
+      (function(){
+        var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduced) return;
+        var last = 0;
+        document.addEventListener('pointermove', function(e){
+          var now = Date.now();
+          if (now - last < 90) return;
+          last = now;
+          var s = document.createElement('span');
+          s.className = 'sparkle';
+          s.textContent = '✦';
+          s.style.left = (e.clientX - 6 + (Math.random() * 14 - 7)) + 'px';
+          s.style.top = (e.clientY - 6 + (Math.random() * 14 - 7)) + 'px';
+          s.style.color = Math.random() > 0.5 ? '#ff6fb5' : '#ff00ff';
+          document.body.appendChild(s);
+          setTimeout(function(){ s.remove(); }, 850);
+        });
+      })();
+    </script>
+  </body>
 </html>
