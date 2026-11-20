@@ -338,7 +338,7 @@
             <a class="btn btn-ghost" href="#commissions">Commission a piece</a>
           </div>
           <div class="stats">
-            <div><b>55</b><span>Artworks</span></div>
+            <div><b>64</b><span>Artworks</span></div>
             <div><b>2</b><span>Animations</span></div>
             <div><b>1</b><span>iPad wand</span></div>
           </div>
@@ -513,10 +513,12 @@
         [46,"Mushroom Cottage","cozy"],[47,"Starlight Library","cozy"],[48,"Rose Library","cozy"],
         [49,"The Drop","sweet"],[50,"House on the Hill","night"],[51,"Sky Temple","golden"],
         [52,"Open Spellbook","sweet"],[53,"Crimson Mist Peaks","golden"],[54,"The Old Tree","dream"],
-        [55,"Magenta Highlands","golden"]
+        [55,"Magenta Highlands","golden"],
+        [56,"Mushroom House","cozy"],[57,"Chibi Me","sweet"],[58,"Mama's Butterfly","dream"],[59,"Rick and Morty","wild"],[60,"On Camera","wild"],
+        [61,"Pink Haired Girl","sweet"],[62,"Spiderweb Heart","night"],[63,"Sunset River","golden"],[64,"Simply Meant to Be","night"]
       ];
       var CATS = [
-        ["all","All 55"],
+        ["all","All 64"],
         ["night","Moonlight"],
         ["wild","Wild Things"],
         ["golden","Golden Hour"],
@@ -581,7 +583,7 @@
           t.style.display = show ? '' : 'none';
         });
         countNote.textContent = currentFilter === 'all'
-          ? 'Showing all 55 pieces'
+          ? 'Showing all 64 pieces'
           : 'Showing ' + vis.length + ' pieces · ' + CATNAME[currentFilter];
       }
       applyFilter();
